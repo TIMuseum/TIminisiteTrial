@@ -39,7 +39,7 @@ function init() {
 	scene.add(cube);
 
 	// Position camera
-	camera.position.z = 5;
+	camera.position.z = 9;
 }
 
 // Draw the scene every time the screen is refreshed
