@@ -72,7 +72,7 @@ function animate() {
 }
 
 function onWindowResize() {
-  const width = window.innerWidth,
+  width = window.innerWidth,
     height = window.innerHeight;
 
   camera.aspect = width / height;
