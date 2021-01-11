@@ -1,20 +1,33 @@
 import * as THREE from "https://unpkg.com/three/build/three.module.js";
 import { OrbitControls } from "https://unpkg.com/three@0.124.0/examples/jsm/controls/OrbitControls.js";
+// https://unpkg.com/three@0.
 
-let scene, renderer, camera, controls, musTrig, raycaster; 
-let clouds= new Array();
+
+window.addEventListener("load", init);
+let scene, renderer, camera, controls, musTrig, lakeTrig; 
+var clouds= [];
+var cubes=[]; 
 
 //canvas ans field of view
 const canvas = document.getElementById("myCanvas");
 const fov = 75;
 
-//event listeners 
-window.addEventListener("load", init);
-canvas.addEventListener("mouseenter", add);
 
-function add() {
-  console.log("helloooooo");
-}
+//variables for map interactivity 
+let theta = 0;
+const radius = 100;
+const mouse = new THREE.Vector2();
+//RAYCASTER
+let raycaster;
+const offset = new THREE.Vector3( 10, 10, 10 );
+let INTERSECTED; 
+//event listeners 
+
+// canvas.addEventListener("mouseenter", add);
+
+// function add() {
+//   console.log("helloooooo");
+// }
 
 //main funtion begins on load of webpage 
 function init() {
@@ -33,6 +46,7 @@ function init() {
   scene = new THREE.Scene();
   // scene.background = new THREE.Color( 0xefd1b5 );
   scene.fog = new THREE.FogExp2(0xefd1b5, 0.0025);
+  // scene.fog(0xffffff, 5, 50);
 
   //CAMERA
   camera = new THREE.PerspectiveCamera(
@@ -42,23 +56,18 @@ function init() {
     10000
   );
   camera.lookAt(scene.position);
-  camera.position.set(100, 1000, 1000);
+  camera.position.set(100, 1000, 2000);
 
+
+  //RAYCASTER 
+  raycaster = new THREE.Raycaster();
   //CONTROLS
   controls = new OrbitControls(camera, renderer.domElement);
   controls.enableDamping = true;
   controls.minDistance = 5;
-  controls.maxDistance = 500;
+  controls.maxDistance = 2000;
 
   //LIGHTS
-  //ENVIRON LIGHT
-  //  var ambientLight = new THREE.AmbientLight(0xffffff, 0.7);
-  //  scene.add(ambientLight);
-
-  //  var pointLight = new THREE.PointLight(0xffffff, 0.5);
-  //  pointLight.posiiton = 2;
-  //  scene.add(pointLight);
-
   var hemLight = new THREE.HemisphereLight(0xffffbb, 0x0808dd, 1);
   scene.add(hemLight);
 
@@ -107,16 +116,30 @@ function init() {
   // ground.position.y = -50;
   scene.add(ground);
 
-  //ADD MUSUEM TRIGGER
+  //ADD MUSUEM CUBE
   const geometry = new THREE.BoxBufferGeometry();
-  var musMat = new THREE.MeshStandardMaterial({ color: 0xf3ffe2 });
+  var musMat = new THREE.MeshStandardMaterial({ color: 0xf3ffe2});
   musTrig = new THREE.Mesh(geometry, musMat);
+  cubes[0] = musTrig; 
   scene.add(musTrig);
+ 
   musTrig.position.set(100, 10, 58);
   musTrig.scale.set(8, 8, 8);
 
-  window.addEventListener("resize", onWindowResize, false);
-  animate();
+
+    //ADD LAKE CUBE
+    const geometry2 = new THREE.BoxBufferGeometry();
+    var lakeMat = new THREE.MeshStandardMaterial({ color: 0xf3ffe2 });
+    lakeTrig = new THREE.Mesh(geometry2, lakeMat);
+    cubes[1] = lakeTrig; 
+    scene.add(lakeTrig);
+
+    lakeTrig.position.set(0, 10, 58);
+    lakeTrig.scale.set(8, 8, 8);
+  
+    window.addEventListener("resize", onWindowResize, false);
+    document.addEventListener("mousemove", onDocumentMouseMove, false);
+    animate();
 }
 
 function animate() {
@@ -124,20 +147,44 @@ function animate() {
   musTrig.rotation.x += 0.01;
 
   //CAMERA ANIMATE
-  camera.lookAt(scene.position);
-  theta += 0.1;
+//   theta += 0.1;
   // camera.position.x = radius * Math.sin( THREE.MathUtils.degToRad( theta ) );
   // camera.position.y = radius * Math.sin( THREE.MathUtils.degToRad( theta ) );
   // camera.position.z = radius * Math.cos( THREE.MathUtils.degToRad( theta ) );
-  // camera.lookAt( scene.position );
+  camera.lookAt( scene.position );
   camera.updateMatrixWorld();
 
+  //RAYCASTER INTERSECTION
+  raycaster.setFromCamera( mouse, camera );
+ const intersects = raycaster.intersectObjects(cubes); 
+
+  if  (intersects.length >0) {
+    console.log("toucing cube"); 
+   
+ intersects[0].object.material.color.set(0xff0000); 
+  }
+  else{
+    cubes[0].material.color.set(0xf3ffe2); 
+    cubes[1].material.color.set(0xf3ffe2); 
+  }
 
 //KEEP RUNNING THESE FUNCTIONS
   controls.update();
   renderer.render(scene, camera);
   requestAnimationFrame(animate);
+
 }
+
+function onDocumentMouseMove( event ) {
+
+  event.preventDefault();
+  mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
+//   console.log("mouse X " + mouse.x)
+  mouse.y = -( event.clientY / window.innerHeight ) * 2 + 1;
+//   console.log("mouse Y " + mouse.y)
+
+   }
+''
 
 function onWindowResize() {
   const width = window.innerWidth,
