@@ -137,10 +137,8 @@ const renderer = new THREE.WebGLRenderer({canvas});
   }
 
   function clearPickPosition() {
-    // unlike the mouse which always has a position
-    // if the user stops touching the screen we want
-    // to stop picking. For now we just pick a value
-    // unlikely to pick something
+    // if the user stops touching the screen we want to stop picking. 
+    //For now we just pick a value unlikely to pick something
     pickPosition.x = -100000;
     pickPosition.y = -100000;
   }

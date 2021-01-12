@@ -1,6 +1,3 @@
-import * as THREE from "https://unpkg.com/three/build/three.module.js";
-import { OrbitControls } from "https://unpkg.com/three@0.124.0/examples/jsm/controls/OrbitControls.js";
-
 
 let scene, renderer, camera, controls, musTrig, lakeTrig;
 var clouds = [];
@@ -43,10 +40,8 @@ class PickHelper {
 
 const pickPosition= {x: 0, y: 0};
 const pickHelper = new PickHelper();;
-
 clearPickPosition();
 
-//event listeners
 
 //main funtion begins on load of webpage
 function init() {
@@ -65,7 +60,6 @@ function init() {
   scene = new THREE.Scene();
   // scene.background = new THREE.Color( 0xefd1b5 );
   scene.fog = new THREE.FogExp2(0xefd1b5, 0.0025);
-  // scene.fog(0xffffff, 5, 50);
 
   //CAMERA
   camera = new THREE.PerspectiveCamera(
@@ -76,6 +70,10 @@ function init() {
   );
   camera.lookAt(scene.position);
   camera.position.set(0, 1500, 0);
+
+  //DOMEVENTS
+  const domEvents = new THREEx.DomEvents(camera, renderer.domElement); 
+  
 
   //CONTROLS
   controls = new THREE.OrbitControls(camera, renderer.domElement);
@@ -143,12 +141,7 @@ function init() {
   musTrig.position.set(100, 10, 58);
   musTrig.scale.set(8, 8, 8);
   renderer.render(scene, camera);
-  musTrig.addEventListener("click", function(event){
 
-      musTrig.material.color.set(0xff0000); 
-    //   var text = document.createElement("a-entity"); 
-    //   text.setAttribute 
-  })
 
   //ADD LAKE CUBE
   const geometry2 = new THREE.BoxBufferGeometry();
@@ -158,7 +151,11 @@ function init() {
   scene.add(lakeTrig);
   lakeTrig.position.set(-50, 10, 0);
   lakeTrig.scale.set(8, 8, 8);
+  domEvents.addEventListener(musTrig, "click", function(event){
 
+    musTrig.material.color.set(0xff0000); 
+    // lakeTrig.material.color.set(0xff0000); 
+}); 
 
   window.addEventListener("resize", onWindowResize, false);
 
@@ -166,7 +163,6 @@ function init() {
   window.addEventListener("mouseleave", clearPickPosition);
   animate();
 }
-document.addEventListener("mousedown", clickUp, false);
 window.addEventListener("load", init);
 document.addEventListener("mousemove", onDocumentMouseMove, false);
 
@@ -194,11 +190,6 @@ function animate() {
       y: (event.clientY - rect.top ) * canvas.height / rect.height,
     };
   }
-function clickUp(event){
-    console.log("you clicked somewhere"); 
-
-}
-
 
 function clearPickPosition() {
   // if the user stops touching the screen we want to stop picking.
