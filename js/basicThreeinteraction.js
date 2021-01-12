@@ -1,12 +1,13 @@
 import * as THREE from "https://unpkg.com/three/build/three.module.js";
 import { OrbitControls } from "https://unpkg.com/three@0.124.0/examples/jsm/controls/OrbitControls.js";
 const canvas = document.querySelector('#myCanvas');
-  const renderer = new THREE.WebGLRenderer({canvas});
+const renderer = new THREE.WebGLRenderer({canvas});
 
   const fov = 60;
   const aspect = 2;  // the canvas default
   const near = 0.1;
   const far = 200;
+  let cubes = []; 
   const camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
   camera.position.z = 30;
 
@@ -51,6 +52,7 @@ const canvas = document.querySelector('#myCanvas');
     });
 
     const cube = new THREE.Mesh(geometry, material);
+    cubes[i] = cube; 
     scene.add(cube);
 
     cube.position.set(rand(-20, 20), rand(-20, 20), rand(-20, 20));
@@ -85,7 +87,7 @@ const canvas = document.querySelector('#myCanvas');
       // cast a ray through the frustum
       this.raycaster.setFromCamera(normalizedPosition, camera);
       // get the list of objects the ray intersected
-      const intersectedObjects = this.raycaster.intersectObjects(scene.children);
+      const intersectedObjects = this.raycaster.intersectObjects(cubes);
       if (intersectedObjects.length) {
         // pick the first object. It's the closest one
         this.pickedObject = intersectedObjects[0].object;
@@ -159,4 +161,4 @@ const canvas = document.querySelector('#myCanvas');
   window.addEventListener('touchend', clearPickPosition);
 
 
-main();
+// main();

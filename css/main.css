@@ -8,19 +8,29 @@ canvas{
 }
 
 #hero{
+    scroll-snap-type: mandatory;
+    scroll-snap-align: start;
+  /* scroll-snap-points-y: repeat(300px); */
+  /* scroll-snap-type: y mandatory; */
     width: 100%; 
-    height: 500px; 
+    height: 100vh; 
     border: 3px solid blue ; 
 }
 
 #narrative{
+    scroll-snap-type: mandatory;
+  scroll-snap-points-y: repeat(300px);
+  /* scroll-snap-type: y mandatory; */
     width: 100%; 
-    height: 500px; 
+    height: 100vh; 
     border: 3px solid blue ; 
 }
 #myCanvas{
+    scroll-snap-type: mandatory;
+  scroll-snap-points-y: repeat(300px);
+  scroll-snap-type: y mandatory;
     width: 100vw; 
-    height: 100%;
+    height: 100vh;
 border: 3px solid red; 
 
 }

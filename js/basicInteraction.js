@@ -2,34 +2,26 @@ import * as THREE from "https://unpkg.com/three/build/three.module.js";
 import { OrbitControls } from "https://unpkg.com/three@0.124.0/examples/jsm/controls/OrbitControls.js";
 // https://unpkg.com/three@0.
 
-
 window.addEventListener("load", init);
-let scene, renderer, camera, controls, musTrig, lakeTrig; 
-var clouds= [];
-var cubes=[]; 
+let scene, renderer, camera, controls, musTrig, lakeTrig;
+var clouds = [];
+var cubes = [];
 
 //canvas ans field of view
 const canvas = document.getElementById("myCanvas");
 const fov = 75;
 
-
-//variables for map interactivity 
+//variables for map interactivity
 let theta = 0;
 const radius = 100;
 const mouse = new THREE.Vector2();
 //RAYCASTER
 let raycaster;
-const offset = new THREE.Vector3( 10, 10, 10 );
-let INTERSECTED; 
-//event listeners 
+const offset = new THREE.Vector3(10, 10, 10);
+let INTERSECTED;
+//event listeners
 
-// canvas.addEventListener("mouseenter", add);
-
-// function add() {
-//   console.log("helloooooo");
-// }
-
-//main funtion begins on load of webpage 
+//main funtion begins on load of webpage
 function init() {
   //RENDERER
   renderer = new THREE.WebGLRenderer({
@@ -40,7 +32,6 @@ function init() {
   renderer.setClearColor(0xefd1b5, 0);
   renderer.setPixelRatio(window.devicePixelRatio);
   renderer.setSize(window.innerWidth, window.innerHeight);
-
 
   //SCENE
   scene = new THREE.Scene();
@@ -58,8 +49,7 @@ function init() {
   camera.lookAt(scene.position);
   camera.position.set(100, 1000, 2000);
 
-
-  //RAYCASTER 
+  //RAYCASTER
   raycaster = new THREE.Raycaster();
   //CONTROLS
   controls = new OrbitControls(camera, renderer.domElement);
@@ -81,7 +71,8 @@ function init() {
     const object = new THREE.Sprite(new THREE.SpriteMaterial({ map: cloud }));
     object.rotation.x = -90 * (Math.PI / 180);
 
-    object.position.x = Math.random() * window.innerWidth - 0.5 * window.innerWidth;
+    object.position.x =
+      Math.random() * window.innerWidth - 0.5 * window.innerWidth;
     object.position.y = Math.random() * 2000 + 150;
     object.position.z = Math.random() * 800 - 200;
 
@@ -118,73 +109,70 @@ function init() {
 
   //ADD MUSUEM CUBE
   const geometry = new THREE.BoxBufferGeometry();
-  var musMat = new THREE.MeshStandardMaterial({ color: 0xf3ffe2});
-  musTrig = new THREE.Mesh(geometry, musMat);
-  cubes[0] = musTrig; 
+  var boxMat = new THREE.MeshStandardMaterial({ color: 0xf3ffe2 });
+  musTrig = new THREE.Mesh(geometry, boxMat);
+  cubes[0] = musTrig;
   scene.add(musTrig);
- 
   musTrig.position.set(100, 10, 58);
   musTrig.scale.set(8, 8, 8);
 
+  //ADD LAKE CUBE
+  const geometry2 = new THREE.BoxBufferGeometry();
+  var boxMat2 = new THREE.MeshStandardMaterial({ color: 0xf3ffe2 });
+  lakeTrig = new THREE.Mesh(geometry2, boxMat2);
+  cubes[1] = lakeTrig;
+  scene.add(lakeTrig);
+  lakeTrig.position.set(-50, 10, 0);
+  lakeTrig.scale.set(8, 8, 8);
 
-    //ADD LAKE CUBE
-    const geometry2 = new THREE.BoxBufferGeometry();
-    var lakeMat = new THREE.MeshStandardMaterial({ color: 0xf3ffe2 });
-    lakeTrig = new THREE.Mesh(geometry2, lakeMat);
-    cubes[1] = lakeTrig; 
-    scene.add(lakeTrig);
-
-    lakeTrig.position.set(0, 10, 58);
-    lakeTrig.scale.set(8, 8, 8);
-  
-    window.addEventListener("resize", onWindowResize, false);
-    document.addEventListener("mousemove", onDocumentMouseMove, false);
-    animate();
+  window.addEventListener("resize", onWindowResize, false);
+  document.addEventListener("mousemove", onDocumentMouseMove, false);
+  window.addEventListener("mouseout", clearPickPosition);
+  window.addEventListener("mouseleave", clearPickPosition);
+  animate();
 }
 
 function animate() {
   //museum trigger
+  lakeTrig.rotation.y += 0.01;
   musTrig.rotation.x += 0.01;
-
-  //CAMERA ANIMATE
-//   theta += 0.1;
-  // camera.position.x = radius * Math.sin( THREE.MathUtils.degToRad( theta ) );
-  // camera.position.y = radius * Math.sin( THREE.MathUtils.degToRad( theta ) );
-  // camera.position.z = radius * Math.cos( THREE.MathUtils.degToRad( theta ) );
-  camera.lookAt( scene.position );
+  camera.lookAt(scene.position);
   camera.updateMatrixWorld();
 
   //RAYCASTER INTERSECTION
-  raycaster.setFromCamera( mouse, camera );
- const intersects = raycaster.intersectObjects(cubes); 
+  raycaster.setFromCamera(mouse, camera);
+  const intersects = raycaster.intersectObjects(cubes);
 
-  if  (intersects.length >0) {
-    console.log("toucing cube"); 
-   
- intersects[0].object.material.color.set(0xff0000); 
-  }
-  else{
-    cubes[0].material.color.set(0xf3ffe2); 
-    cubes[1].material.color.set(0xf3ffe2); 
+  if (intersects.length > 0) {
+    console.log("toucing cube");
+    // intersects[0].object.material.emissive.set(0xff0000);
+    intersects[0].object.material.color.set(0xff0000);
+  } else {
+    cubes[0].material.color.set(0xf3ffe2);
+    cubes[1].material.color.set(0xf3ffe2);
   }
 
-//KEEP RUNNING THESE FUNCTIONS
+  //KEEP RUNNING THESE FUNCTIONS
   controls.update();
   renderer.render(scene, camera);
   requestAnimationFrame(animate);
-
 }
 
-function onDocumentMouseMove( event ) {
+function clearPickPosition() {
+  // if the user stops touching the screen we want to stop picking.
+  //For now we just pick a value unlikely to pick something
+  pickPosition.x = -100000;
+  pickPosition.y = -100000;
+}
 
+function onDocumentMouseMove(event) {
   event.preventDefault();
-  mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
-//   console.log("mouse X " + mouse.x)
-  mouse.y = -( event.clientY / window.innerHeight ) * 2 + 1;
-//   console.log("mouse Y " + mouse.y)
-
-   }
-''
+  mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+  //   console.log("mouse X " + mouse.x)
+  mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+  //   console.log("mouse Y " + mouse.y)
+}
+("");
 
 function onWindowResize() {
   const width = window.innerWidth,
