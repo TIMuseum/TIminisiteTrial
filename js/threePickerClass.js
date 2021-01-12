@@ -1,8 +1,6 @@
 import * as THREE from "https://unpkg.com/three/build/three.module.js";
 import { OrbitControls } from "https://unpkg.com/three@0.124.0/examples/jsm/controls/OrbitControls.js";
 // https://unpkg.com/three@0.
-
-window.addEventListener("load", init);
 let scene, renderer, camera, controls, musTrig, lakeTrig;
 var clouds = [];
 var cubes = [];
@@ -10,10 +8,38 @@ var cubes = [];
 //canvas ans field of view
 const canvas = document.getElementById("myCanvas");
 const fov = 75;
+class PickHelper {
+    constructor() {
+      this.raycaster = new THREE.Raycaster();
+      this.pickedObject = null;
+      this.pickedObjectSavedColor = 0;
+    }
+    pick(normalizedPosition, scene, camera) {
+      // restore the color if there is a picked object
+      if (this.pickedObject) {
+        this.pickedObject.material.emissive.setHex(this.pickedObjectSavedColor);
+        this.pickedObject = undefined;
+      }
 
-const mouse = new THREE.Vector2();
-//RAYCASTER
-let raycaster;
+      // cast a ray through the frustum
+      this.raycaster.setFromCamera(normalizedPosition, camera);
+      // get the list of objects the ray intersected
+      const intersectedObjects = this.raycaster.intersectObjects(cubes);
+      if (intersectedObjects.length) {
+        // pick the first object. It's the closest one
+        this.pickedObject = intersectedObjects[0].object;
+        // save its color
+        this.pickedObjectSavedColor = this.pickedObject.material.emissive.getHex();
+        // set its emissive color to flashing red/yellow
+        this.pickedObject.material.emissive.setHex( 0xFFFF00);
+      }
+    }
+  }
+
+const pickPosition= {x: 0, y: 0};
+const pickHelper = new PickHelper();;
+
+clearPickPosition();
 
 //event listeners
 
@@ -45,8 +71,7 @@ function init() {
   camera.lookAt(scene.position);
   camera.position.set(100, 1000, 2000);
 
-  //RAYCASTER
-  raycaster = new THREE.Raycaster();
+
   //CONTROLS
   controls = new OrbitControls(camera, renderer.domElement);
   controls.enableDamping = true;
@@ -121,12 +146,16 @@ function init() {
   lakeTrig.position.set(-50, 10, 0);
   lakeTrig.scale.set(8, 8, 8);
 
+
+
   window.addEventListener("resize", onWindowResize, false);
   document.addEventListener("mousemove", onDocumentMouseMove, false);
   window.addEventListener("mouseout", clearPickPosition);
   window.addEventListener("mouseleave", clearPickPosition);
   animate();
 }
+
+window.addEventListener("load", init);
 
 function animate() {
   //museum trigger
@@ -136,23 +165,27 @@ function animate() {
   camera.updateMatrixWorld();
 
   //RAYCASTER INTERSECTION
-  raycaster.setFromCamera(mouse, camera);
-  const intersects = raycaster.intersectObjects(cubes);
-
-  if (intersects.length > 0) {
-    console.log("toucing cube");
-    // intersects[0].object.material.emissive.set(0xff0000);
-    intersects[0].object.material.color.set(0xff0000);
-  } else {
-    cubes[0].material.color.set(0xf3ffe2);
-    cubes[1].material.color.set(0xf3ffe2);
-  }
-
+  pickHelper.pick(pickPosition, scene, camera);
   //KEEP RUNNING THESE FUNCTIONS
   controls.update();
   renderer.render(scene, camera);
   requestAnimationFrame(animate);
 }
+
+
+  function getCanvasRelativePosition(event) {
+    const rect = canvas.getBoundingClientRect();
+    return {
+      x: (event.clientX - rect.left) * canvas.width  / rect.width,
+      y: (event.clientY - rect.top ) * canvas.height / rect.height,
+    };
+  }
+
+  function setPickPosition(event) {
+    const pos = getCanvasRelativePosition(event);
+    pickPosition.x = (pos.x / canvas.width ) *  2 - 1;
+    pickPosition.y = (pos.y / canvas.height) * -2 + 1;  // note we flip Y
+  }
 
 function clearPickPosition() {
   // if the user stops touching the screen we want to stop picking.
@@ -163,9 +196,9 @@ function clearPickPosition() {
 
 function onDocumentMouseMove(event) {
   event.preventDefault();
-  mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+  pickPosition.x = (event.clientX / window.innerWidth) * 2 - 1;
   //   console.log("mouse X " + mouse.x)
-  mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+  pickPosition.y = -(event.clientY / window.innerHeight) * 2 + 1;
   //   console.log("mouse Y " + mouse.y)
 }
 ("");
