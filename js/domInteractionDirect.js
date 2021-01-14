@@ -5,43 +5,9 @@ var cubes = [];
 
 //canvas ans field of view
 const canvas = document.getElementById("myCanvas");
+const canvasContainer = document.getElementById("CC");
+const popUp = document.getElementById("popUp");
 const fov = 75;
-
-//class for interactivity
-class PickHelper {
-    constructor() {
-      this.raycaster = new THREE.Raycaster();
-      this.pickedObject = null;
-      this.pickedObjectSavedColor = 0;
-    }
-    pick(normalizedPosition, scene, camera) {
-      // restore the color if there is a picked object
-      if (this.pickedObject) {
-        this.pickedObject.material.emissive.setHex(this.pickedObjectSavedColor);
-        this.pickedObject = undefined;
-      }
-
-      // cast a ray through the frustum
-      this.raycaster.setFromCamera(normalizedPosition, camera);
-      // get the list of objects the ray intersected
-      const intersectedObjects = this.raycaster.intersectObjects(cubes);
-      if (intersectedObjects.length) {
-        // pick the first object. It's the closest one
-        this.pickedObject = intersectedObjects[0].object;
-        // save its color
-        this.pickedObjectSavedColor = this.pickedObject.material.emissive.getHex();
-        // set its emissive color to flashing red/yellow
-        this.pickedObject.material.emissive.setHex( 0xFFFF00);
-      }
-    }
-
-    }
-
-
-const pickPosition= {x: 0, y: 0};
-const pickHelper = new PickHelper();;
-clearPickPosition();
-
 
 //main funtion begins on load of webpage
 function init() {
@@ -54,7 +20,7 @@ function init() {
   });
   renderer.setClearColor(0xefd1b5, 0);
   renderer.setPixelRatio(window.devicePixelRatio);
-  renderer.setSize(window.innerWidth, window.innerHeight);
+  renderer.setSize(canvas.clientWidth, canvas.clientHeight);
 
   //SCENE
   scene = new THREE.Scene();
@@ -64,7 +30,7 @@ function init() {
   //CAMERA
   camera = new THREE.PerspectiveCamera(
     fov,
-    window.innerWidth / window.innerHeight,
+    canvas.clientWidth / canvas.clientHeight,
     1,
     10000
   );
@@ -78,6 +44,7 @@ function init() {
   //CONTROLS
   controls = new THREE.OrbitControls(camera, renderer.domElement);
   controls.enableDamping = true;
+  controls.target.set(0, 0, 0);
   controls.minDistance = 5;
   controls.maxDistance = 2000;
 
@@ -96,10 +63,10 @@ function init() {
     object.rotation.x = -90 * (Math.PI / 180);
 
     object.position.x =
-      Math.random() * window.innerWidth - 0.5 * window.innerWidth;
+      Math.random() * canvas.clientWidth  - 0.5 * canvas.clientWidth;
       //height up 
     object.position.y = Math.random() * 800 + 600;
-    object.position.z = Math.random() *  window.innerHeight -  .5 * window.innerHeight;
+    object.position.z = Math.random() *  canvas.clientHeight -  .5 * canvas.clientHeight;
 
     object.scale.x = Math.random() * 300 + 300;
     object.scale.y = object.scale.x - Math.random() * 100 + 50;
@@ -151,20 +118,33 @@ function init() {
   scene.add(lakeTrig);
   lakeTrig.position.set(-50, 10, 0);
   lakeTrig.scale.set(8, 8, 8);
+
+
   domEvents.addEventListener(musTrig, "click", function(event){
 
     musTrig.material.color.set(0xff0000); 
+    var text = document.createElement('p'); 
+    var node = document.createTextNode("You just clicked the museum trigger"); 
+    text.appendChild(node); 
+    canvas.appendChild(text); 
+    popUp.appendChild(text); 
+    text.id = "addedTxt"; 
+    console.log(text); 
     // lakeTrig.material.color.set(0xff0000); 
 }); 
+domEvents.addEventListener(musTrig, "mouseover", function(event){
+musTrig.material.emissive.setHex( 0xFFFF00);
+})
+domEvents.addEventListener(musTrig, 'mouseout', function(event){
+musTrig.material.emissive.setHex( 0xFF0000);
+}); 
 
-  window.addEventListener("resize", onWindowResize, false);
+  // window.addEventListener("resize", onWindowResize, false);
 
-  window.addEventListener("mouseout", clearPickPosition);
-  window.addEventListener("mouseleave", clearPickPosition);
   animate();
 }
 window.addEventListener("load", init);
-document.addEventListener("mousemove", onDocumentMouseMove, false);
+
 
 function animate() {
   //museum trigger
@@ -173,9 +153,6 @@ function animate() {
   camera.lookAt(scene.position);
   camera.updateMatrixWorld();
 
-  //HOVER
-  pickHelper.pick(pickPosition, scene, camera);
-
   //KEEP RUNNING THESE FUNCTIONS
   controls.update();
   renderer.render(scene, camera);
@@ -183,35 +160,9 @@ function animate() {
 }
 
 
-  function getCanvasRelativePosition(event) {
-    const rect = canvas.getBoundingClientRect();
-    return {
-      x: (event.clientX - rect.left) * canvas.width  / rect.width,
-      y: (event.clientY - rect.top ) * canvas.height / rect.height,
-    };
-  }
-
-function clearPickPosition() {
-  // if the user stops touching the screen we want to stop picking.
-  //For now we just pick a value unlikely to pick something
-  pickPosition.x = -100000;
-  pickPosition.y = -100000;
-}
-
-function onDocumentMouseMove(event) {
-  event.preventDefault();
-  pickPosition.x = (event.clientX / window.innerWidth) * 2 - 1;
-  //   console.log("mouse X " + mouse.x)
-  pickPosition.y = -(event.clientY / window.innerHeight) * 2 + 1;
-  //   console.log("mouse Y " + mouse.y)
-}
-
-
-
 function onWindowResize() {
-  const width = window.innerWidth,
-    height = window.innerHeight;
-
+  const width =  window.innerWidth; 
+  height = canvas.clientHeight;
   camera.aspect = width / height;
   camera.updateProjectionMatrix();
   renderer.setSize(width, height);

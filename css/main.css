@@ -4,12 +4,13 @@
     padding:0; 
 }
 canvas{
-    display: block; 
+    display: inline-block; 
+    border: 3px solid red; 
 }
 
 #hero{
-    scroll-snap-type: mandatory;
-    scroll-snap-align: start;
+    /* scroll-snap-type: mandatory;
+    scroll-snap-align: start; */
   /* scroll-snap-points-y: repeat(300px); */
   /* scroll-snap-type: y mandatory; */
     width: 100%; 
@@ -18,20 +19,41 @@ canvas{
 }
 
 #narrative{
-    scroll-snap-type: mandatory;
-  scroll-snap-points-y: repeat(300px);
+    /* scroll-snap-type: mandatory;
+  scroll-snap-points-y: repeat(300px); */
   /* scroll-snap-type: y mandatory; */
     width: 100%; 
     height: 100vh; 
     border: 3px solid blue ; 
 }
+
+#CC{
+  width: 100%; 
+  height: 100%;
+  border: 8px solid orange; 
+  position:relative; 
+  overflow: hidden;
+}
 #myCanvas{
-    scroll-snap-type: mandatory;
+    /* scroll-snap-type: mandatory;
   scroll-snap-points-y: repeat(300px);
-  scroll-snap-type: y mandatory;
-    width: 100vw; 
-    height: 100vh;
-border: 3px solid red; 
+  scroll-snap-type: y mandatory; */
+  width: 100%; 
+  height: 90%;
+
 
 }
 
+#popUp{
+  padding: 2em; 
+background-color: lightblue;
+  position: absolute;
+  top: 0; 
+  width: 20vw; 
+  /* height: 20vh;  */
+}
+#addedTxt{
+  font-size: 40px;
+  color: blueviolet; 
+
+}
