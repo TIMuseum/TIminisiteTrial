@@ -6,22 +6,17 @@ var cubes = [];
 //canvas ans field of view
 const canvas = document.getElementById("myCanvas");
 const canvasContainer = document.getElementById("CC");
-const popUp = document.getElementById("popUp");
-const fov = 75;
+let popUp = document.querySelectorAll(".popUp"); 
 
-var camCounter = 0; 
-const camAnimate = 200; 
-let theta = 0; 
+const fov = 75;
 
 window.onbeforeunload = function () {
   console.log("loading"); 
 }
-
+window.addEventListener("load", init);
 //main funtion begins on load of webpage
 function init() {
 
-
-    console.log("loading everything"); 
   //RENDERER
   renderer = new THREE.WebGLRenderer({
     canvas: canvas,
@@ -44,7 +39,7 @@ function init() {
     10000
   );
   camera.lookAt(scene.position);
-  camera.position.set(0, 0, 1500);
+  camera.position.set(0, 1500, 0);
 
   //DOMEVENTS
   const domEvents = new THREEx.DomEvents(camera, renderer.domElement); 
@@ -62,26 +57,10 @@ function init() {
 
   //TEXTURE LOADER
   const map = new THREE.TextureLoader().load("/media/solo_map.png");
-  const cloud = new THREE.TextureLoader().load("/media/cloud.png");
   const water = new THREE.TextureLoader().load("/media/water.jpg");
 
   //CLOUDS
-  for (let i = 0; i < 200; i++) {
-    const object = new THREE.Sprite(new THREE.SpriteMaterial({ map: cloud }));
-    object.rotation.x = -90 * (Math.PI / 180);
-
-    object.position.x =
-      Math.random() * canvas.clientWidth  - 0.5 * canvas.clientWidth;
-      //height up 
-    object.position.y = Math.random() * 800 + 600;
-    object.position.z = Math.random() *  canvas.clientHeight -  .5 * canvas.clientHeight;
-
-    object.scale.x = Math.random() * 300 + 300;
-    object.scale.y = object.scale.x - Math.random() * 100 + 50;
-    object.scale.z = Math.random() * 100 + 50;
-    clouds[i] = object;
-    scene.add(object);
-  }
+  clouds = makeClouds(); 
 
   //WATER PLANE
   var planeGeometry = new THREE.PlaneGeometry(5000, 5000, 100, 100);
@@ -106,13 +85,7 @@ function init() {
   ground.rotation.x = -90 * (Math.PI / 180);
   // ground.position.y = -50;
   scene.add(ground);
-  domEvents.addEventListener(ground, 'click', function(event){
-    popUp.style.display = "none"; 
-    while (popUp.firstChild) {
-      popUp.removeChild(popUp.firstChild);
-    }
-    }); 
-    
+
   //ADD MUSUEM CUBE
   const geometry = new THREE.BoxBufferGeometry();
   var boxMat = new THREE.MeshStandardMaterial({ color: 0xf3ffe2 });
@@ -123,7 +96,6 @@ function init() {
   musTrig.scale.set(8, 8, 8);
   renderer.render(scene, camera);
 
-
   //ADD LAKE CUBE
   const geometry2 = new THREE.BoxBufferGeometry();
   var boxMat2 = new THREE.MeshStandardMaterial({ color: 0xf3ffe2 });
@@ -133,27 +105,20 @@ function init() {
   lakeTrig.position.set(-50, 10, 0);
   lakeTrig.scale.set(8, 8, 8);
 
+  //animate camera
+cameraBegin(camera); 
+
+ //ALL EVENT LISTENERS 
+  domEvents.addEventListener(ground, 'click', function(event){
+    clearPopUp(); 
+    }); 
   domEvents.addEventListener(musTrig, "click", function(event){
-    const coords = { x: camera.position.x, z: camera.position.z };
-    var tween = new TWEEN.Tween(coords)
-    .to({ x: musTrig.position.x, z: musTrig.position.z  })
-    .easing(TWEEN.Easing.Quadratic.Out)
-    .onUpdate(() =>
-      camera.position.set(coords.x, camera.position.y, coords.z)
-    )
-    .start();
-
-
-    musTrig.material.color.set(0xff0000); 
-    var text = document.createElement('p'); 
-    var node = document.createTextNode("You just clicked the museum trigger"); 
-    text.appendChild(node); 
-    canvas.appendChild(text); 
-    popUp.appendChild(text); 
-    popUp.style.display = "block"; 
-    text.id = "addedTxt"; 
-    console.log(text); 
-    // lakeTrig.material.color.set(0xff0000); 
+    const offset = {x: 10, y: 70, z: 50}; 
+    clickEgg(musTrig, offset, 0); 
+}); 
+domEvents.addEventListener(lakeTrig, "click", function(event){
+  const offset = {x: 10, y: 70, z: 50}; 
+  clickEgg(lakeTrig, offset, 1); 
 }); 
 domEvents.addEventListener(musTrig, "mouseover", function(event){
 musTrig.material.emissive.setHex( 0xFFFF00);
@@ -162,27 +127,14 @@ domEvents.addEventListener(musTrig, 'mouseout', function(event){
 musTrig.material.emissive.setHex( 0xFF0000);
 }); 
 
-// 
   window.addEventListener("resize", onWindowResize, false);
-
   animate();
 }
-window.addEventListener("load", init);
 
 
 function animate(time) {
-  // if (camAnimate>= camCounter){
-    // theta += 0.1;
-    // camera.position.set.y = radius * Math.sin( THREE.MathUtils.degToRad( theta ) );
-    // // camera.position.y +=.01; 
-    // camCounter++; 
-  // }
-  //museum trigger
-
   lakeTrig.rotation.y += 0.01;
   musTrig.rotation.x += 0.01;
-
-
   controls.update();
 
   camera.lookAt(scene.position);
@@ -201,4 +153,65 @@ function onWindowResize() {
   camera.aspect = width / height;
   camera.updateProjectionMatrix();
   renderer.setSize(width, height);
+}
+
+function clickEgg(clicked, offset, index){
+  //TWEEN TO LOCATION/ ZOOM
+  clearPopUp(); 
+  const coords = { x: camera.position.x, y: camera.position.y, z: camera.position.z };
+    console.log("camera x " + coords.x + " camera y " + coords.y + " camera z " + coords.z); 
+    var tween = new TWEEN.Tween(coords)
+    .to({ x: clicked.position.x+offset.x, y: clicked.position.y + offset.y, z:clicked.position.z + offset.z })
+    .easing(TWEEN.Easing.Quadratic.Out)
+    .onUpdate(() =>{
+      camera.position.set(coords.x, coords.y, coords.z)
+      // console.log("updated camera " + "camera x " + coords.x + " camera y " + coords.y + " camera z " + coords.z); 
+    })
+    .start();
+//Change color and popup style
+    clicked.material.color.set(0xff0000); 
+
+    popUp[index].style.display = "block"; 
+
+}
+
+function clearPopUp(){
+  popUp.forEach((popUp, index)=> {
+    popUp.style.display = "none";}); 
+}
+
+function makeClouds(){
+  const cloud = new THREE.TextureLoader().load("/media/cloud.png");
+  for (let i = 0; i < 200; i++) {
+    const object = new THREE.Sprite(new THREE.SpriteMaterial({ map: cloud }));
+    object.rotation.x = -90 * (Math.PI / 180);
+
+    object.position.x =
+      Math.random() * canvas.clientWidth  - 0.5 * canvas.clientWidth;
+      //height up 
+    object.position.y = Math.random() * 800 + 600;
+    object.position.z = Math.random() *  canvas.clientHeight -  .5 * canvas.clientHeight;
+
+    object.scale.x = Math.random() * 300 + 300;
+    object.scale.y = object.scale.x - Math.random() * 100 + 50;
+    object.scale.z = Math.random() * 100 + 50;
+    clouds[i] = object;
+    scene.add(object);
+  }
+  return clouds; 
+}
+
+function cameraBegin(camera){
+  const coords = { x: camera.position.x, y: camera.position.y, z: camera.position.z };
+  // console.log("camera x " + coords.x + " camera y " + coords.y + " camera z " + coords.z); 
+  var tween = new TWEEN.Tween(coords)
+
+  .to({x: 0, y: 300 , z:0}, 2500)
+  // .delay(2000) 
+  .easing(TWEEN.Easing.Quadratic.In)
+  .onUpdate(() =>{
+    camera.position.set(camera.position.x, coords.y, camera.position.z);
+    // console.log("updated camera " + "camera x " + coords.x + " camera y " + coords.y + " camera z " + coords.z); 
+  })
+  .start();
 }

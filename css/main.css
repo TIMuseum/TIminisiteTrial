@@ -3,57 +3,111 @@
     margin: 0;
     padding:0; 
 }
-canvas{
-    display: inline-block; 
-    border: 3px solid red; 
+html {
+  scroll-behavior: smooth;
+}
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+}
+
+/* NAVIGATION */
+nav {
+  white-space: nowrap;
+  background:lightgreen;
+  top: 30%; 
+  width: 10%; 
+  /* position: -webkit-sticky; 
+  position: sticky;  */
+  position: fixed; 
+  z-index: 2;
+}
+nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  
+}
+
+nav ul li a {
+  display: block;
+  padding: 2em; 
+  color: #ccc;
+  transition: all 50ms ease-in-out; /* 💡 This small transition makes setting of the active state smooth */
+  font-size: 20px; 
+  text-decoration: none;
+}
+
+
+.section-nav a {
+    transition: all 100ms ease-in-out;
+}
+nav ul li a:hover,
+nav ul li a:focus {
+  color: #666;
+}
+ .active{
+  background: green;
+}
+nav ul li .active > a {
+  color: #333;
+  font-weight: 500;
+}
+/* .force{
+  overflow-y:scroll; 
+  scroll-snap-type: y mandatory;
+  scroll-snap-points-y: repeat(100vh);
+} */
+section{
+
+  width: 100%; 
+  height: 100vh; 
+}
+.stick{
+  scroll-snap-align: start;
+  position: relative;
+}
+h1{
+  text-align: center;
+  font-size: 80px;
+  padding-top: 200px; 
+  text-transform: uppercase; 
 }
 
 #hero{
-    /* scroll-snap-type: mandatory;
-    scroll-snap-align: start; */
-  /* scroll-snap-points-y: repeat(300px); */
-  /* scroll-snap-type: y mandatory; */
-    width: 100%; 
-    height: 100vh; 
-    border: 3px solid blue ; 
+background-color: lightcyan; 
 }
 
 #narrative{
-    /* scroll-snap-type: mandatory;
-  scroll-snap-points-y: repeat(300px); */
-  /* scroll-snap-type: y mandatory; */
-    width: 100%; 
-    height: 100vh; 
-    border: 3px solid blue ; 
+  background-color: lightseagreen; 
 }
 
 #CC{
-  width: 100%; 
-  height: 100%;
-  border: 8px solid orange; 
+  /* border: 8px solid orange;  */
   position:relative; 
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 #myCanvas{
-    /* scroll-snap-type: mandatory;
-  scroll-snap-points-y: repeat(300px);
-  scroll-snap-type: y mandatory; */
+  display: inline-block; 
+  border: 3px solid red; 
   width: 100%; 
-  height: 90%;
-
-
+  height: 100%;
 }
 
-#popUp{
+.popUp{
   padding: 2em; 
 background-color: lightblue;
   position: absolute;
-  top: 0; 
-  width: 20vw; 
-  /* height: 20vh;  */
+  top: 50%;
+  left: 50%; 
+  display: none; 
 }
-#addedTxt{
-  font-size: 40px;
+.popUp p{
+  font-size: 30px;
   color: blueviolet; 
 
+}
+.popUp span{
+  font-size: 35px;
+  color: purple; 
+  
 }

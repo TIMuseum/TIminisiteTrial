@@ -19,6 +19,8 @@ let raycaster;
 
 //main funtion begins on load of webpage
 function init() {
+
+  window.scrollTo(0, 0);
   //RENDERER
   renderer = new THREE.WebGLRenderer({
     canvas: canvas,
