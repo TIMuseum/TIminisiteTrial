@@ -1,7 +1,7 @@
 //always start at the top of the webpage
 // history.scrollRestoration = "manual";
 
-let navItems = document.querySelectorAll("nav ul li");
+// let navItems = document.querySelectorAll("nav ul li");
 // console.log(navItems); 
 // let sections = document.querySelectorAll("section");
 // console.log(sections); 
@@ -12,33 +12,33 @@ let navItems = document.querySelectorAll("nav ul li");
 //   headings: null,
 // }
 
-const options = {
-  root: null, // Can be any other element
-  rootMargin: '0px',
-// Ranges from 0.1 to 1.0 or an array of values
-}
-window.addEventListener('DOMContentLoaded', () => {
+// const options = {
+//   root: null, // Can be any other element
+//   rootMargin: '0px',
+// // Ranges from 0.1 to 1.0 or an array of values
+// }
+// window.addEventListener('DOMContentLoaded', () => {
 
-	const observer = new IntersectionObserver(entries => {
-		entries.forEach(entry => {
-			const id = entry.target.getAttribute('id');
-			if (entry.intersectionRatio > 0) {
-				// navItems[0].classList.remove('active');
-				// navItems[1].classList.remove('active');
-				// navItems[2].classList.remove('active');
-				document.querySelector(`nav li a[href="#${id}"]`).parentElement.classList.add('active');
-			} else {
-				document.querySelector(`nav li a[href="#${id}"]`).parentElement.classList.remove('active');
-			}
-		});
-	}, options);
+// 	const observer = new IntersectionObserver(entries => {
+// 		entries.forEach(entry => {
+// 			const id = entry.target.getAttribute('id');
+// 			if (entry.intersectionRatio > 0) {
+// 				// navItems[0].classList.remove('active');
+// 				// navItems[1].classList.remove('active');
+// 				// navItems[2].classList.remove('active');
+// 				document.querySelector(`nav li a[href="#${id}"]`).parentElement.classList.add('active');
+// 			} else {
+// 				document.querySelector(`nav li a[href="#${id}"]`).parentElement.classList.remove('active');
+// 			}
+// 		});
+// 	}, options);
 
-	// Track all sections that have an `id` applied
-	document.querySelectorAll('section[id]').forEach((section) => {
-		observer.observe(section);
-	});
+// 	// Track all sections that have an `id` applied
+// 	document.querySelectorAll('section[id]').forEach((section) => {
+// 		observer.observe(section);
+// 	});
 	
-});
+// });
 // let lastId;
 // let cur = [];
 // console.log("window height" + window.innerHeight); 

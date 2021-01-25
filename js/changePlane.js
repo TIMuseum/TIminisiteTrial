@@ -6,10 +6,15 @@ var cubes = [];
 //canvas ans field of view
 const canvas = document.getElementById("myCanvas");
 const canvasContainer = document.getElementById("CC");
-let popUp = document.querySelectorAll(".popUp"); 
+const popUp = document.querySelectorAll(".popUp"); 
+let overlay = document.querySelector(".modalOverlay"); 
+
 
 const fov = 75;
-
+overlay.addEventListener("click", function(){
+  overlay.style = "visibility:hidden"; 
+ clearPopUp(); 
+})
 window.onbeforeunload = function () {
   console.log("loading"); 
 }
@@ -55,12 +60,12 @@ function init() {
   var hemLight = new THREE.HemisphereLight(0xffffbb, 0x0808dd, 1);
   scene.add(hemLight);
 
-  //TEXTURE LOADER
-  const map = new THREE.TextureLoader().load("/media/solo_map.png");
-  const water = new THREE.TextureLoader().load("/media/water.jpg");
-
+  
   //CLOUDS
   clouds = makeClouds(); 
+//TEXTURE LOADER
+const map = new THREE.TextureLoader().load("/media/map@2x.png");
+const water = new THREE.TextureLoader().load("/media/water.jpg");
 
   //WATER PLANE
   var planeGeometry = new THREE.PlaneGeometry(5000, 5000, 100, 100);
@@ -76,7 +81,7 @@ function init() {
   scene.add(ground);
 
   //MAP PLANE
-  var planeGeometry = new THREE.PlaneGeometry(300, 200);
+  var planeGeometry = new THREE.PlaneGeometry(200, 300);
   var planeMaterial = new THREE.MeshStandardMaterial({
     map: map,
     transparent: true,
@@ -92,8 +97,8 @@ function init() {
   musTrig = new THREE.Mesh(geometry, boxMat);
   cubes[0] = musTrig;
   scene.add(musTrig);
-  musTrig.position.set(100, 10, 58);
-  musTrig.scale.set(8, 8, 8);
+  musTrig.position.set(-23, 0, 26);
+  musTrig.scale.set(5, 5, 5);
   renderer.render(scene, camera);
 
   //ADD LAKE CUBE
@@ -102,8 +107,17 @@ function init() {
   lakeTrig = new THREE.Mesh(geometry2, boxMat2);
   cubes[1] = lakeTrig;
   scene.add(lakeTrig);
-  lakeTrig.position.set(-50, 10, 0);
-  lakeTrig.scale.set(8, 8, 8);
+  lakeTrig.position.set(-30, 0, -100);
+  lakeTrig.scale.set(5, 5, 5);
+
+//ADD Nizche house CUBE
+const geometry3 = new THREE.BoxBufferGeometry();
+var boxMat3 = new THREE.MeshStandardMaterial({ color: 0xf3ffe2 });
+nhTrig = new THREE.Mesh(geometry3, boxMat3);
+cubes[2] = lakeTrig;
+scene.add(nhTrig);
+nhTrig.position.set(50, 0, 80);
+nhTrig.scale.set(5, 5, 5);
 
   //animate camera
 cameraBegin(camera); 
@@ -117,9 +131,12 @@ cameraBegin(camera);
     clickEgg(musTrig, offset, 0); 
 }); 
 domEvents.addEventListener(lakeTrig, "click", function(event){
-  const offset = {x: 10, y: 70, z: 50}; 
+  const offset = {x: -80, y: 70, z: 0}; 
   clickEgg(lakeTrig, offset, 1); 
 }); 
+
+
+
 domEvents.addEventListener(musTrig, "mouseover", function(event){
 musTrig.material.emissive.setHex( 0xFFFF00);
 })
@@ -135,6 +152,7 @@ musTrig.material.emissive.setHex( 0xFF0000);
 function animate(time) {
   lakeTrig.rotation.y += 0.01;
   musTrig.rotation.x += 0.01;
+  nhTrig.rotation.z +=0.01; 
   controls.update();
 
   camera.lookAt(scene.position);
@@ -172,6 +190,10 @@ function clickEgg(clicked, offset, index){
     clicked.material.color.set(0xff0000); 
 
     popUp[index].style.display = "block"; 
+    overlay.style = 'visibility: visible';
+    // overlay.classList.toggle("show"); 
+    console.log(overlay); 
+  
 
 }
 
@@ -205,9 +227,8 @@ function cameraBegin(camera){
   const coords = { x: camera.position.x, y: camera.position.y, z: camera.position.z };
   // console.log("camera x " + coords.x + " camera y " + coords.y + " camera z " + coords.z); 
   var tween = new TWEEN.Tween(coords)
-
   .to({x: 0, y: 300 , z:0}, 2500)
-  // .delay(2000) 
+  .delay(1000) 
   .easing(TWEEN.Easing.Quadratic.In)
   .onUpdate(() =>{
     camera.position.set(camera.position.x, coords.y, camera.position.z);

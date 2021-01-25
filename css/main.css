@@ -10,104 +10,69 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
 }
 
-/* NAVIGATION */
-nav {
-  white-space: nowrap;
-  background:lightgreen;
-  top: 30%; 
-  width: 10%; 
-  /* position: -webkit-sticky; 
-  position: sticky;  */
-  position: fixed; 
-  z-index: 2;
-}
-nav ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  
-}
-
-nav ul li a {
-  display: block;
-  padding: 2em; 
-  color: #ccc;
-  transition: all 50ms ease-in-out; /* 💡 This small transition makes setting of the active state smooth */
-  font-size: 20px; 
-  text-decoration: none;
-}
-
-
-.section-nav a {
-    transition: all 100ms ease-in-out;
-}
-nav ul li a:hover,
-nav ul li a:focus {
-  color: #666;
-}
- .active{
-  background: green;
-}
-nav ul li .active > a {
-  color: #333;
-  font-weight: 500;
-}
-/* .force{
-  overflow-y:scroll; 
-  scroll-snap-type: y mandatory;
-  scroll-snap-points-y: repeat(100vh);
-} */
 section{
-
   width: 100%; 
   height: 100vh; 
-}
-.stick{
-  scroll-snap-align: start;
-  position: relative;
-}
-h1{
-  text-align: center;
-  font-size: 80px;
-  padding-top: 200px; 
-  text-transform: uppercase; 
-}
-
-#hero{
-background-color: lightcyan; 
-}
-
-#narrative{
-  background-color: lightseagreen; 
+  overflow: hidden; 
 }
 
 #CC{
   /* border: 8px solid orange;  */
   position:relative; 
-  /* overflow: hidden; */
 }
 #myCanvas{
   display: inline-block; 
   border: 3px solid red; 
   width: 100%; 
   height: 100%;
+  text-align:center;
+  vertical-align:middle;
 }
 
+.show{
+  opacity: 1; 
+  background: rgba(178, 11, 245, 0.8);
+  visibility:visible; 
+}
+.modalOverlay{
+  position: fixed;
+  top: 0%;
+  left: 0%; 
+  width: 100%; 
+  height: 100%; 
+  z-index: 4; 
+  background: rgba(143,27,15,0.8);
+  visibility:hidden; 
+/* opacity: 0;  */
+}
 .popUp{
-  padding: 2em; 
 background-color: lightblue;
+opacity: 90%; 
   position: absolute;
-  top: 50%;
-  left: 50%; 
+  width: 90%; 
+  height: 90%; 
+  top: 5%;
+  left: 5%; 
   display: none; 
-}
-.popUp p{
-  font-size: 30px;
-  color: blueviolet; 
+  z-index: 5; 
 
 }
-.popUp span{
-  font-size: 35px;
-  color: purple; 
-  
+#modalContent{
+  border: 2px solid purple; 
+  position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    overflow-x: hidden;
+    display: block; 
+align-items: center;
+text-align: center; 
+}
+/* .popUp h1{
+
+} */
+.popUp img{
+  width: 90%; 
 }
