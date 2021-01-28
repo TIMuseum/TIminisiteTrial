@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Microsite Trials</title>
     <link type="text/css" rel="stylesheet" href="css/main.css">
+    <script src="https://kit.fontawesome.com/89928a6ed0.js"></script>
 </head>
 
 <body>
@@ -14,26 +15,85 @@
 
     <div class="modalOverlay"></div>
 
+    <!-- popUp 0 -->
     <div class= "popUp" id="mus">
-        <div id="modalContent">
+        <!-- close button doesnt work yet -->
+        <!-- <button class="closeBtn" type="button" onclick="clearPopUp(event)">
+            <i class="fas fa-times" aria-hidden="true"></i>
+        </button> -->
+        <div class="modalContent">
         <h2>Historical Preservation</h2> 
         <img src ="media/historical_2.jpg">
         <img src ="media/historical_2.jpg">
+        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ratione suscipit dolorem adipisci eligendi inventore quibusdam error repudiandae, iste quaerat fugit facere perspiciatis aliquam quia non? Porro officiis nisi qui eligendi.<p>
         <img src ="media/historical_2.jpg">
         <img src ="media/historical_2.jpg">
         <img src ="media/historical_2.jpg">
+        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ratione suscipit dolorem adipisci eligendi inventore quibusdam error repudiandae, iste quaerat fugit facere perspiciatis aliquam quia non? Porro officiis nisi qui eligendi.<p>
         </div>
     </div>
-
-
-    <div class= "popUp"id="rwm">
-        <p>You just clicked a <span>RAIN WATER MANAGMENT</span> easter egg</p> 
+       <!-- popUp 1 -->
+    <div class= "popUp"id="parks">  
+           <div class="modalContent">
+            <h2>Parks and Public Spaces</h2> 
+            <img src ="media/placeholder1.jpg">
+            </div>
     </div>
-    <div class= "popUp"id="com">
-        <p>You just clicked a MUSEUM trigger</p> 
+     <!-- popUp 2 -->
+    <div class= "popUp"id="geology">
+        <div class="modalContent">
+            <h2>Geology</h2> 
+            <img src ="media/placeholder1.jpg">
+            </div>
     </div>
-    <div class= "popUp"id="geo"></div>
-    <div class= "popUp"id="ada"></div>
+    <!-- popUp 3-->
+    <div class= "popUp"id="community">
+        <div class="modalContent">
+            <h2>Community</h2> 
+            <img src ="media/placeholder1.jpg">
+            </div>
+    </div>
+    <!-- popUp 4-->
+    <div class= "popUp"id="adaptive">
+        <div class="modalContent">
+            <h2>Adaptive Design</h2> 
+            <img src ="media/placeholder1.jpg">
+            </div>
+    </div>
+  <!-- popUp 5 (historical 0)-->
+    <div class= "popUp"id="historical">
+        <div class ="torp" id="modalContent">
+        <h2>Now We are looking at the torpedo house </h2> 
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae officiis rerum impedit dolore, unde commodi sint. Cumque, optio vitae ratione ex sint repellat eum! Necessitatibus eveniet earum impedit dolore suscipit.
+        </p>
+        <img src="media/placeholder2.jpg">
+        <button class="back" type="button" onclick= "clickBack(0, event)" >Back</button>
+        <button class="next"type="button"onclick= "clickBack(6, event)">Next</button>
+    </div>
+    </div>
+     <!-- popUp 6 (historical 1)-->
+    <div class= "popUp"id="historical">
+        <div class="modalContent">
+        <h2>Now We are looking at Building 2</h2> 
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae officiis rerum impedit dolore, unde commodi sint. Cumque, optio vitae ratione ex sint repellat eum! Necessitatibus eveniet earum impedit dolore suscipit.
+        </p>
+        <img src="media/placeholder2.jpg">
+        <button type="button"onclick= "clickBack(5, event)">Back</button>
+        <button type="button" onclick= "clickBack(7, event)">Next</button>
+    </div>
+    </div>
+        <!-- popUp 7 (historical 2)-->
+    <div class= "popUp"id="historical">
+        <div class="modalContent">
+        <h2>Now We are looking at Building 3</h2> 
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae officiis rerum impedit dolore, unde commodi sint. Cumque, optio vitae ratione ex sint repellat eum! Necessitatibus eveniet earum impedit dolore suscipit.
+        </p>
+        <img src="media/placeholder2.jpg">
+        <button type="button"onclick= "clickBack(6, event)">Back</button>
+        <!-- <button type="button"onclick= "clickBack(7, event)">Next</button> -->
+    </div>
+    </div>
+
     </section>
 
     
@@ -42,7 +102,12 @@
     <script src ="js/OrbitControls.js"></script>
    <script src="https://cdnjs.cloudflare.com/ajax/libs/tween.js/16.3.5/Tween.min.js"></script>
     <script  src ="js/changePlane.js"></script>
-
+    <!-- <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+        AOS.init({
+          duration: 1200
+        }); -->
+      </script>
 </body>
 <script src="js/pageNav.js"></script>  
 </html>
