@@ -98,6 +98,17 @@ function watchEvents(domEvents){
   window.addEventListener("resize", onWindowResize, true);
     //scrolling effect that switches museum to torpedo
     popUp[0].onwheel = scrollHistorical; 
+
+    var targetPosition = new THREE.Vector3( 2, 2, 2 );
+    //ANIMATE THE EGGS
+    eggs.forEach((egg, index)=> {
+        new TWEEN.Tween( eggs[index].scale )
+        .to( targetPosition, 1500 )
+      .repeat( Infinity )
+      .easing( TWEEN.Easing.Cubic.InOut )
+      .start();
+      }); 
+    
 }
 function scrollHistorical(event){
     if(amountScroll >= scrollMaxPres){
@@ -130,10 +141,6 @@ function scrollHistorical(event){
 function showParks(){
     let position = new THREE.Vector3(-50, 150, 0); 
     parkTween(camera, position, 2000); 
-    
-    // mus.position.set(-23, 5, 26);
-    // mapItems[0] = mus;
-    // offsets[0] =  {x: 10, y: 50, z: 50}; 
 }
 function parkTween(camera, position, duration) {    
     let coords = { x: camera.position.x, y: camera.position.y, z: camera.position.z };
@@ -142,7 +149,8 @@ function parkTween(camera, position, duration) {
   .to({x:position.x, y: position.y, z: position.z}, 1500)
   .easing(TWEEN.Easing.Quadratic.In)
   .onComplete(() =>{
-      scene.add(parkAdd1);})
+      scene.add(parkAdd1);
+      mapPlane.material.opacity = .5;  })
   .start();
   
   }
@@ -182,6 +190,7 @@ function clearModal(){
   overlay.style.display ="none"; 
   console.log("you exited a modal"); 
 scene.remove(extraImages[0]); 
+mapPlane.material.opacity = 1;
   extraImages.forEach((extraImage)=>{scene.remove(extraImage)}); 
   modelContent.forEach((modelContent)=>{modelContent.scrollTop = 0}); 
     popUp.forEach((popUp, index)=> {
@@ -259,14 +268,14 @@ const musImg = new THREE.TextureLoader().load("/media/museum.png");
   park.scale.set(20, 10,20); 
   park.position.set(-30, 4, -100);
   offsets[1] = {x: 5, y: 50, z: 5}; 
-//Extra park stuff
-const wilds = new THREE.TextureLoader().load("/media/wilds.png");
-    var parkP = new THREE.PlaneGeometry(15, 10);
-    var parkM = new THREE.MeshStandardMaterial({  map: wilds, transparent: true});
+
+//EXTRA PARK STUFF
+const parksImg = new THREE.TextureLoader().load("/media/map_1.png");
+    var parkP = new THREE.PlaneGeometry(200, 300);
+    var parkM = new THREE.MeshStandardMaterial({ map: parksImg, transparent: true});
   parkAdd1 = new THREE.Mesh(parkP,parkM);
   parkAdd1.rotation.x = -90 * (Math.PI / 180);
   parkAdd1.position.y = 1;
-  parkAdd1.scale.set(5, 5,5); 
   extraImages[0] = parkAdd1
 //GEOLOGY 
   var geoGeometry = new THREE.PlaneGeometry(15, 10);
@@ -331,40 +340,6 @@ const wilds = new THREE.TextureLoader().load("/media/wilds.png");
     buil3Trig.position.set(25, 0, 5);
     buil3Trig.scale.set(5, 5, 5);
     offsets[7] = {x: 2, y: 40, z: 2}; 
-
-
-    //MARKER CUBES 
-// 0,0
-const geo2 = new THREE.BoxBufferGeometry();
-var mat2 = new THREE.MeshStandardMaterial({ color: 0xf3ffe2 });
-cube1 = new THREE.Mesh(geo2, mat2);
-scene.add(cube1);
-cube1.position.set(0, 0, 0);
-cube1.scale.set(8, 8, 8);
-
-//X 100
-const geo3 = new THREE.BoxBufferGeometry();
-var mat3 = new THREE.MeshStandardMaterial({ color: 0xffffff });
-cube2 = new THREE.Mesh(geo3, mat3);
-scene.add(cube2);
-cube2.position.set(100, 0, 0);
-cube2.scale.set(8, 8, 8);
-
-//Y 100
-const geo4 = new THREE.BoxBufferGeometry();
-var mat4 = new THREE.MeshStandardMaterial({ color: 0xffffff });
-cube3 = new THREE.Mesh(geo4, mat4);
-scene.add(cube3);
-cube3.position.set(0, 0, 100);
-cube3.scale.set(8, 8, 8);
-
-//X -100
-const geo5 = new THREE.BoxBufferGeometry();
-var mat5 = new THREE.MeshStandardMaterial({ color: 0xffffff });
-cube5 = new THREE.Mesh(geo5, mat5);
-scene.add(cube5);
-cube5.position.set(-100, 0, 0);
-cube5.scale.set(8, 8, 8);
 
 }
 
