@@ -68,7 +68,7 @@ section{
   height: 100%; 
   z-index: 4; 
   background: #1292AF;
-  opacity: 0.4; 
+  opacity: 0.2; 
   display:none; 
   animation: overlay 1.5s 2s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
   animation-fill-mode: backwards;
@@ -88,7 +88,7 @@ section{
 
   animation-delay: 2s; 
   /* opacity:0; */
-  animation: scaleUp 1.5s 2s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
+  animation: scaleUp 1.5s .5s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
   animation-fill-mode: backwards;
   padding: 20px 50px 20px 20px;
 }
@@ -132,7 +132,7 @@ margin-bottom: 1em;
   0%   {opacity:0; }
   /* /* 25%  {background-color: yellow;} */
   /* 50%  {opacity:.2} */
-  100% {opacity:0.4}
+  100% {opacity:0.2}
 }
 
 @keyframes scaleUp {

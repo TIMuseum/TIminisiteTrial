@@ -5,7 +5,9 @@ var clouds = [];
 var mapItems = [];
 var offsets = []; 
 var eggs=[]; 
-//canvas ans field of view
+let extraImages=[]; 
+let startingColor = []; 
+
 const canvas = document.getElementById("myCanvas");
 const canvasContainer = document.getElementById("CC");
 const popUp = document.querySelectorAll(".popUp"); 
@@ -17,8 +19,8 @@ const scrollMaxPres = 3500;
 
 //CAMERA VARIABLES
 const fov = 75;
-let  camStart = {x:0, y:150, z:0}; 
-let camMain = {x:0, y:150, z:0}; 
+let  camStart = {x:0, y:250, z:0}; 
+let camMain = {x:0, y:250, z:0}; 
 
 //START EVERYTHING WHEN LOADED
 window.addEventListener("load", init);
@@ -47,8 +49,6 @@ function init() {
     10000
   );
   camera.lookAt(scene.position);
-  // camera.position.set(0, 1500, 0);
-
   camera.position.set(camStart.x, camStart.y, camStart.z);
 
 //DOMEVENTS
@@ -57,59 +57,47 @@ const domEvents = new THREEx.DomEvents(camera, renderer.domElement);
   controls = new THREE.OrbitControls(camera, renderer.domElement);
   controls.enableDamping = true;
   controls.target.set(0, 0, 0);
-  controls.minDistance = 5;
-  controls.maxDistance = 2000;
+  controls.minDistance = -200;
+  controls.maxDistance = 3000;
   //LIGHTS
   var hemLight = new THREE.HemisphereLight(0xffffbb, 0x0808dd, 1);
   scene.add(hemLight); 
 
-  //CLOUDS + CUBES
+  //ADD STUFF TO THE SCEENE
   clouds = makeClouds(); 
   setUpCubes(); 
   makeGround(); 
 
-  //ANIMATE CAMER INTO SCENE
+  //ANIMATE CAMERA INTO SCENE
 //   cameraBegin(camera); 
-
  //ALL EVENT LISTENERS 
  watchEvents(domEvents); 
-
   animate();
 }//end of setup
+
 function watchEvents(domEvents){
-
-  // domEvents.addEventListener(ground, 'click', function(event){clearPopUp()}, false); 
   //EGG CLICK TRIGGERS 
-  domEvents.addEventListener(mus, "click", function(event){
-    clickEgg(mus, offsets[0], 0); 
+  eggs.forEach((egg, index)=> {
+    domEvents.addEventListener(eggs[index], "click", function(event){
+        clickEgg(eggs[index], offsets[index], index); 
+      }); 
   }); 
-  domEvents.addEventListener(park, "click", function(event){
-    clickEgg(park, offsets[1], 1); 
+  eggs.forEach((egg, index)=> {
+       startingColor[index] =eggs[index].material.color.getHex()
   }); 
-  domEvents.addEventListener(geo, "click", function(event){
-    clickEgg(geo, offsets[2], 2); 
+  eggs.forEach((egg, index)=> {
+    domEvents.addEventListener(eggs[index], "mouseover", function(event){
+        eggs[index].material.color.setHex(0xFF0000); 
+      }); 
   }); 
-  domEvents.addEventListener(com, "click", function(event){
-    clickEgg(com, offsets[3], 3); 
+  eggs.forEach((egg, index)=> {
+    domEvents.addEventListener(eggs[index], "mouseout", function(event){
+        eggs[index].material.color.setHex(startingColor[index]); 
+      }); 
   }); 
-  domEvents.addEventListener(ada, "click", function(event){
-    clickEgg(ada, offsets[4], 4); 
-  }); 
-
-  //MOUSEOVER EVENTS
-  domEvents.addEventListener(mus, "mouseover", function(event){
-      //do some hover action 
-//   musTrig.material.emissive.setHex( 0xFFFF00);
-  })
-  domEvents.addEventListener(mus, 'mouseout', function(event){
-      //return after out action 
-//   musTrig.material.emissive.setHex( 0xFF0000);
-  });  
-//add something that removes this event listener as well 
   window.addEventListener("resize", onWindowResize, true);
-
-//scrolling effect that switches museum to torpedo
-  popUp[0].onwheel = scrollHistorical; 
+    //scrolling effect that switches museum to torpedo
+    popUp[0].onwheel = scrollHistorical; 
 }
 function scrollHistorical(event){
     if(amountScroll >= scrollMaxPres){
@@ -117,8 +105,7 @@ function scrollHistorical(event){
       console.log("max"); 
       popUp[0].style.color ='#F9ECDC';
       clearModal(); 
-      let offset = {x: 80, y: 20, z: 0};
-      clickEgg(nhTrig, offset, 5); 
+      clickEgg(nhTrig, offsets[5], 5); 
       amountScroll =0; 
     }
     else if(amountScroll <4000 && amountScroll> 0){
@@ -141,71 +128,61 @@ function scrollHistorical(event){
   }
 
 function showParks(){
-    let position = new THREE.Vector3(0, 90, 0); 
-    tweenCameraBack(camera, position, 2000); 
-    const wilds = new THREE.TextureLoader().load("/media/wilds.png");
-    var parkP = new THREE.PlaneGeometry(15, 10);
-    var parkM = new THREE.MeshStandardMaterial({
-      // color: 0xffffbb,
-      map: wilds,
-      transparent: true,
-      // opacity: 0.8,
-    });
-    parkAdd1 = new THREE.Mesh(parkP,parkM);
-    parkAdd1.rotation.x = -90 * (Math.PI / 180);
-    parkAdd1.position.y = 1;
-    parkAdd1.scale.set(10, 10,10); 
-    scene.add(parkAdd1);
+    let position = new THREE.Vector3(-50, 150, 0); 
+    parkTween(camera, position, 2000); 
+    
     // mus.position.set(-23, 5, 26);
     // mapItems[0] = mus;
     // offsets[0] =  {x: 10, y: 50, z: 50}; 
 }
+function parkTween(camera, position, duration) {    
+    let coords = { x: camera.position.x, y: camera.position.y, z: camera.position.z };
+    // console.log("camera x " + coords.x + " camera y " + coords.y + " camera z " + coords.z); 
+  var tween3 = new TWEEN.Tween(camera.position)
+  .to({x:position.x, y: position.y, z: position.z}, 1500)
+  .easing(TWEEN.Easing.Quadratic.In)
+  .onComplete(() =>{
+      scene.add(parkAdd1);})
+  .start();
+  
+  }
 function clickEgg(clicked, offset, index){
   //TWEEN TO LOCATION/ ZOOM
   clearModal(); 
-  let moveTO = new THREE.Vector3(clicked.position.x + offset.x, clicked.position.y + offset.y, clicked.position.z + offset.z,  )  
-  tweenCamera(camera,moveTO, 3500, clicked ); 
-
-    overlay.style.display ="block"; 
-    popUp[index].style.display = "block"; 
-    modelContent.forEach((modelContent)=>{modelContent.scrollTop = 0}); 
-    overlay.addEventListener("click", clearPopUp, false); 
+  let moveTO = new THREE.Vector3(clicked.position.x + offset.x, clicked.position.y + offset.y, clicked.position.z + offset.z)  
+  tweenCamera(camera,moveTO, 3500, clicked, index );
+    
 }
 
-function tweenCamera(camera, position, duration, object) {   
+function tweenCamera(camera, position, duration, object, index) {   
 
   new TWEEN.Tween(camera.position).to({
     x: position.x, y: position.y , z:position.z 
-  }, duration)
-  // .easing(TWEEN.Linear.None)
-   .onUpdate(function(){
-    // camera.position.set(position.x, position.y, camera.position.z);
-    // camera.lookAt(object.position)
-        })
-        .onComplete(function() {
-      })
+  }, 1500)
+  .easing(TWEEN.Easing.Quadratic.In)
+  .onComplete(() =>{
+    overlay.style.display ="block"; 
+    popUp[index].style.display = "block"; 
+    modelContent.forEach((modelContent)=>{modelContent.scrollTop = 0}); 
+    overlay.addEventListener("click", clearPopUp, false);  
+  })
   .start();
   console.log(camera.position)
 }
 function tweenCameraBack(camera, position, duration) {    
   let coords = { x: camera.position.x, y: camera.position.y, z: camera.position.z };
   // console.log("camera x " + coords.x + " camera y " + coords.y + " camera z " + coords.z); 
-  var tween = new TWEEN.Tween(coords)
-  .to({x:position.x, y: position.y, z: position.z}, 2500)
-  .delay(50) 
+  var tween2 = new TWEEN.Tween(camera.position)
+  .to({x:position.x, y: position.y, z: position.z}, 1500)
   .easing(TWEEN.Easing.Quadratic.In)
-  .onUpdate(() =>{
-    camera.position.set(coords.x, coords.y, camera.position.z);
-    // console.log("updated camera " + "camera x " + coords.x + " camera y " + coords.y + " camera z " + coords.z); 
-    camera.lookAt(scene.position)
-  })
   .start();
-  
 
 }
 function clearModal(){
   overlay.style.display ="none"; 
   console.log("you exited a modal"); 
+scene.remove(extraImages[0]); 
+  extraImages.forEach((extraImage)=>{scene.remove(extraImage)}); 
   modelContent.forEach((modelContent)=>{modelContent.scrollTop = 0}); 
     popUp.forEach((popUp, index)=> {
       popUp.style.display = "none";
@@ -257,65 +234,73 @@ function makeClouds(){
 
 function setUpCubes(){
 const water = new THREE.TextureLoader().load("/media/water.jpg");
-const lake = new THREE.TextureLoader().load("/media/musuem.png");
-    //WATER PLANE
+const musImg = new THREE.TextureLoader().load("/media/museum.png");
+    //ADD MUSUEM CUBE
   var musGeometry = new THREE.PlaneGeometry(15, 10);
   var musMaterial = new THREE.MeshStandardMaterial({
-    // color: 0xffffbb,
-    map: lake,
+    map: musImg,
     transparent: true,
-    // opacity: 0.8,
   });
   mus = new THREE.Mesh(musGeometry, musMaterial);
+  eggs[0] = mus; 
   mus.rotation.x = -90 * (Math.PI / 180);
   mus.position.y = 3;
   scene.add(mus);
   mus.position.set(-23, 5, 26);
   mapItems[0] = mus;
-  offsets[0] =  {x: 10, y: 50, z: 50}; 
+  offsets[0] =  {x: 5, y: 50, z: 4}; 
 
-  //ADD MUSUEM CUBE
   //ADD PARK CUBE
-  park = new THREE.Sprite(new THREE.SpriteMaterial({ map: lake, trasparent: true }));
-park.rotation.x = -90 * (Math.PI / 180);
-
+  park = new THREE.Sprite(new THREE.SpriteMaterial({alphaMap: mapPlane, map: musImg, trasparent: true,  side: THREE.DoubleSide,depthWrite: true }));
+// park.rotation.x = -90 * (Math.PI / 180);
   eggs[1] = park; 
   scene.add(park);
+  mapItems[1] = park;
   park.scale.set(20, 10,20); 
-  park.position.set(-30, 3, -100);
-//   parkTrig.scale.set(8, 8, 8);
-  offsets[1] = {x: 0, y: 40, z: -50}; 
+  park.position.set(-30, 4, -100);
+  offsets[1] = {x: 5, y: 50, z: 5}; 
+//Extra park stuff
+const wilds = new THREE.TextureLoader().load("/media/wilds.png");
+    var parkP = new THREE.PlaneGeometry(15, 10);
+    var parkM = new THREE.MeshStandardMaterial({  map: wilds, transparent: true});
+  parkAdd1 = new THREE.Mesh(parkP,parkM);
+  parkAdd1.rotation.x = -90 * (Math.PI / 180);
+  parkAdd1.position.y = 1;
+  parkAdd1.scale.set(5, 5,5); 
+  extraImages[0] = parkAdd1
 //GEOLOGY 
-const geo1 = new THREE.BoxBufferGeometry();
-  var mat = new THREE.MeshStandardMaterial({ color: 0xf3ffe2 });
-  geo= new THREE.Mesh(geo1, mat);
-  mapItems[2] = geo;
-  eggs[2]; 
+  var geoGeometry = new THREE.PlaneGeometry(15, 10);
+  var geoMaterial = new THREE.MeshStandardMaterial({
+    map: musImg,
+    transparent: true,
+  });
+  geo = new THREE.Mesh(geoGeometry, geoMaterial);
+  geo.rotation.x = -90 * (Math.PI / 180);
+  mus.position.y = 3;
   scene.add(geo);
-  geo.position.set(20, 0, -60);
-  geo.scale.set(8, 8, 8);
-  offsets[2] = {x: 30, y: 40, z: -10}; 
-//COMMUNITY 
-const geo2 = new THREE.BoxBufferGeometry();
-  var mat2 = new THREE.MeshStandardMaterial({ color: 0xf3ffe2 });
-  com = new THREE.Mesh(geo2, mat2);
+  geo.position.set(20, 4, -60);
+  mapItems[2] = geo;
+  offsets[2] =  {x: 30, y: 40, z: -10}; 
+  eggs[2] = geo; 
+
+
+  com = new THREE.Sprite(new THREE.SpriteMaterial({alphaMap: mapPlane, map: musImg, trasparent: true,  side: THREE.DoubleSide,depthWrite: true }));
+  eggs[3] =com; 
   mapItems[3] = com;
-  eggs[3]; 
   scene.add(com);
-  com.position.set(-20, 0, -60);
-  com.scale.set(8, 8, 8);
-  offsets[3] = {x: -20, y: 40, z: -30}; 
+  com.scale.set(20, 10,20); 
+  com.position.set(-20, 3, -60);
+  offsets[3] = {x: 5, y: 50, z: 5}; 
 
 //ADAPTIVE 
-const geo3 = new THREE.BoxBufferGeometry();
-  var mat3 = new THREE.MeshStandardMaterial({ color: 0xf3ffe2 });
-  ada= new THREE.Mesh(geo3, mat3);
+    ada = new THREE.Sprite(new THREE.SpriteMaterial({ map: musImg, trasparent: true,   }));
+  eggs[4] =ada; 
   mapItems[4] = ada;
-  eggs[4];
   scene.add(ada);
-  ada.position.set(-90, 0, -80);
-  ada.scale.set(8, 8, 8);
-  offsets[4] = {x: -25, y: 40, z: -40}; 
+  ada.scale.set(20, 10,20); 
+  ada.position.set(-90, 3, -80);
+   offsets[4] = {x: 4, y: 50, z: 3}; 
+
 
   //ADD TORPOEDO house CUBE
   const geometry3 = new THREE.BoxBufferGeometry();
@@ -325,7 +310,7 @@ const geo3 = new THREE.BoxBufferGeometry();
   scene.add(nhTrig);
   nhTrig.position.set(50, 0, 80);
   nhTrig.scale.set(5, 5, 5);
-  offsets[5] = {x: 20, y: 40, z: 0}; 
+  offsets[5] = {x: 0, y: 40, z: 0}; 
 
   //ADD building 2
   const geometry4 = new THREE.BoxBufferGeometry();
@@ -335,7 +320,7 @@ const geo3 = new THREE.BoxBufferGeometry();
   scene.add(buil2Trig);
   buil2Trig.position.set(5, 0, 15);
   buil2Trig.scale.set(5, 5, 5);
-  offsets[6] = {x: 20, y: 40, z: 0}; 
+  offsets[6] = {x: 2, y: 40, z: 2}; 
 
     //ADD building 3
     const geometry5 = new THREE.BoxBufferGeometry();
@@ -345,7 +330,42 @@ const geo3 = new THREE.BoxBufferGeometry();
     scene.add(buil3Trig);
     buil3Trig.position.set(25, 0, 5);
     buil3Trig.scale.set(5, 5, 5);
-    offsets[7] = {x: 20, y: 40, z: 0}; 
+    offsets[7] = {x: 2, y: 40, z: 2}; 
+
+
+    //MARKER CUBES 
+// 0,0
+const geo2 = new THREE.BoxBufferGeometry();
+var mat2 = new THREE.MeshStandardMaterial({ color: 0xf3ffe2 });
+cube1 = new THREE.Mesh(geo2, mat2);
+scene.add(cube1);
+cube1.position.set(0, 0, 0);
+cube1.scale.set(8, 8, 8);
+
+//X 100
+const geo3 = new THREE.BoxBufferGeometry();
+var mat3 = new THREE.MeshStandardMaterial({ color: 0xffffff });
+cube2 = new THREE.Mesh(geo3, mat3);
+scene.add(cube2);
+cube2.position.set(100, 0, 0);
+cube2.scale.set(8, 8, 8);
+
+//Y 100
+const geo4 = new THREE.BoxBufferGeometry();
+var mat4 = new THREE.MeshStandardMaterial({ color: 0xffffff });
+cube3 = new THREE.Mesh(geo4, mat4);
+scene.add(cube3);
+cube3.position.set(0, 0, 100);
+cube3.scale.set(8, 8, 8);
+
+//X -100
+const geo5 = new THREE.BoxBufferGeometry();
+var mat5 = new THREE.MeshStandardMaterial({ color: 0xffffff });
+cube5 = new THREE.Mesh(geo5, mat5);
+scene.add(cube5);
+cube5.position.set(-100, 0, 0);
+cube5.scale.set(8, 8, 8);
+
 }
 
 function makeGround(){
@@ -358,7 +378,9 @@ const water = new THREE.TextureLoader().load("/media/water.jpg");
     color: 0xffffbb,
     map: water,
     transparecy: true,
-    opacity: 0.6,
+    side: THREE.DoubleSide,
+    depthWrite: false,
+    opacity: 0.5,
   });
   ground = new THREE.Mesh(planeGeometry, planeMaterial);
   ground.rotation.x = -90 * (Math.PI / 180);
@@ -370,10 +392,13 @@ const water = new THREE.TextureLoader().load("/media/water.jpg");
   var planeMaterial = new THREE.MeshStandardMaterial({
     map: map,
     transparent: true,
+    side: THREE.DoubleSide,
+    depthWrite: false
   });
   mapPlane = new THREE.Mesh(planeGeometry, planeMaterial);
   mapPlane.rotation.x = -90 * (Math.PI / 180);
   scene.add(mapPlane);
+
 }
 
 function onWindowResize() {
@@ -385,12 +410,11 @@ function onWindowResize() {
 }
 function animate(time) {
 
-  camera.updateMatrixWorld();
-  TWEEN.update(time); 
-  // camera.lookAt(scene.position);
-  //KEEP RUNNING THESE FUNCTIONS
+  camera.updateMatrixWorld(); 
 
-  renderer.render(scene, camera);
   requestAnimationFrame(animate);
-  controls.update();
+  TWEEN.update(time); 
+  renderer.render(scene, camera);
+//   controls.update();
+//   controls.handleResize();
 }
