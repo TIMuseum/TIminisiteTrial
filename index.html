@@ -22,6 +22,7 @@
             <i class="fas fa-times" aria-hidden="true"></i>
         </button> -->
         <div class="modalContent">
+            <button type="button"onclick= "clearPopUp(event)">Close</button>
         <h2>Historical Preservation</h2> 
         <img src ="media/historical_2.jpg">
         <img src ="media/historical_2.jpg">
@@ -30,40 +31,68 @@
         <img src ="media/historical_2.jpg">
         <img src ="media/historical_2.jpg">
         <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ratione suscipit dolorem adipisci eligendi inventore quibusdam error repudiandae, iste quaerat fugit facere perspiciatis aliquam quia non? Porro officiis nisi qui eligendi.<p>
+             <button type="button"onclick= "clickBack(1, event)">Parks</button>
+        <button type="button"onclick= "clickBack(4, event)">Adaptive Design</button>
         </div>
+       
     </div>
        <!-- popUp 1 -->
     <div class= "popUp"id="parks">  
            <div class="modalContent">
+            <button type="button"onclick= "clearPopUp(event)">Close</button>
+               <div class = "parkContent">
             <h2>Parks and Public Spaces</h2> 
             <img src ="media/placeholder1.jpg">
-            <button type="button"onclick= "showParks()">Show all the parks</button>
+        </div>
+        <div class = "parkContent">
+            <h2>Some Other Point About Parks</h2> 
+            <img src ="media/historical_2.jpg">
+        </div>
+        <div class = "parkContent">
+            <h2>More Info About Parks</h2> 
+            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Corporis cum similique veniam quaerat nam cumque vero dignissimos nihil. Iste eveniet voluptas, asperiores omnis numquam harum at alias quod similique aliquid.</p>
+            <img src ="media/placeholder2.jpg">
+        </div>
+            <button type="button"onclick= "showParks1(event)">Show all the parks</button>
+            <button type="button"onclick= "clickBack(0, event)">Historical Preservation</button>
+            <button type="button"onclick= "clickBack(2, event)">Geology</button>
             </div>
+           
     </div>
      <!-- popUp 2 -->
     <div class= "popUp"id="geology">
         <div class="modalContent">
+            <button type="button"onclick= "clearPopUp(event)">Close</button>
             <h2>Geology</h2> 
             <img src ="media/placeholder1.jpg">
-            </div>
+            <button type="button"onclick= "clickBack(1, event)">Parks</button>
+            <button type="button"onclick= "clickBack(3, event)">Community</button>
+        </div>
     </div>
     <!-- popUp 3-->
     <div class= "popUp"id="community">
         <div class="modalContent">
+            <button type="button"onclick= "clearPopUp(event)">Close</button>
             <h2>Community</h2> 
             <img src ="media/placeholder1.jpg">
-            </div>
+            <button type="button"onclick= "clickBack(2, event)">Geology</button>
+            <button type="button"onclick= "clickBack(4, event)">Adaptive Design</button>
+        </div>
     </div>
     <!-- popUp 4-->
     <div class= "popUp"id="adaptive">
         <div class="modalContent">
+            <button type="button"onclick= "clearPopUp(event)">Close</button>
             <h2>Adaptive Design</h2> 
             <img src ="media/placeholder1.jpg">
-            </div>
+            <button type="button"onclick= "clickBack(3, event)">Community</button>
+            <button type="button"onclick= "clickBack(0, event)">Historical Preservation</button>
+        </div>
     </div>
   <!-- popUp 5 (historical 0)-->
     <div class= "popUp"id="historical">
         <div class ="torp" id="modalContent">
+            <button type="button"onclick= "clearPopUp(event)">Close</button>
         <h2>Now We are looking at the torpedo house </h2> 
         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae officiis rerum impedit dolore, unde commodi sint. Cumque, optio vitae ratione ex sint repellat eum! Necessitatibus eveniet earum impedit dolore suscipit.
         </p>
@@ -75,6 +104,7 @@
      <!-- popUp 6 (historical 1)-->
     <div class= "popUp"id="historical">
         <div class="modalContent">
+            <button type="button"onclick= "clearPopUp(event)">Close</button>
         <h2>Now We are looking at Building 2</h2> 
         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae officiis rerum impedit dolore, unde commodi sint. Cumque, optio vitae ratione ex sint repellat eum! Necessitatibus eveniet earum impedit dolore suscipit.
         </p>
@@ -86,6 +116,7 @@
         <!-- popUp 7 (historical 2)-->
     <div class= "popUp"id="historical">
         <div class="modalContent">
+            <button type="button"onclick= "clearPopUp(event)">Close</button>
         <h2>Now We are looking at Building 3</h2> 
         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae officiis rerum impedit dolore, unde commodi sint. Cumque, optio vitae ratione ex sint repellat eum! Necessitatibus eveniet earum impedit dolore suscipit.
         </p>

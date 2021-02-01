@@ -126,7 +126,9 @@ margin-bottom: 1em;
   color: purple; 
 }
 
-
+.parkContent{
+  display:none; 
+}
 
 @keyframes overlay {
   0%   {opacity:0; }
