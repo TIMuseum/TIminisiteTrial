@@ -17,8 +17,9 @@ const popUp = document.querySelectorAll(".popUp");
 let overlay = document.querySelector(".modalOverlay"); 
 let modelContent = document.querySelectorAll(".modalContent");
 let parkBlock = document.querySelectorAll(".parkContent"); 
-parkBlock[0].style.display="block"; 
-
+parkBlock[0].style.display="inline-block"; 
+let parkButtons = document.querySelectorAll(".parkTransitions"); 
+parkButtons[0].style.display="inline-block"; 
 let amountScroll = 0; 
 const scrollMaxPres = 3500; 
 
@@ -87,8 +88,6 @@ function watchEvents(domEvents){
     domEvents.addEventListener(eggs[index], "click", function(event){
       TWEEN.removeAll();
       parkBlock[0].style.displ
-      if(index =1){
-        parkBlock[0].style.display="block"; }
         clickEgg(eggs[index], offsets[index], index); 
       }); 
   }); 
@@ -151,19 +150,19 @@ function scrollHistorical(event){
     if(amountScroll >= scrollMaxPres){
       amountScroll = scrollMaxPres; 
       // console.log("max"); 
-      popUp[0].style.color ='#F9ECDC';
+      // popUp[0].style.color ='#F9ECDC';
       clearModal(true); 
       clickEgg(nhTrig, offsets[5], 5, true); 
       amountScroll =0; 
     }
     else if(amountScroll <4000 && amountScroll> 0){
-      popUp[0].style.color ='#89CBAB';
+      // popUp[0].style.color ='#89CBAB';
     }
    
     else if(amountScroll <=0){
       amountScroll = 0; 
       // console.log("min"); 
-      popUp[0].style.color ='#B13929';
+      // popUp[0].style.color ='#B13929';
     }
     // console.log("amount Scroll " + amountScroll); 
     amountScroll+=event.deltaY; 
@@ -177,7 +176,15 @@ function scrollHistorical(event){
 function showParks1(){
     let position = new THREE.Vector3(0, 200, 0); 
     parkBlock[0].style.display="none"; 
+    parkButtons[0].style.display="none"; 
+    parkButtons[1].style.display="inline-block"; 
+    //MAKE OVERLAY NOT VISIBLE BUT PRESENT
     parkTween(camera, position, 2000); 
+}
+function showParks2(){
+  parkBlock[1].style.display="inline-block"; 
+  parkButtons[1].style.display="none"; 
+    parkButtons[2].style.display="inline-block"; 
 }
 function parkTween(camera, position, duration) {    
     let coords = { x: camera.position.x, y: camera.position.y, z: camera.position.z };
@@ -200,7 +207,7 @@ console.log(parkAdd1.material.opacity);
 function clickEgg(clicked, offset, index, clear){
   //TWEEN TO LOCATION/ ZOOM
   clearModal(clear); 
-  TWEEN.removeAll();
+  parkBlock[0].style.display="block";
   //change the appearnace of clicked v not clicked things
 clicked.material.color.setHex(startingColor[index]); 
 mapItems.forEach((mapItem, index) =>{
@@ -209,13 +216,14 @@ mapItems.forEach((mapItem, index) =>{
 clicked.scale.x =2; 
 clicked.scale.y =2; 
 clicked.scale.z =2; 
-
+TWEEN.removeAll();
 clicked.material.color.setHex(startingColor[index]); 
   let moveTO = new THREE.Vector3(clicked.position.x + offset.x, clicked.position.y + offset.y, clicked.position.z + offset.z)  
   tweenCamera(camera,moveTO, 3500, clicked, index );  
 }
 
 function tweenCamera(camera, position, duration, object, index) {   
+  TWEEN.removeAll();
   new TWEEN.Tween(camera.position).to({
     x: position.x, y: position.y , z:position.z 
   }, 1500)
@@ -243,9 +251,9 @@ function clearModal(overlayDisplay){
   else{
     overlay.style.display ="none"; 
   }
-  parkAdd1.material.opacity = 0; 
+  // parkAdd1.material.opacity = 0; 
   mapPlane.material.opacity = 1;
-  // extraImages.forEach((extraImage)=>{scene.remove(extraImage)}); 
+  extraImages.forEach((extraImage)=>{extraImage.material.opacity =0}); 
   modelContent.forEach((modelContent)=>{modelContent.scrollTop = 0}); 
     popUp.forEach((popUp, index)=> {
       popUp.style.display = "none";
@@ -299,12 +307,12 @@ const water = new THREE.TextureLoader().load("/media/water.jpg");
 const musImg = new THREE.TextureLoader().load("/media/museum.png");
 //ADD MUSUEM CUBE
   offsets[0] =  {x: 5, y: 50, z: 4}; 
-   let pos0 = {x: -23,  y:5, z:26 }
+   let pos0 = {x: 12,  y:5, z:23 }
    let size0 = {x: 15, y: 10}; 
   setUpEgg(0, size0, mus, pos0,musImg); 
   //ADD PARK CUBE
   offsets[1] = {x: 5, y: 50, z: 5}; 
-  let pos1 = {x: -30,  y:4, z:-100 }
+  let pos1 = {x: -90,  y:4, z:-40 }
   let size1 = {x: 15, y: 10}; 
  setUpEgg(1, size1, park, pos1,musImg);
 
@@ -324,19 +332,19 @@ const musImg = new THREE.TextureLoader().load("/media/museum.png");
   parkAdd1.material.opacity = 0;
 //GEOLOGY 
   offsets[2] =  {x: 10, y: 40, z: -10}; 
-  let pos2 = {x: 20,  y:4, z:-60}
+  let pos2 = {x: -45,  y:4, z:-70}
   let size2 = {x: 15, y: 10}; 
  setUpEgg(2, size2, geo, pos2,musImg);
 
 //COMMUNITY
     offsets[3] = {x: 5, y: 50, z: 5}; 
-    let pos3 = {x: -20,  y:3, z:-60 }
+    let pos3 = {x: -30,  y:3, z:-20 }
     let size3 = {x: 15, y: 10}; 
    setUpEgg(3, size3, com, pos3,musImg);
 
 //ADAPTIVE 
    offsets[4] = {x: 4, y: 50, z: 3}; 
-    let pos4 = {x: -90,  y:3, z:-80 }
+    let pos4 = {x: -140,  y:3, z:10 }
     let size4 = {x: 15, y: 10}; 
    setUpEgg(4, size4, ada, pos4,musImg);
 
@@ -347,7 +355,7 @@ const musImg = new THREE.TextureLoader().load("/media/museum.png");
   nhTrig = new THREE.Mesh(geometry3, boxMat3);
   mapItems[5] = nhTrig;
   scene.add(nhTrig);
-  nhTrig.position.set(50, 0, 80);
+  nhTrig.position.set(85, 0, -35);
   nhTrig.scale.set(5, 5, 5);
   offsets[5] = {x: 0, y: 40, z: 0}; 
 
@@ -357,7 +365,7 @@ const musImg = new THREE.TextureLoader().load("/media/museum.png");
   buil2Trig = new THREE.Mesh(geometry4, boxMat4);
   mapItems[6] = buil2Trig;
   scene.add(buil2Trig);
-  buil2Trig.position.set(5, 0, 15);
+  buil2Trig.position.set(15, 0, -10);
   buil2Trig.scale.set(5, 5, 5);
   offsets[6] = {x: 2, y: 40, z: 2}; 
 
@@ -367,7 +375,7 @@ const musImg = new THREE.TextureLoader().load("/media/museum.png");
     buil3Trig = new THREE.Mesh(geometry5, boxMat5);
     mapItems[7] =  buil3Trig;
     scene.add(buil3Trig);
-    buil3Trig.position.set(25, 0, 5);
+    buil3Trig.position.set(15, 0, -30);
     buil3Trig.scale.set(5, 5, 5);
     offsets[7] = {x: 2, y: 40, z: 2}; 
 
@@ -414,9 +422,9 @@ function makeGround(){
     // scene.add(ground2);
 // }
 
-const map = new THREE.TextureLoader().load("/media/map@2x.png");
+const map = new THREE.TextureLoader().load("/media/map.png");
   //MAP PLANE
-  var planeGeometry = new THREE.PlaneGeometry(200, 300);
+  var planeGeometry = new THREE.PlaneGeometry(300, 150);
   var planeMaterial = new THREE.MeshStandardMaterial({
     map: map,
     transparent: true,

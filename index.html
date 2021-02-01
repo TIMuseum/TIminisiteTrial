@@ -7,6 +7,7 @@
     <title>Microsite Trials</title>
     <link type="text/css" rel="stylesheet" href="css/main.css">
     <script src="https://kit.fontawesome.com/89928a6ed0.js"></script>
+    <style media="all" id="fa-main"></style>
 </head>
 
 <body>
@@ -22,7 +23,10 @@
             <i class="fas fa-times" aria-hidden="true"></i>
         </button> -->
         <div class="modalContent">
-            <button type="button"onclick= "clearPopUp(event)">Close</button>
+            <button onclick= "clearPopUp(event)"class="close-button" id="close-button" role="close" name="close" value="close">
+                <span class="visually-hidden">Close</span>
+                <i class="fas fa-times" aria-hidden="true"></i>
+              </button>
         <h2>Historical Preservation</h2> 
         <img src ="media/historical_2.jpg">
         <img src ="media/historical_2.jpg">
@@ -34,12 +38,20 @@
              <button type="button"onclick= "clickBack(1, event)">Parks</button>
         <button type="button"onclick= "clickBack(4, event)">Adaptive Design</button>
         </div>
-       
+        <div class="bottomNav">
+            <button type="button"onclick= "clickBack(0, event)"><img src="/media/placeholderMap.png"> <div class ="buttonTxt"><h6>Parks</h6></div></button>
+            <button type="button"onclick= "clickBack(2, event)"><img src="/media/placeholderMap.png"><div class ="buttonTxt"><h6>Geology</h6></div></button>
+            <button type="button"onclick= "clickBack(3, event)"><img src="/media/placeholderMap.png"><div class ="buttonTxt"><h6>Community</h6></div></button>
+            <button type="button"onclick= "clickBack(4, event)"><img src="/media/placeholderMap.png"><div class ="buttonTxt"><h6>Adaptive Design</h6></div></button>
+        </div>
     </div>
        <!-- popUp 1 -->
     <div class= "popUp"id="parks">  
            <div class="modalContent">
-            <button type="button"onclick= "clearPopUp(event)">Close</button>
+            <button onclick= "clearPopUp(event)"class="close-button" id="close-button" role="close" name="close" value="close">
+                <span class="visually-hidden">Close</span>
+                <i class="fas fa-times" aria-hidden="true"></i>
+              </button>
                <div class = "parkContent">
             <h2>Parks and Public Spaces</h2> 
             <img src ="media/placeholder1.jpg">
@@ -53,41 +65,73 @@
             <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Corporis cum similique veniam quaerat nam cumque vero dignissimos nihil. Iste eveniet voluptas, asperiores omnis numquam harum at alias quod similique aliquid.</p>
             <img src ="media/placeholder2.jpg">
         </div>
-            <button type="button"onclick= "showParks1(event)">Show all the parks</button>
-            <button type="button"onclick= "clickBack(0, event)">Historical Preservation</button>
-            <button type="button"onclick= "clickBack(2, event)">Geology</button>
+            <button type="button" class="parkTransitions" id="parks1" onclick= "showParks1(event)">Show all the parks</button>
+            <button type="button" class="parkTransitions" id="parks2" onclick= "showParks2(event)">More</button>
+            <button type="button" class="parkTransitions" id="parks3" onclick= "showParks3(event)">Even More</button>
             </div>
-           
+            <div class="bottomNav">       
+                    <button type="button"onclick= "clickBack(0, event)"><img src="/media/placeholderMap.png"> <div class ="buttonTxt"><h6>Historical Preservation</h6></div></button>
+                    <button type="button"onclick= "clickBack(2, event)"><img src="/media/placeholderMap.png"><div class ="buttonTxt"><h6>Geology</h6></div></button>
+                    <button type="button"onclick= "clickBack(3, event)"><img src="/media/placeholderMap.png"><div class ="buttonTxt"><h6>Community</h6></div></button>
+                    <button type="button"onclick= "clickBack(4, event)"><img src="/media/placeholderMap.png"><div class ="buttonTxt"><h6>Adaptive Design</h6></div></button>
+            </div>
     </div>
      <!-- popUp 2 -->
-    <div class= "popUp"id="geology">
+    <div class= "popUp"id="geology">  
         <div class="modalContent">
-            <button type="button"onclick= "clearPopUp(event)">Close</button>
+            <button onclick= "clearPopUp(event)"class="close-button" id="close-button" role="close" name="close" value="close">
+                <span class="visually-hidden">Close</span>
+                <i class="fas fa-times" aria-hidden="true"></i>
+              </button>
             <h2>Geology</h2> 
             <img src ="media/placeholder1.jpg">
             <button type="button"onclick= "clickBack(1, event)">Parks</button>
             <button type="button"onclick= "clickBack(3, event)">Community</button>
         </div>
+        <div class="bottomNav">       
+            <button type="button"onclick= "clickBack(0, event)"><img src="/media/placeholderMap.png"> <div class ="buttonTxt"><h6>Historical Preservation</h6></div></button>
+            <button type="button"onclick= "clickBack(2, event)"><img src="/media/placeholderMap.png"><div class ="buttonTxt"><h6>Geology</h6></div></button>
+            <button type="button"onclick= "clickBack(3, event)"><img src="/media/placeholderMap.png"><div class ="buttonTxt"><h6>Community</h6></div></button>
+            <button type="button"onclick= "clickBack(4, event)"><img src="/media/placeholderMap.png"><div class ="buttonTxt"><h6>Adaptive Design</h6></div></button>
+    </div>
     </div>
     <!-- popUp 3-->
     <div class= "popUp"id="community">
         <div class="modalContent">
-            <button type="button"onclick= "clearPopUp(event)">Close</button>
+            <button onclick= "clearPopUp(event)"class="close-button" id="close-button" role="close" name="close" value="close">
+                <span class="visually-hidden">Close</span>
+                <i class="fas fa-times" aria-hidden="true"></i>
+              </button>
             <h2>Community</h2> 
             <img src ="media/placeholder1.jpg">
             <button type="button"onclick= "clickBack(2, event)">Geology</button>
             <button type="button"onclick= "clickBack(4, event)">Adaptive Design</button>
         </div>
+        <div class="bottomNav">       
+            <button type="button"onclick= "clickBack(0, event)"><img src="/media/placeholderMap.png"> <div class ="buttonTxt"><h6>Historical Preservation</h6></div></button>
+            <button type="button"onclick= "clickBack(2, event)"><img src="/media/placeholderMap.png"><div class ="buttonTxt"><h6>Geology</h6></div></button>
+            <button type="button"onclick= "clickBack(3, event)"><img src="/media/placeholderMap.png"><div class ="buttonTxt"><h6>Community</h6></div></button>
+            <button type="button"onclick= "clickBack(4, event)"><img src="/media/placeholderMap.png"><div class ="buttonTxt"><h6>Adaptive Design</h6></div></button>
+    </div>
     </div>
     <!-- popUp 4-->
     <div class= "popUp"id="adaptive">
         <div class="modalContent">
-            <button type="button"onclick= "clearPopUp(event)">Close</button>
+            <button onclick= "clearPopUp(event)"class="close-button" id="close-button" role="close" name="close" value="close">
+                <span class="visually-hidden">Close</span>
+                <i class="fas fa-times" aria-hidden="true"></i>
+              </button>
             <h2>Adaptive Design</h2> 
             <img src ="media/placeholder1.jpg">
             <button type="button"onclick= "clickBack(3, event)">Community</button>
             <button type="button"onclick= "clickBack(0, event)">Historical Preservation</button>
         </div>
+        <div class="bottomNav">       
+            <button type="button"onclick= "clickBack(0, event)"><img src="/media/placeholderMap.png"> <div class ="buttonTxt"><h6>Historical Preservation</h6></div></button>
+            <button type="button"onclick= "clickBack(2, event)"><img src="/media/placeholderMap.png"><div class ="buttonTxt"><h6>Geology</h6></div></button>
+            <button type="button"onclick= "clickBack(3, event)"><img src="/media/placeholderMap.png"><div class ="buttonTxt"><h6>Community</h6></div></button>
+            <button type="button"onclick= "clickBack(4, event)"><img src="/media/placeholderMap.png"><div class ="buttonTxt"><h6>Adaptive Design</h6></div></button>
+    </div>
     </div>
   <!-- popUp 5 (historical 0)-->
     <div class= "popUp"id="historical">
