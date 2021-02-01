@@ -20,8 +20,11 @@ let parkBlock = document.querySelectorAll(".parkContent");
 parkBlock[0].style.display="inline-block"; 
 let parkButtons = document.querySelectorAll(".parkTransitions"); 
 parkButtons[0].style.display="inline-block"; 
+const closeBtn = document.getElementById("close-button"); 
+
 let amountScroll = 0; 
 const scrollMaxPres = 3500; 
+
 
 //CAMERA VARIABLES
 const fov = 75;

@@ -18,16 +18,18 @@
 
     <!-- popUp 0 -->
     <div class= "popUp" id="mus">
-        <!-- close button doesnt work yet -->
-        <!-- <button class="closeBtn" type="button" onclick="clearPopUp(event)">
-            <i class="fas fa-times" aria-hidden="true"></i>
-        </button> -->
-        <div class="modalContent">
+        <div class="buttonContainer">
             <button onclick= "clearPopUp(event)"class="close-button" id="close-button" role="close" name="close" value="close">
                 <span class="visually-hidden">Close</span>
                 <i class="fas fa-times" aria-hidden="true"></i>
-              </button>
-        <h2>Historical Preservation</h2> 
+              </button> 
+            </div>
+        <div class="modalContent">
+       
+        <div class="introBlock">
+            <h2>Historical Preservation</h2> 
+            <h3>This is a subheader</h3>
+        </div> 
         <img src ="media/historical_2.jpg">
         <img src ="media/historical_2.jpg">
         <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ratione suscipit dolorem adipisci eligendi inventore quibusdam error repudiandae, iste quaerat fugit facere perspiciatis aliquam quia non? Porro officiis nisi qui eligendi.<p>
@@ -47,11 +49,14 @@
     </div>
        <!-- popUp 1 -->
     <div class= "popUp"id="parks">  
-           <div class="modalContent">
-            <button onclick= "clearPopUp(event)"class="close-button" id="close-button" role="close" name="close" value="close">
+        <div class="buttonContainer">
+          <button onclick= "clearPopUp(event)"class="close-button" id="close-button" role="close" name="close" value="close">
                 <span class="visually-hidden">Close</span>
                 <i class="fas fa-times" aria-hidden="true"></i>
               </button>
+        </div>
+           <div class="modalContent">
+          
                <div class = "parkContent">
             <h2>Parks and Public Spaces</h2> 
             <img src ="media/placeholder1.jpg">
@@ -78,11 +83,14 @@
     </div>
      <!-- popUp 2 -->
     <div class= "popUp"id="geology">  
+        <div class="buttonContainer">
+        <button onclick= "clearPopUp(event)"class="close-button" id="close-button" role="close" name="close" value="close">
+            <span class="visually-hidden">Close</span>
+            <i class="fas fa-times" aria-hidden="true"></i>
+          </button>
+        </div>
         <div class="modalContent">
-            <button onclick= "clearPopUp(event)"class="close-button" id="close-button" role="close" name="close" value="close">
-                <span class="visually-hidden">Close</span>
-                <i class="fas fa-times" aria-hidden="true"></i>
-              </button>
+           
             <h2>Geology</h2> 
             <img src ="media/placeholder1.jpg">
             <button type="button"onclick= "clickBack(1, event)">Parks</button>
@@ -97,11 +105,13 @@
     </div>
     <!-- popUp 3-->
     <div class= "popUp"id="community">
+        <div class="buttonContainer">
+        <button onclick= "clearPopUp(event)"class="close-button" id="close-button" role="close" name="close" value="close">
+            <span class="visually-hidden">Close</span>
+            <i class="fas fa-times" aria-hidden="true"></i>
+          </button>
+        </div>
         <div class="modalContent">
-            <button onclick= "clearPopUp(event)"class="close-button" id="close-button" role="close" name="close" value="close">
-                <span class="visually-hidden">Close</span>
-                <i class="fas fa-times" aria-hidden="true"></i>
-              </button>
             <h2>Community</h2> 
             <img src ="media/placeholder1.jpg">
             <button type="button"onclick= "clickBack(2, event)">Geology</button>
@@ -116,11 +126,13 @@
     </div>
     <!-- popUp 4-->
     <div class= "popUp"id="adaptive">
+        <div class="buttonContainer">
+        <button onclick= "clearPopUp(event)"class="close-button" id="close-button" role="close" name="close" value="close">
+            <span class="visually-hidden">Close</span>
+            <i class="fas fa-times" aria-hidden="true"></i>
+          </button>
+        </div>
         <div class="modalContent">
-            <button onclick= "clearPopUp(event)"class="close-button" id="close-button" role="close" name="close" value="close">
-                <span class="visually-hidden">Close</span>
-                <i class="fas fa-times" aria-hidden="true"></i>
-              </button>
             <h2>Adaptive Design</h2> 
             <img src ="media/placeholder1.jpg">
             <button type="button"onclick= "clickBack(3, event)">Community</button>
@@ -135,8 +147,13 @@
     </div>
   <!-- popUp 5 (historical 0)-->
     <div class= "popUp"id="historical">
+        <div class="buttonContainer">
+        <button onclick= "clearPopUp(event)"class="close-button" id="close-button" role="close" name="close" value="close">
+            <span class="visually-hidden">Close</span>
+            <i class="fas fa-times" aria-hidden="true"></i>
+          </button>
+        </div>
         <div class ="torp" id="modalContent">
-            <button type="button"onclick= "clearPopUp(event)">Close</button>
         <h2>Now We are looking at the torpedo house </h2> 
         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae officiis rerum impedit dolore, unde commodi sint. Cumque, optio vitae ratione ex sint repellat eum! Necessitatibus eveniet earum impedit dolore suscipit.
         </p>
@@ -147,8 +164,13 @@
     </div>
      <!-- popUp 6 (historical 1)-->
     <div class= "popUp"id="historical">
-        <div class="modalContent">
-            <button type="button"onclick= "clearPopUp(event)">Close</button>
+        <div class="buttonContainer">
+        <button onclick= "clearPopUp(event)"class="close-button" id="close-button" role="close" name="close" value="close">
+            <span class="visually-hidden">Close</span>
+            <i class="fas fa-times" aria-hidden="true"></i>
+          </button>
+        </div>
+        <div class="modalContent">    
         <h2>Now We are looking at Building 2</h2> 
         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae officiis rerum impedit dolore, unde commodi sint. Cumque, optio vitae ratione ex sint repellat eum! Necessitatibus eveniet earum impedit dolore suscipit.
         </p>
@@ -159,8 +181,13 @@
     </div>
         <!-- popUp 7 (historical 2)-->
     <div class= "popUp"id="historical">
+        <div class="buttonContainer">
+        <button onclick= "clearPopUp(event)"class="close-button" id="close-button" role="close" name="close" value="close">
+            <span class="visually-hidden">Close</span>
+            <i class="fas fa-times" aria-hidden="true"></i>
+          </button>
+        </div>
         <div class="modalContent">
-            <button type="button"onclick= "clearPopUp(event)">Close</button>
         <h2>Now We are looking at Building 3</h2> 
         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae officiis rerum impedit dolore, unde commodi sint. Cumque, optio vitae ratione ex sint repellat eum! Necessitatibus eveniet earum impedit dolore suscipit.
         </p>
