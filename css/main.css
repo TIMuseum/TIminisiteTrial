@@ -81,19 +81,17 @@ section{
   width: 60%; 
   height: 100%; 
   top: 0%;
-  left: 17.5%; 
+  left: 20%; 
   display: none; 
   z-index: 5; 
   animation-delay: 2s; 
   animation: scaleUp 1.5s .5s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
   animation-fill-mode: backwards;
-  border: 3px solid purple; 
+  /* border: 3px solid purple;  */
 }
 .buttonContainer{
   width: 100%; 
   position: relative; 
-  /* height: 50px;  */
-  /* border: 3px solid purple;  */
   display: flex; 
   
 }
@@ -102,42 +100,84 @@ width: 50px;
 height: 50px; 
 font-size: 40px; 
 position: fixed;  
-/* display: none;  */
 justify-self: flex-left; 
-/* border: 1px solid red;  */
+z-index: 10; 
+}
+button:hover{
+  cursor: pointer; 
+}
+.close-button:hover{
+  animation: crescendo.7s alternate infinite ease-in; 
 }
 .modalContent{
-  /* border: 2px solid purple;  */
-  position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 93%;
     overflow: auto;
     overflow-x: hidden;
-    display: block; 
-align-items: center;
-/* text-align: center;  */
 }
-.introBlock{
-  height: 100%; 
+#introBlock{
+  /* display: grid;
+  grid-template-columns: 25% 25% 25% 25%; */
+  /* grid-template-rows: 93vh 93vh; */
+  height: 93vh; 
+  /* justify-items: stretch;
+  align-items: stretch; */
+  position: absolute;
+   /* grid-template-areas: 
+     "header header header header"
+     "main main main main ";  */
+  /* grid-area: header; */
+
 }
+
+#zoomOutBlock{
+  display: none; 
+  animation: scaleUp 1.5s .5s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
+  animation-fill-mode: backwards;
+  height: 93vh; 
+}
+#explore{
+  position: fixed;  
+  left: 50%; 
+  bottom: 7%; 
+  z-index: 10; 
+  width: 100px; 
+  height: 100px; 
+  display: none; 
+  /* border: 1px solid red;  */
+}
+/* .explore{
+  width: 50px; 
+  height: 100px; 
+  font-size: 50px; 
+  animation: slide-top 1s cubic-bezier(0.250, 0.460, 0.450, 0.940) infinite alternate-reverse;
+}
+.explore i{
+}
+.explore h6{
+  top: 0%; 
+  font-size: 20px; 
+ } */
+
 .popUp h2{
 font-family: 'Lemon-milk', medium; 
 font-size: 50px; 
 margin-top: 1em; 
-margin-bottom: 600px; 
+border: 1px solid red; 
+/* margin-bottom: 600px;  */
 }
 .popUp h3{
   font-family: 'Lemon-milk', medium; 
-  font-size: 30px; 
+  font-size: 20px; 
   margin-top: 1em; 
   }
 .popUp img{
   width: 50%; 
   margin-bottom: 50px; 
+  justify-self: start;
 }
-
 button{
   border: none ;
 outline: none;
@@ -149,7 +189,7 @@ outline: none;
  
 }
 .bottomNav{
-  position: absolute; 
+  position: fixed; 
   width: 100%; 
   bottom: 0%; 
   height: 7%; 
@@ -206,5 +246,74 @@ button h6{
   100% {
     transform:scale(1) translateY(0px);
     opacity:1;
+  }
+}
+@keyframes crescendo {
+  0% {
+      transform: scale(1);
+  }
+
+  100% {
+      transform: scale(1.1);
+  }
+}
+@keyframes slide-top {
+  0% {
+      translate: translateY(0);
+  }
+
+  100% {
+      transform: translateY(10px);
+  }
+}
+@keyframes accordionIn {
+  0% {
+      opacity: 0;
+      transform: scale(0.9) rotateX(-60deg);
+      transform-origin: 50% 0;
+  }
+
+  100% {
+      opacity: 1;
+      transform: scale(1);
+  }
+}
+@keyframes accordionOut {
+  0% {
+      opacity: 1;
+      transform: scale(1);
+  }
+
+  100% {
+      opacity: 0;
+      transform: scale(0.9) rotateX(-60deg);
+  }
+}
+/* @-webkit-keyframes bounce { 
+  0%, 20%, 50%, 80%, 100% {-webkit-transform: translateY(0);} 
+  40% {-webkit-transform: translateY(-30px);} 
+  60% {-webkit-transform: translateY(-15px);} 
+} 
+
+@keyframes bounce { 
+  0%, 20%, 50%, 80%, 100% {transform: translateY(0);} 
+  40% {transform: translateY(-30px);} 
+  60% {transform: translateY(-15px);} 
+} */
+
+@keyframes blowUpContent {
+  0% {
+      transform: scale(1);
+      opacity: 1;
+  }
+
+  99.9% {
+      transform: scale(2);
+      opacity: .5;
+  }
+
+  100% {
+      transform: scale(0);
+      opacity: .5;
   }
 }

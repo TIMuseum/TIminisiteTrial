@@ -4,12 +4,12 @@ let mus, geo, com, ada, park;
 var clouds = [];
 var mapItems = [];
 var fadeMus =[]; 
+var histMus =[]; 
 var offsets = []; 
 var eggs=[]; 
 let extraImages=[]; 
 let startingColor = []; 
 let eggTween= []; 
-let stopTween =false; 
 let targetPosition = new THREE.Vector3( 1.5, 1.5, 21.5); 
 
 const canvas = document.getElementById("myCanvas");
@@ -36,7 +36,7 @@ let trigger1=false;
 const fov = 75;
 let camStart = {x:0, y:150, z:0}; 
 let camMain = {x:0, y:200, z:0}; 
-let zoomBack =  new THREE.Vector3(0, 150, 0); 
+let zoomBack =  new THREE.Vector3(50, 120, 0); 
 let domEvents; 
 
 //START EVERYTHING WHEN LOADED
@@ -84,7 +84,6 @@ function init() {
   clouds = makeClouds(); 
   setUpCubes(); 
   makeGround(); 
-
   //ANIMATE CAMERA INTO SCENE
   // cameraBegin(camera); 
  //ALL EVENT LISTENERS 
@@ -96,7 +95,14 @@ function watchEvents(domEvents){
   eggs.forEach((egg, index)=> {
     domEvents.addEventListener(eggs[index], "click", function(event){
       TWEEN.removeAll();
+      if(index==0){
+        // clickEgg(zoomBack, offset, index, clear, altPopUp); 
+        tweenCamera(camera,zoomBack, 3500, mus, 0 );  
+        // backToAllHistorical(); 
+      }
+      else{
         clickEgg(eggs[index], offsets[index], index); 
+      }
       }); 
   }); 
   eggs.forEach((egg, index)=> {
@@ -137,10 +143,9 @@ function watchEvents(domEvents){
 console.log(modelContent[0].scrollHeight -modelContent[0].offsetHeight); 
 if(modelContent[0].scrollTop >= modelContent[0].scrollHeight -modelContent[0].offsetHeight && trigger1==false){
   modelContent[0].style.display= "none"; 
-  // thisTween =  new TWEEN.Tween(mus.material ).to( { opacity:1 }, 1000 ).onComplete(function(){
-  //   mus.material.opacity = 1;  })
+  modelContent[0].scrollTop = 0; 
   trigger1=true; 
-  backToAllHistorical(); 
+  mainHistMap(); 
 }
 }); 
     //ANIMATE THE EGGS
@@ -148,10 +153,20 @@ if(modelContent[0].scrollTop >= modelContent[0].scrollHeight -modelContent[0].of
 }
 
 function backToAllHistorical(){
+  console.log("back to historical"); 
+    musExploreBtn.style.display= "none"; 
+    modelContent[0].scrollTop =0; 
+    popUp[0].scrollTop = 0; 
+    modelContent[1].style.display="none"; 
+    modelContent[0].style.display="block"; 
+    trigger1=false; 
   let onComplete = function(){ 
     modelContent[0].scrollTop =0;
-    musExploreBtn.style.display= "block"; 
-    muszoomOutBlock.style.display="block";  }
+    // TWEEN.removeAll();
+    popUp[0].style.display = "block"; 
+    musExploreBtn.style.display= "none"; 
+    muszoomOutBlock.style.display="none";
+  }
     zoomBackTween(camera, zoomBack, 2000,fadeMus, onComplete, false); 
 }
 function tweenEggs(){
@@ -171,13 +186,18 @@ function tweenEggs(){
    .start();
    }); 
 }
-function returntoHistorical1(){
-  musExploreBtn.style.display= "none"; 
-  modelContent[0].scrollTop =0; 
-  modelContent[1].style.display="none"; 
-  modelContent[0].style.display="block"; 
-  trigger1=false; 
+function mainHistMap(){
+    modelContent[1].style.display="block"; 
+    modelContent[0].style.display="none"; 
+    // musExploreBtn.style.display= "block"; 
 }
+function returntoHistorical1(){
+    musExploreBtn.style.display= "none"; 
+    modelContent[0].scrollTop =0; 
+    modelContent[1].style.display="none"; 
+    modelContent[0].style.display="block"; 
+    trigger1=false; 
+  }
 function clickBack(index, event, altPopUp){
   if(index ==0){
     returntoHistorical1()
@@ -209,10 +229,12 @@ var tween3 = new TWEEN.Tween(camera.position)
 .to({x:position.x, y: position.y, z: position.z}, 1500)
 .easing(TWEEN.Easing.Quadratic.In)
 .onComplete(() =>{
-  if(tween ==true){completeFunct.start();}
-  else{ completeFunct(); }
+    modelContent.forEach((modelContent)=>{modelContent.scrollTop = 0}); 
+    clearModal(false)
     new TWEEN.Tween(mapPlane.material ).to( { opacity: .5 }, 1000 ).start();
-    fadeOthers.forEach(fadeOther =>{new TWEEN.Tween(fadeOther.material ).to( { opacity: .5 }, 1000 ).start();})
+    fadeOthers.forEach(fadeOther =>{new TWEEN.Tween(fadeOther.material ).to( { opacity: .5 }, 1000 ).onComplete(() =>{TWEEN.removeAll()}).start();})
+    if(tween ==true){completeFunct.start();}
+  else{ completeFunct(); }
   })
 .start();
 }
@@ -281,9 +303,10 @@ function clearModal(overlayDisplay){
     });
 }
 function clearPopUp(){
-  returntoHistorical1()
- clearModal(false)
- console.log("clear popups" )
+  returntoHistorical1(); 
+  modelContent[0].scrollTop =0; 
+   clearModal(false); 
+ console.log("clear popups" ); 
   overlay.removeEventListener("click", clearPopUp, false); 
   tweenCameraBack(camera,camMain, 3000); 
   //make easter eggs jump again
@@ -333,6 +356,7 @@ const musImg = new THREE.TextureLoader().load("/media/museum.png");
    let pos0 = {x: 12,  y:5, z:23 }
    let size0 = {x: 15, y: 10}; 
   setUpEgg(0, size0, mus, pos0,musImg); 
+  histMus[0]= mus; 
   //ADD PARK CUBE
   offsets[1] = {x: 5, y: 50, z: 5}; 
   let pos1 = {x: -90,  y:4, z:-40 }
@@ -380,6 +404,7 @@ const musImg = new THREE.TextureLoader().load("/media/museum.png");
   nhTrig.position.set(80, 0, -65);
   nhTrig.scale.set(5, 5, 5);
   offsets[5] = {x: 0, y: 40, z: 0}; 
+  histMus[1]= mus; 
 
   //ADD light house
   const geometry6 = new THREE.BoxBufferGeometry();
@@ -390,6 +415,7 @@ const musImg = new THREE.TextureLoader().load("/media/museum.png");
   lightHouseTrig.position.set(145, 0, 5);
   lightHouseTrig.scale.set(5, 5, 5);
   offsets[6] = {x: 2, y: 40, z: 2}; 
+  histMus[2]= mus; 
   //Nimitz House
       const geometry7 = new THREE.BoxBufferGeometry();
       var boxMat7 = new THREE.MeshStandardMaterial({ color: 0x1292af });
@@ -399,6 +425,7 @@ const musImg = new THREE.TextureLoader().load("/media/museum.png");
       lqTrig.position.set(80, 0, -25);
       lqTrig.scale.set(5, 5, 5);
       offsets[7] = {x: 0, y: 40, z: 0}; 
+      histMus[3]= mus; 
   //ADD building 2
   const geometry4 = new THREE.BoxBufferGeometry();
   var boxMat4 = new THREE.MeshStandardMaterial({ color: 0x1292af});
@@ -408,6 +435,7 @@ const musImg = new THREE.TextureLoader().load("/media/museum.png");
   buil2Trig.position.set(15, 0, -10);
   buil2Trig.scale.set(5, 5, 5);
   offsets[8] = {x: 2, y: 40, z: 2}; 
+  histMus[4]= mus; 
 
     //ADD building 3
     const geometry5 = new THREE.BoxBufferGeometry();
@@ -418,7 +446,7 @@ const musImg = new THREE.TextureLoader().load("/media/museum.png");
     buil3Trig.position.set(15, 0, -30);
     buil3Trig.scale.set(5, 5, 5);
     offsets[9] = {x: 2, y: 40, z: 2}; 
-
+    histMus[3]= mus; 
 
 }
 function setUpEgg(index, size, name, pos, texture){
@@ -459,12 +487,6 @@ function makeGround(){
     ground1.rotation.x = -90 * (Math.PI / 180);
     ground1.position.y = -20;
     scene.add(ground1);
-
-    // ground2 = new THREE.Mesh(planeGeometry, planeMaterial);
-    // ground2.rotation.x = -90 * (Math.PI / 180);
-    // // ground2.position.x = -50;
-    // scene.add(ground2);
-// }
 
 const map = new THREE.TextureLoader().load("/media/map.png");
   //MAP PLANE
