@@ -17,6 +17,8 @@ const canvasContainer = document.getElementById("CC");
 const popUp = document.querySelectorAll(".popUp"); 
 let overlay = document.querySelector(".modalOverlay"); 
 let modelContent = document.querySelectorAll(".modelContent");
+let bottomNav = document.querySelectorAll(".bottomNav"); 
+let close = document.getElementById("close"); 
 
 
 let parkBlock = document.querySelectorAll(".parkContent"); 
@@ -41,7 +43,6 @@ let domEvents;
 
 //START EVERYTHING WHEN LOADED
 window.addEventListener("load", init);
-
 //main funtion begins on load of webpage
 function init() {
   //RENDERER
@@ -67,15 +68,10 @@ function init() {
   );
   camera.lookAt(scene.position);
   camera.position.set(camStart.x, camStart.y, camStart.z);
-
+  camera.rotation.x = -90 * (Math.PI / 180);
 //DOMEVENTS
  domEvents = new THREEx.DomEvents(camera, renderer.domElement); 
   //CONTROLS
-  controls = new THREE.OrbitControls(camera, renderer.domElement);
-  controls.enableDamping = true;
-  controls.target.set(0, 0, 0);
-  controls.minDistance = -200;
-  controls.maxDistance = 3000;
   //LIGHTS
   var hemLight = new THREE.HemisphereLight(0xffffbb, 0x0808dd, 1);
   scene.add(hemLight); 
@@ -92,58 +88,12 @@ function init() {
 }//end of setup
 function watchEvents(domEvents){
   //EGG CLICK TRIGGERS 
-  eggs.forEach((egg, index)=> {
-    domEvents.addEventListener(eggs[index], "click", function(event){
-      TWEEN.removeAll();
-      if(index==0){
-        // clickEgg(zoomBack, offset, index, clear, altPopUp); 
-        tweenCamera(camera,zoomBack, 3500, mus, 0 );  
-        // backToAllHistorical(); 
-      }
-      else{
-        clickEgg(eggs[index], offsets[index], index); 
-      }
-      }); 
-  }); 
-  eggs.forEach((egg, index)=> {
-       startingColor[index] =eggs[index].material.color.getHex()
-  }); 
-  eggs.forEach((egg, index)=> {
-    domEvents.addEventListener(eggs[index], "mouseover", function(event){
-      console.log("mouse Over"); 
-        eggs[index].material.color.setHex(0xCDC2F6); 
-        TWEEN.removeAll();
-        new TWEEN.Tween(eggs[index].scale )
-        .to( new THREE.Vector3(2.2, 2.2, 2.2), 500 )
-      .easing( TWEEN.Easing.Cubic.InOut )
-      .start();
-      }); 
-  }); 
-  eggs.forEach((egg, index)=> {
-    domEvents.addEventListener(eggs[index], "mouseout", function(event){
-      console.log("mouseOut"); 
-        eggs[index].material.color.setHex(startingColor[index]); 
-        // console.log(eggs[index].scale);
-        new TWEEN.Tween(eggs[index].scale )
-        .to( new THREE.Vector3(1, 1, 1), 500 )
-      .easing( TWEEN.Easing.Cubic.InOut )
-      .start();
-      eggs[index].scale.x = 1; 
-        eggs[index].scale.y = 1; 
-        eggs[index].scale.z= 1; 
-          tweenEggs(); 
-      }); 
-  }); 
+  addEggsandEvents()
   window.addEventListener("resize", onWindowResize, true);
-    //scrolling effect that switches museum to torpedo
-    console.log(modelContent[0].scrollTop); 
-
   modelContent[0].addEventListener("scroll", function(event){
-  console.log(modelContent[0].scrollTop); 
-console.log(modelContent[0].scrollHeight -modelContent[0].offsetHeight); 
+//   console.log(modelContent[0].scrollTop); 
+// console.log(modelContent[0].scrollHeight -modelContent[0].offsetHeight); 
 if(modelContent[0].scrollTop >= modelContent[0].scrollHeight -modelContent[0].offsetHeight && trigger1==false){
-  modelContent[0].style.display= "none"; 
-  modelContent[0].scrollTop = 0; 
   trigger1=true; 
   mainHistMap(); 
 }
@@ -151,23 +101,110 @@ if(modelContent[0].scrollTop >= modelContent[0].scrollHeight -modelContent[0].of
     //ANIMATE THE EGGS
     // tweenEggs();  
 }
+function addEggsandEvents(){
+    eggs.forEach((egg, index) => {
+        scene.add(egg); 
+                });
+    eggs.forEach((egg, index)=> {
+        domEvents.addEventListener(eggs[index], "click", function(event){
+        click(index); 
+        }, false)
+      }); 
+      eggs.forEach((egg, index)=> {
+           startingColor[index] =eggs[index].material.color.getHex()
+      }); 
+      eggs.forEach((egg, index)=> {
+        domEvents.addEventListener(egg, "mouseover", function(event){
+            mouseOver(index); 
+        }, false); 
+      });
+      
+      eggs.forEach((egg, index)=> {
+        domEvents.addEventListener(egg, "mouseout", function(event){
+            mouseOut(index); 
+        }, false); 
+      }); 
+}
+function removeEggsandEvents(){
+    eggs.forEach((egg, index) => {
+        domEvents.removeEventListener(egg, "click",function(event, index){
+            click(index); 
+        }, false);  }); 
+        eggs.forEach((egg, index) => {
+        domEvents.removeEventListener(egg, "mouseover",function(event, index){
+            mouseOver(index); 
+        }, false); }); 
+        eggs.forEach((egg, index) => {
+        domEvents.removeEventListener(egg, "mouseout", function(event, index){
+            mouseOut(index); 
+        }, false); });
+        eggs.forEach((egg, index) => {
+scene.remove(egg); 
+        });
+        
+}
+function mouseOver(index){
+    console.log("mouse Over"); 
+   console.log(index); 
+    eggs[index].material.color.setHex(0xCDC2F6); 
+    TWEEN.removeAll();
+    new TWEEN.Tween(eggs[index].scale )
+    .to( new THREE.Vector3(2.2, 2.2, 2.2), 500 )
+  .easing( TWEEN.Easing.Cubic.InOut )
+  .start();
+  }
+  function museumOver(index){
+    console.log("mouse Over musuem item");   
+    // document. style=("cursor: pointer"); 
+  }
+  function mouseOut(index){
+        console.log("mouseOut"); 
+          eggs[index].material.color.setHex(startingColor[index]); 
+          // console.log(eggs[index].scale);
+          new TWEEN.Tween(eggs[index].scale )
+          .to( new THREE.Vector3(1, 1, 1), 500 )
+        .easing( TWEEN.Easing.Cubic.InOut )
+        .start();
+        eggs[index].scale.x = 1; 
+          eggs[index].scale.y = 1; 
+          eggs[index].scale.z= 1; 
+            tweenEggs(); 
+  }
+  function click(index){
+    TWEEN.removeAll();
+    if(index==0){
+        eggs[index].material.color.setHex(startingColor[index]); 
+mapItems.forEach((mapItem, index) =>{
+  mapItem.scale = new THREE.Vector3(1, 1, 1); 
+})
+eggs[index].scale.x =2; 
+eggs[index].scale.y =2; 
+eggs[index].scale.z =2; 
+eggs[index].material.color.setHex(startingColor[index]); 
+      tweenCamera(camera,zoomBack, 3500, 0 );  
+    }
+    else{
+      clickEgg(eggs[index], offsets[index], index); 
+    }
+    }
+  function museumClick(index){
+      console.log("you clicked a hist thing")
+      console.log(histMus[index]); 
+      let position = new THREE.Vector3(histMus[index].position.x+offsets[index].x, histMus[index].position.y+offsets[index].y, histMus[index].position.z+offsets[index].z)
+      console.log(position);
+      clearModal(true); 
+      muszoomOutBlock.style.display="none"; 
+    //   modelContent[0].style.display="block"; 
+    //   trigger1=false; 
+        tweenCamera(camera, position, 1500, histMus[index], index, index+4 )
+    //   clickEgg(histMus[index], offsets[index], index); 
 
-function backToAllHistorical(){
+  }
+function resetHistorical(){
   console.log("back to historical"); 
-    musExploreBtn.style.display= "none"; 
-    modelContent[0].scrollTop =0; 
-    popUp[0].scrollTop = 0; 
-    modelContent[1].style.display="none"; 
+  muszoomOutBlock.style.display="none"; 
     modelContent[0].style.display="block"; 
     trigger1=false; 
-  let onComplete = function(){ 
-    modelContent[0].scrollTop =0;
-    // TWEEN.removeAll();
-    popUp[0].style.display = "block"; 
-    musExploreBtn.style.display= "none"; 
-    muszoomOutBlock.style.display="none";
-  }
-    zoomBackTween(camera, zoomBack, 2000,fadeMus, onComplete, false); 
 }
 function tweenEggs(){
   console.log("tweening eggs again")
@@ -186,58 +223,50 @@ function tweenEggs(){
    .start();
    }); 
 }
+
+function returnmainHistMap(){
+    console.log("going back home from an historical object")
+    // tweenCamera(camera, position, 1500, histMus[index], index, index+4 )
+    console.log(camera.position)
+    console.log(zoomBack)
+    tweenCameraBack(camera, zoomBack, 1500); 
+    mainHistMap(); 
+}
 function mainHistMap(){
-    modelContent[1].style.display="block"; 
     modelContent[0].style.display="none"; 
-    // musExploreBtn.style.display= "block"; 
-}
-function returntoHistorical1(){
-    musExploreBtn.style.display= "none"; 
-    modelContent[0].scrollTop =0; 
-    modelContent[1].style.display="none"; 
-    modelContent[0].style.display="block"; 
-    trigger1=false; 
-  }
-function clickBack(index, event, altPopUp){
-  if(index ==0){
-    returntoHistorical1()
-   }
-    TWEEN.removeAll();
-    modelContent[0].scrollTop =0; 
-    musBlock.scrollTop =0; 
-    window.scrollTo(0,0); 
-    clickEgg(mapItems[index], offsets[index], index, true, altPopUp); 
-}
-function showParks1(){
-    parkBlock[0].style.display="none"; 
-    parkButtons[0].style.display="none"; 
-    parkButtons[1].style.display="inline-block"; 
-    let tihsTween =  new TWEEN.Tween(parkAdd1.material ).to( { opacity:1 }, 1000 ).onComplete(function(){
-      parkAdd1.material.opacity = 1; 
-      console.log(parkAdd1.material.opacity); 
-  })
-    zoomBackTween(camera, zoomBack, 2000, mapItems, tihsTween, true ); 
-}
-function showParks2(){
-  parkBlock[1].style.display="inline-block"; 
-  parkButtons[1].style.display="none"; 
-    parkButtons[2].style.display="inline-block"; 
-}
-function zoomBackTween(camera, position, duration, fadeOthers,completeFunct, tween) {    
-  let coords = { x: camera.position.x, y: camera.position.y, z: camera.position.z };
-var tween3 = new TWEEN.Tween(camera.position)
-.to({x:position.x, y: position.y, z: position.z}, 1500)
-.easing(TWEEN.Easing.Quadratic.In)
-.onComplete(() =>{
-    modelContent.forEach((modelContent)=>{modelContent.scrollTop = 0}); 
-    clearModal(false)
+    popUp.forEach((popUp, index)=> {
+        popUp.style.display = "none";
+        bottomNav[index].style.display = "none";
+      });
+    // popUp[0].style.display="none"; 
+    overlay.style.display ="none"; 
+    muszoomOutBlock.style.display="block"; 
+    bottomNav[0].style.display = "flex"; 
+    // TWEEN.removeAll(); 
     new TWEEN.Tween(mapPlane.material ).to( { opacity: .5 }, 1000 ).start();
-    fadeOthers.forEach(fadeOther =>{new TWEEN.Tween(fadeOther.material ).to( { opacity: .5 }, 1000 ).onComplete(() =>{TWEEN.removeAll()}).start();})
-    if(tween ==true){completeFunct.start();}
-  else{ completeFunct(); }
-  })
-.start();
+    fadeMus.forEach(fadeMus =>{new TWEEN.Tween(fadeMus.material)
+        .to( { opacity: .4 }, 1000 )
+        .onComplete(() =>{
+            // TWEEN.removeAll(); 
+        })
+        .start();
+        })
+        histMus.forEach((histMu,index)=>{
+            console.log(histMus[index].position.z); 
+            let move = new THREE.Vector3(histMus[index].position.x,histMus[index].position.y,histMus[index].position.z + 1)
+            new TWEEN.Tween(histMus[index].position).to(move, 1500)
+          .easing(TWEEN.Easing.Quadratic.In).repeat(Infinity).yoyo(true).start()
+              domEvents.addEventListener(histMus[index], "mouseover",function(event){
+            museumOver(index); 
+        });     })
+        histMus.forEach((histMu,index)=>{
+        domEvents.addEventListener(histMus[index], "click",function(event){
+            console.log(histMus[index]); 
+            console.log(index); 
+            museumClick(index); 
+        });  })
 }
+
 function clickEgg(clicked, offset, index, clear, altPopUp){
   //TWEEN TO LOCATION/ ZOOM
   clearModal(clear); 
@@ -250,14 +279,19 @@ mapItems.forEach((mapItem, index) =>{
 clicked.scale.x =2; 
 clicked.scale.y =2; 
 clicked.scale.z =2; 
-TWEEN.removeAll();
 clicked.material.color.setHex(startingColor[index]); 
   let moveTO = new THREE.Vector3(clicked.position.x + offset.x, clicked.position.y + offset.y, clicked.position.z + offset.z)  
-  tweenCamera(camera,moveTO, 3500, clicked, index, altPopUp );  
+ 
+  tweenCamera(camera,moveTO, 3500, index, altPopUp );  
 }
-
-function tweenCamera(camera, position, duration, object, index, altPopUp ) {   
+function tweenCamera(camera, position, duration, index, altPopUp ) {   
   TWEEN.removeAll();
+  removeEggsandEvents(); 
+  scene.add(eggs[index]); 
+  new TWEEN.Tween(mapPlane.material ).to( { opacity: .5 }, 1000 ).start();
+  if(index==0){
+    scene.add(neoMus);
+  }
   new TWEEN.Tween(camera.position).to({
     x: position.x, y: position.y , z:position.z 
   }, 1500)
@@ -266,17 +300,20 @@ function tweenCamera(camera, position, duration, object, index, altPopUp ) {
     overlay.style.display ="block"; 
     if(altPopUp){
       popUp[altPopUp].style.display = "block"; 
+      bottomNav[altPopUp].style.display = "flex"; 
+      console.log(popUp[altPopUp] ); 
     }
     else{
       popUp[index].style.display = "block"; 
+      bottomNav[index].style.display = "flex"; 
     }
+    close.style.display = "block"; 
     modelContent.forEach((modelContent)=>{modelContent.scrollTop = 0}); 
     overlay.addEventListener("click", clearPopUp, false);  
   })
   .start();
 }
 function tweenCameraBack(camera, position, duration) {    
-  // modelContent.forEach((modelContent)=>{modelContent.scrollTop = 0}); 
   let coords = { x: camera.position.x, y: camera.position.y, z: camera.position.z };
   var tween2 = new TWEEN.Tween(camera.position)
   .to({x:position.x, y: position.y, z: position.z}, 1500)
@@ -284,6 +321,7 @@ function tweenCameraBack(camera, position, duration) {
   .start();
 }
 function clearModal(overlayDisplay){
+    // removeMainEventListeners(); 
   if (overlayDisplay==true){
     overlay.style.display ="block"; 
     overlay.style.opacity ="0.001"; 
@@ -291,27 +329,42 @@ function clearModal(overlayDisplay){
   else{
     overlay.style.display ="none"; 
   }
-  // parkAdd1.material.opacity = 0; 
   mapPlane.material.opacity = 1;
   extraImages.forEach((extraImage)=>{extraImage.material.opacity =0}); 
-  modelContent[0].scrollTop = 0; 
-  musBlock.scrollTop =0; 
   mapItems.forEach((extraImage)=>{extraImage.material.opacity =1}); 
   modelContent.forEach((modelContent)=>{modelContent.scrollTop = 0}); 
     popUp.forEach((popUp, index)=> {
       popUp.style.display = "none";
+      bottomNav[index].style.display = "none";
     });
+    close.style.display = "none"; 
+
 }
 function clearPopUp(){
-  returntoHistorical1(); 
-  modelContent[0].scrollTop =0; 
-   clearModal(false); 
+    resetHistorical(); 
+        scene.remove(neoMus);
+    addEggsandEvents(); 
+clearModal(false); 
+console.log("clearPopUP"); 
  console.log("clear popups" ); 
   overlay.removeEventListener("click", clearPopUp, false); 
   tweenCameraBack(camera,camMain, 3000); 
   //make easter eggs jump again
   tweenEggs(); 
 }
+function clickBack(index, event, altPopUp){
+    TWEEN.removeAll();
+    console.log("clicking clacking to next egg") 
+    modelContent[0].scrollTop =0; 
+    resetHistorical(); 
+    clearModal(true); 
+    if(index ==0){
+        tweenCamera(camera,zoomBack, 3500, 0 );  
+     }
+     else{
+        clickEgg(mapItems[index], offsets[index], index, true, altPopUp); 
+     }  
+  }
 function cameraBegin(camera){
   let coords = { x: camera.position.x, y: camera.position.y, z: camera.position.z };
   var tween = new TWEEN.Tween(coords)
@@ -356,7 +409,7 @@ const musImg = new THREE.TextureLoader().load("/media/museum.png");
    let pos0 = {x: 12,  y:5, z:23 }
    let size0 = {x: 15, y: 10}; 
   setUpEgg(0, size0, mus, pos0,musImg); 
-  histMus[0]= mus; 
+//   histMus[0]= mus; 
   //ADD PARK CUBE
   offsets[1] = {x: 5, y: 50, z: 5}; 
   let pos1 = {x: -90,  y:4, z:-40 }
@@ -400,53 +453,69 @@ const musImg = new THREE.TextureLoader().load("/media/museum.png");
   var boxMat3 = new THREE.MeshStandardMaterial({ color: 0x1292af });
   nhTrig = new THREE.Mesh(geometry3, boxMat3);
   mapItems[5] = nhTrig;
+  histMus[1]= nhTrig; 
   scene.add(nhTrig);
   nhTrig.position.set(80, 0, -65);
   nhTrig.scale.set(5, 5, 5);
   offsets[5] = {x: 0, y: 40, z: 0}; 
-  histMus[1]= mus; 
+ 
 
   //ADD light house
   const geometry6 = new THREE.BoxBufferGeometry();
   var boxMat6 = new THREE.MeshStandardMaterial({ color: 0x1292af});
   lightHouseTrig = new THREE.Mesh(geometry6, boxMat6);
   mapItems[6] =  lightHouseTrig;
+  histMus[2]= lightHouseTrig; 
   scene.add(lightHouseTrig);
   lightHouseTrig.position.set(145, 0, 5);
   lightHouseTrig.scale.set(5, 5, 5);
   offsets[6] = {x: 2, y: 40, z: 2}; 
-  histMus[2]= mus; 
+ 
   //Nimitz House
       const geometry7 = new THREE.BoxBufferGeometry();
       var boxMat7 = new THREE.MeshStandardMaterial({ color: 0x1292af });
       lqTrig = new THREE.Mesh(geometry7, boxMat7);
       mapItems[7] = lqTrig;
+      histMus[3]= lqTrig; 
       scene.add(lqTrig);
+     
       lqTrig.position.set(80, 0, -25);
       lqTrig.scale.set(5, 5, 5);
       offsets[7] = {x: 0, y: 40, z: 0}; 
-      histMus[3]= mus; 
+    
   //ADD building 2
   const geometry4 = new THREE.BoxBufferGeometry();
   var boxMat4 = new THREE.MeshStandardMaterial({ color: 0x1292af});
   buil2Trig = new THREE.Mesh(geometry4, boxMat4);
   mapItems[8] = buil2Trig;
+  histMus[4]= buil2Trig; 
   scene.add(buil2Trig);
   buil2Trig.position.set(15, 0, -10);
   buil2Trig.scale.set(5, 5, 5);
   offsets[8] = {x: 2, y: 40, z: 2}; 
-  histMus[4]= mus; 
+ 
 
     //ADD building 3
     const geometry5 = new THREE.BoxBufferGeometry();
     var boxMat5 = new THREE.MeshStandardMaterial({ color: 0x1292af});
     buil3Trig = new THREE.Mesh(geometry5, boxMat5);
     mapItems[9] =  buil3Trig;
+    histMus[5]= buil3Trig; 
     scene.add(buil3Trig);
     buil3Trig.position.set(15, 0, -30);
     buil3Trig.scale.set(5, 5, 5);
     offsets[9] = {x: 2, y: 40, z: 2}; 
-    histMus[3]= mus; 
+    
+    //ADD New Museum
+    const geometry10 = new THREE.BoxBufferGeometry();
+    var boxMat10 = new THREE.MeshStandardMaterial({ color: 0x1292af});
+    neoMus = new THREE.Mesh(geometry10, boxMat10);
+    mapItems[10] =  neoMus;
+    histMus[6]= neoMus; 
+    neoMus.position.set( 12, 5, 23 );
+    neoMus.scale.set(5, 5, 5);
+    offsets[9] = {x: 2, y: 40, z: 2}; 
+ 
 
 }
 function setUpEgg(index, size, name, pos, texture){
@@ -456,13 +525,19 @@ function setUpEgg(index, size, name, pos, texture){
   }));
   name.rotation.x = -90 * (Math.PI / 180);
   name.position.y = 3;
+
+if(index!=0){
+  fadeMus[index] = name; 
+}
   scene.add(name);
   name.position.set(pos.x, pos.y, pos.z);
   mapItems[index] = name;
+//   if(index==0){
+//     histMus[0]=name; 
+//     console.log(histMus[0]); 
+// }
   eggs[index] = name; 
-  if(index!=0){
-    fadeMus[index] = name; 
-  }
+
 }
 function makeGround(){
 //WATER + GROUND

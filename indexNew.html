@@ -17,15 +17,15 @@
     <canvas id="myCanvas"></canvas>
 
     <div class="modalOverlay"></div>
-
+    <div class="closeContainer" id="close">
+        <button onclick= "clearPopUp(event)"class="close-button" id="close-button" role="close" name="close" value="close">
+            <span class="visually-hidden">Close</span>
+            <i class="fas fa-times" aria-hidden="true"></i>
+          </button> 
+        </div>
     <!-- popUp 0 -->
     <div class= "popUp" id="mus">
-        <div class="buttonContainer">
-            <button onclick= "clearPopUp(event)"class="close-button" id="close-button" role="close" name="close" value="close">
-                <span class="visually-hidden">Close</span>
-                <i class="fas fa-times" aria-hidden="true"></i>
-              </button> 
-            </div>
+
         <div class="modelContent" id ="introBlock">
             <h2>Historical Preservation</h2> 
             <h3> Making Treasure Island’s History resilient to the rising sea
@@ -36,33 +36,22 @@
             <img src ="media/historical_2.jpg">
             <img src ="media/historical_2.jpg">
         </div> 
-        <div class="modelContent" id ="zoomOutBlock">
-            <h2>Gems of Treasure Island</h2> 
-          <h3>Explore some of the historical sites being preserved in the redevelopment</h3>
-      </div>
-        <div class="buttonContainer" id="explore">
-            <button onclick= "clickBack(0, event, 10)"class="explore" role="next" name="next" value="next">
-                <span class="visually-hidden">Explore Musuem</span>
-                <div class ="buttonTxt"><h6>Start</h6></div>
-                <i class="fas fa-angle-down"aria-hidden="true"></i>
-              </button> 
-            </div>
-        <div class="bottomNav">
-            <button type="button"onclick= "clickBack(1, event)"><img src="/media/placeholderMap.png"> <div class ="buttonTxt"><h6>Parks</h6></div></button>
-            <button type="button"onclick= "clickBack(2, event)"><img src="/media/placeholderMap.png"><div class ="buttonTxt"><h6>Geology</h6></div></button>
-            <button type="button"onclick= "clickBack(3, event)"><img src="/media/placeholderMap.png"><div class ="buttonTxt"><h6>Community</h6></div></button>
-            <button type="button"onclick= "clickBack(4, event)"><img src="/media/placeholderMap.png"><div class ="buttonTxt"><h6>Adaptive Design</h6></div></button>
-        </div>
+        <!-- <div class="filler">
+      </div> -->
+ 
     </div>
-
+    <div class="modelContent" id ="zoomOutBlock">
+        <h2>Gems of Treasure Island</h2> 
+      <h3>Explore some of the historical sites being preserved in the redevelopment</h3>
+    </div>
+    <div class="bottomNav">
+        <button type="button"onclick= "clickBack(1, event)"><img src="/media/placeholderMap.png"> <div class ="buttonTxt"><h6>Parks</h6></div></button>
+        <button type="button"onclick= "clickBack(2, event)"><img src="/media/placeholderMap.png"><div class ="buttonTxt"><h6>Geology</h6></div></button>
+        <button type="button"onclick= "clickBack(3, event)"><img src="/media/placeholderMap.png"><div class ="buttonTxt"><h6>Community</h6></div></button>
+        <button type="button"onclick= "clickBack(4, event)"><img src="/media/placeholderMap.png"><div class ="buttonTxt"><h6>Adaptive Design</h6></div></button>
+    </div>
        <!-- popUp 1 -->
     <div class= "popUp"id="parks">  
-        <div class="buttonContainer">
-          <button onclick= "clearPopUp(event)"class="close-button" id="close-button" role="close" name="close" value="close">
-                <span class="visually-hidden">Close</span>
-                <i class="fas fa-times" aria-hidden="true"></i>
-              </button>
-        </div>
            <div class="modelContent">
                <div class = "parkContent">
             <h2>Parks and Public Spaces</h2> 
@@ -81,198 +70,151 @@
             <button type="button" class="parkTransitions" id="parks2" onclick= "showParks2(event)">More</button>
             <button type="button" class="parkTransitions" id="parks3" onclick= "showParks3(event)">Even More</button>
             </div>
-            <div class="bottomNav">       
-                    <button type="button"onclick= "clickBack(0, event)"><img src="/media/placeholderMap.png"> <div class ="buttonTxt"><h6>Historical Preservation</h6></div></button>
-                    <button type="button"onclick= "clickBack(2, event)"><img src="/media/placeholderMap.png"><div class ="buttonTxt"><h6>Geology</h6></div></button>
-                    <button type="button"onclick= "clickBack(3, event)"><img src="/media/placeholderMap.png"><div class ="buttonTxt"><h6>Community</h6></div></button>
-                    <button type="button"onclick= "clickBack(4, event)"><img src="/media/placeholderMap.png"><div class ="buttonTxt"><h6>Adaptive Design</h6></div></button>
-            </div>
     </div>
+    <div class="bottomNav">       
+        <button type="button"onclick= "clickBack(0, event)"><img src="/media/placeholderMap.png"> <div class ="buttonTxt"><h6>Historical Preservation</h6></div></button>
+        <button type="button"onclick= "clickBack(2, event)"><img src="/media/placeholderMap.png"><div class ="buttonTxt"><h6>Geology</h6></div></button>
+        <button type="button"onclick= "clickBack(3, event)"><img src="/media/placeholderMap.png"><div class ="buttonTxt"><h6>Community</h6></div></button>
+        <button type="button"onclick= "clickBack(4, event)"><img src="/media/placeholderMap.png"><div class ="buttonTxt"><h6>Adaptive Design</h6></div></button>
+</div>
      <!-- popUp 2 -->
     <div class= "popUp"id="geology">  
-        <div class="buttonContainer">
-        <button onclick= "clearPopUp(event)"class="close-button" id="close-button" role="close" name="close" value="close">
-            <span class="visually-hidden">Close</span>
-            <i class="fas fa-times" aria-hidden="true"></i>
-          </button>
-        </div>
         <div class="modelContent">
             <h2>Geology</h2> 
             <img src ="media/placeholder1.jpg">
             <button type="button"onclick= "clickBack(1, event)">Parks</button>
             <button type="button"onclick= "clickBack(3, event)">Community</button>
         </div>
-        <div class="bottomNav">       
-            <button type="button"onclick= "clickBack(0, event)"><img src="/media/placeholderMap.png"> <div class ="buttonTxt"><h6>Historical Preservation</h6></div></button>
-            <button type="button"onclick= "clickBack(2, event)"><img src="/media/placeholderMap.png"><div class ="buttonTxt"><h6>Geology</h6></div></button>
-            <button type="button"onclick= "clickBack(3, event)"><img src="/media/placeholderMap.png"><div class ="buttonTxt"><h6>Community</h6></div></button>
-            <button type="button"onclick= "clickBack(4, event)"><img src="/media/placeholderMap.png"><div class ="buttonTxt"><h6>Adaptive Design</h6></div></button>
     </div>
-    </div>
+    <div class="bottomNav">       
+        <button type="button"onclick= "clickBack(0, event)"><img src="/media/placeholderMap.png"> <div class ="buttonTxt"><h6>Historical Preservation</h6></div></button>
+        <button type="button"onclick= "clickBack(2, event)"><img src="/media/placeholderMap.png"><div class ="buttonTxt"><h6>Geology</h6></div></button>
+        <button type="button"onclick= "clickBack(3, event)"><img src="/media/placeholderMap.png"><div class ="buttonTxt"><h6>Community</h6></div></button>
+        <button type="button"onclick= "clickBack(4, event)"><img src="/media/placeholderMap.png"><div class ="buttonTxt"><h6>Adaptive Design</h6></div></button>
+</div>
     <!-- popUp 3-->
     <div class= "popUp"id="community">
-        <div class="buttonContainer">
-        <button onclick= "clearPopUp(event)"class="close-button" id="close-button" role="close" name="close" value="close">
-            <span class="visually-hidden">Close</span>
-            <i class="fas fa-times" aria-hidden="true"></i>
-          </button>
-        </div>
         <div class="modelContent">
             <h2>Community</h2> 
             <img src ="media/placeholder1.jpg">
             <button type="button"onclick= "clickBack(2, event)">Geology</button>
             <button type="button"onclick= "clickBack(4, event)">Adaptive Design</button>
         </div>
-        <div class="bottomNav">       
-            <button type="button"onclick= "clickBack(0, event)"><img src="/media/placeholderMap.png"> <div class ="buttonTxt"><h6>Historical Preservation</h6></div></button>
-            <button type="button"onclick= "clickBack(2, event)"><img src="/media/placeholderMap.png"><div class ="buttonTxt"><h6>Geology</h6></div></button>
-            <button type="button"onclick= "clickBack(3, event)"><img src="/media/placeholderMap.png"><div class ="buttonTxt"><h6>Community</h6></div></button>
-            <button type="button"onclick= "clickBack(4, event)"><img src="/media/placeholderMap.png"><div class ="buttonTxt"><h6>Adaptive Design</h6></div></button>
     </div>
-    </div>
+    <div class="bottomNav">       
+        <button type="button"onclick= "clickBack(0, event)"><img src="/media/placeholderMap.png"> <div class ="buttonTxt"><h6>Historical Preservation</h6></div></button>
+        <button type="button"onclick= "clickBack(2, event)"><img src="/media/placeholderMap.png"><div class ="buttonTxt"><h6>Geology</h6></div></button>
+        <button type="button"onclick= "clickBack(3, event)"><img src="/media/placeholderMap.png"><div class ="buttonTxt"><h6>Community</h6></div></button>
+        <button type="button"onclick= "clickBack(4, event)"><img src="/media/placeholderMap.png"><div class ="buttonTxt"><h6>Adaptive Design</h6></div></button>
+</div>
     <!-- popUp 4-->
     <div class= "popUp"id="adaptive">
-        <div class="buttonContainer">
-        <button onclick= "clearPopUp(event)"class="close-button" id="close-button" role="close" name="close" value="close">
-            <span class="visually-hidden">Close</span>
-            <i class="fas fa-times" aria-hidden="true"></i>
-          </button>
-        </div>
         <div class="modelContent">
             <h2>Adaptive Design</h2> 
             <img src ="media/placeholder1.jpg">
             <button type="button"onclick= "clickBack(3, event)">Community</button>
             <button type="button"onclick= "clickBack(0, event)">Historical Preservation</button>
         </div>
-        <div class="bottomNav">       
-            <button type="button"onclick= "clickBack(0, event)"><img src="/media/placeholderMap.png"> <div class ="buttonTxt"><h6>Historical Preservation</h6></div></button>
-            <button type="button"onclick= "clickBack(2, event)"><img src="/media/placeholderMap.png"><div class ="buttonTxt"><h6>Geology</h6></div></button>
-            <button type="button"onclick= "clickBack(3, event)"><img src="/media/placeholderMap.png"><div class ="buttonTxt"><h6>Community</h6></div></button>
-            <button type="button"onclick= "clickBack(4, event)"><img src="/media/placeholderMap.png"><div class ="buttonTxt"><h6>Adaptive Design</h6></div></button>
     </div>
-    </div>
+    <div class="bottomNav">       
+        <button type="button"onclick= "clickBack(0, event)"><img src="/media/placeholderMap.png"> <div class ="buttonTxt"><h6>Historical Preservation</h6></div></button>
+        <button type="button"onclick= "clickBack(2, event)"><img src="/media/placeholderMap.png"><div class ="buttonTxt"><h6>Geology</h6></div></button>
+        <button type="button"onclick= "clickBack(3, event)"><img src="/media/placeholderMap.png"><div class ="buttonTxt"><h6>Community</h6></div></button>
+        <button type="button"onclick= "clickBack(4, event)"><img src="/media/placeholderMap.png"><div class ="buttonTxt"><h6>Adaptive Design</h6></div></button>
+</div>
   <!-- popUp 5 (historical 0)-->
     <div class= "popUp"id="historical">
-        <div class="buttonContainer">
-        <button onclick= "clearPopUp(event)"class="close-button" id="close-button" role="close" name="close" value="close">
-            <span class="visually-hidden">Close</span>
-            <i class="fas fa-times" aria-hidden="true"></i>
-          </button>
-        </div>
         <div class ="modelContent" id="torp">
         <h2>Torpedo House </h2> 
         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae officiis rerum impedit dolore, unde commodi sint. Cumque, optio vitae ratione ex sint repellat eum! Necessitatibus eveniet earum impedit dolore suscipit.
         </p>
         <img src="media/placeholder2.jpg">
     </div>
-        <div class="bottomNav">
-            <button type="button"onclick= "clickBack(0, event, 10)"><img src="/media/placeholderMap.png"> <div class ="buttonTxt"><h6>Back</h6></div></button>
-            <button type="button"onclick= "clickBack(6, event)"><img src="/media/placeholderMap.png"> <div class ="buttonTxt"><h6>Next</h6></div></button>
-    </div>
+</div>
+<div class="bottomNav">
+    <button type="button"onclick= "returnmainHistMap(event)"><img src="/media/placeholderMap.png"> <div class ="buttonTxt"><h6>All Sites</h6></div></button>
+    <button type="button"onclick= "clickBack(0, event, 10)"><img src="/media/placeholderMap.png"> <div class ="buttonTxt"><h6>Back</h6></div></button>
+    <button type="button"onclick= "clickBack(6, event)"><img src="/media/placeholderMap.png"> <div class ="buttonTxt"><h6>Next</h6></div></button>
 </div>
      <!--YB LIGHTHOUSE  popUp 6 (historical 0)-->
     <div class= "popUp"id="historical">
-        <div class="buttonContainer">
-        <button onclick= "clearPopUp(event)"class="close-button" id="close-button" role="close" name="close" value="close">
-            <span class="visually-hidden">Close</span>
-            <i class="fas fa-times" aria-hidden="true"></i>
-          </button>
-        </div>
         <div class="modelContent">
         <h2>Yerba Buena Light House</h2> 
         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae officiis rerum impedit dolore, unde commodi sint. Cumque, optio vitae ratione ex sint repellat eum! Necessitatibus eveniet earum impedit dolore suscipit.
         </p>
         <img src="media/placeholder2.jpg">
     </div>
+    </div>
     <div class="bottomNav">
+        <button type="button"onclick= "returnmainHistMap(event)"><img src="/media/placeholderMap.png"> <div class ="buttonTxt"><h6>All Sites</h6></div></button>
         <button type="button"onclick= "clickBack(5, event)"><img src="/media/placeholderMap.png"> <div class ="buttonTxt"><h6>Back</h6></div></button>
         <button type="button"onclick= "clickBack(7, event)"><img src="/media/placeholderMap.png"> <div class ="buttonTxt"><h6>Next</h6></div></button>
 </div>
-    </div>
        <!-- popUp 7 (historical 0)-->
     <div class= "popUp"id="historical">
-        <div class="buttonContainer">
-        <button onclick= "clearPopUp(event)"class="close-button" id="close-button" role="close" name="close" value="close">
-            <span class="visually-hidden">Close</span>
-            <i class="fas fa-times" aria-hidden="true"></i>
-          </button>
-        </div>
         <div class="modelContent">
         <h2>Nimitz House</h2> 
         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae officiis rerum impedit dolore, unde commodi sint. Cumque, optio vitae ratione ex sint repellat eum! Necessitatibus eveniet earum impedit dolore suscipit.
         </p>
         <img src="media/placeholder2.jpg">
     </div>
+    </div>
     <div class="bottomNav">
+        <button type="button"onclick= "returnmainHistMap(event)"><img src="/media/placeholderMap.png"> <div class ="buttonTxt"><h6>All Sites</h6></div></button>
         <button type="button"onclick= "clickBack(6, event)"><img src="/media/placeholderMap.png"> <div class ="buttonTxt"><h6>Back</h6></div></button>
         <button type="button"onclick= "clickBack(8, event)"><img src="/media/placeholderMap.png"> <div class ="buttonTxt"><h6>Next</h6></div></button>
 </div>
-    </div>
-    </div>
+
      <!-- popUp 8 (historical 1)-->
     <div class= "popUp"id="historical">
-        <div class="buttonContainer">
-        <button onclick= "clearPopUp(event)"class="close-button" id="close-button" role="close" name="close" value="close">
-            <span class="visually-hidden">Close</span>
-            <i class="fas fa-times" aria-hidden="true"></i>
-          </button>
-        </div>
         <div class="modelContent">    
         <h2>Building 2</h2> 
         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae officiis rerum impedit dolore, unde commodi sint. Cumque, optio vitae ratione ex sint repellat eum! Necessitatibus eveniet earum impedit dolore suscipit.
         </p>
         <img src="media/placeholder2.jpg">
     </div>
+    </div>
     <div class="bottomNav">
+        <button type="button"onclick= "returnmainHistMap(event)"><img src="/media/placeholderMap.png"> <div class ="buttonTxt"><h6>All Sites</h6></div></button>
         <button type="button"onclick= "clickBack(7, event)"><img src="/media/placeholderMap.png"> <div class ="buttonTxt"><h6>Back</h6></div></button>
         <button type="button"onclick= "clickBack(9, event)"><img src="/media/placeholderMap.png"> <div class ="buttonTxt"><h6>Next</h6></div></button>
 </div>
-    </div>
         <!-- popUp 9 (historical 2)-->
     <div class= "popUp"id="historical">
-        <div class="buttonContainer">
-        <button onclick= "clearPopUp(event)"class="close-button" id="close-button" role="close" name="close" value="close">
-            <span class="visually-hidden">Close</span>
-            <i class="fas fa-times" aria-hidden="true"></i>
-          </button>
-        </div>
         <div class="modelContent">
         <h2>Building 3</h2> 
         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae officiis rerum impedit dolore, unde commodi sint. Cumque, optio vitae ratione ex sint repellat eum! Necessitatibus eveniet earum impedit dolore suscipit.
         </p>
         <img src="media/placeholder2.jpg">
     </div>
-    <div class="bottomNav">
-        <button type="button"onclick= "clickBack(8, event)"><img src="/media/placeholderMap.png"> <div class ="buttonTxt"><h6>Back</h6></div></button>
-        <button type="button"onclick= "clickBack(0, event, 10)"><img src="/media/placeholderMap.png"> <div class ="buttonTxt"><h6>Beginning</h6></div></button>
-</div>
     </div>
+    <div class="bottomNav">
+        <button type="button"onclick= "returnmainHistMap(event)"><img src="/media/placeholderMap.png"> <div class ="buttonTxt"><h6>All Sites</h6></div></button>
+        <button type="button"onclick= "clickBack(8, event)"><img src="/media/placeholderMap.png"> <div class ="buttonTxt"><h6>Back</h6></div></button>
+        <button type="button"onclick= "clickBack(0, event, 10)"><img src="/media/placeholderMap.png"> <div class ="buttonTxt"><h6>Next</h6></div></button>
+        
+</div>
 
     <!-- popUp 10 (the Musuem)-->
     <div class= "popUp" id="mus3">
-        <div class="buttonContainer">
-            <button onclick= "clearPopUp(event)"class="close-button" id="close-button" role="close" name="close" value="close">
-                <span class="visually-hidden">Close</span>
-                <i class="fas fa-times" aria-hidden="true"></i>
-              </button> 
-            </div>
-            <div class ="modelContent" id = "museumInfo">
-                <h2>Building One</h2> 
-                <h3>AKA Treasure Island Musuem</h3>
-                <img src ="media/historical_2.jpg">
-                <img src ="media/historical_2.jpg">
-                <h3>Treasure Island Musuem</h3>
-                <img src ="media/historical_2.jpg">
-                <img src ="media/historical_2.jpg">
-                <img src ="media/historical_2.jpg">
-                <h3>Treasure Island Musuem</h3>
-                <img src ="media/historical_2.jpg">
-                <img src ="media/historical_2.jpg">
-        </div>
-        <div class="bottomNav">
-            <button type="button"onclick= "clickBack(0, event)"><img src="/media/placeholderMap.png"> <div class ="buttonTxt"><h6>Home</h6></div></button>
-            <button type="button"onclick= "clickBack(5, event)"><img src="/media/placeholderMap.png"> <div class ="buttonTxt"><h6>Next</h6></div></button>
-        </div>
+    <div class ="modelContent" id = "museumInfo">
+        <h2>Building One</h2> 
+        <h3>AKA Treasure Island Musuem</h3>
+        <img src ="media/historical_2.jpg">
+        <img src ="media/historical_2.jpg">
+        <h3>Treasure Island Musuem</h3>
+        <img src ="media/historical_2.jpg">
+        <img src ="media/historical_2.jpg">
+        <img src ="media/historical_2.jpg">
+        <h3>Treasure Island Musuem</h3>
+        <img src ="media/historical_2.jpg">
+        <img src ="media/historical_2.jpg">
+</div>
+</div>
+    <div class="bottomNav">
+        <button type="button"onclick= "returnmainHistMap(event)"><img src="/media/placeholderMap.png"> <div class ="buttonTxt"><h6>All Sites</h6></div></button>
+        <button type="button"onclick= "clickBack(9, event)"><img src="/media/placeholderMap.png"> <div class ="buttonTxt"><h6>Back</h6></div></button>
+        <button type="button"onclick= "clickBack(5, event)"><img src="/media/placeholderMap.png"> <div class ="buttonTxt"><h6>Next</h6></div></button>
     </div>
     </section>
 

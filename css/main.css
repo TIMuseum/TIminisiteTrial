@@ -76,10 +76,11 @@ section{
 
 }
 .popUp{
-/* background-color: #F9ECDC; */
+/* background-color:rgb(250, 250, 250, .6);  */
+/* opacity: .6;  */
   position: absolute;
   width: 60%; 
-  height: 100%; 
+  height: 93vh; 
   top: 0%;
   left: 20%; 
   display: none; 
@@ -94,6 +95,15 @@ section{
   position: relative; 
   display: flex; 
   
+}
+#close{
+  position: absolute; 
+  z-index: 12; 
+  top: 0; 
+  left: 20%; 
+  animation: scaleUp 1.5s .5s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
+  animation-fill-mode: backwards;
+  display: none; 
 }
 .close-button{
 width: 50px; 
@@ -110,6 +120,7 @@ button:hover{
   animation: crescendo.7s alternate infinite ease-in; 
 }
 .modalContent{
+  opacity: 100%; 
     top: 0;
     left: 0;
     width: 100%;
@@ -129,49 +140,35 @@ button:hover{
      "header header header header"
      "main main main main ";  */
   /* grid-area: header; */
-
 }
 
 #zoomOutBlock{
+  position: absolute;
+  top: 0;
+  left: 0;
+  /* width: 100%;
+  height: 93%; */
+  overflow: auto;
+  overflow-x: hidden;
+  position: absolute;
   display: none; 
   animation: scaleUp 1.5s .5s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
   animation-fill-mode: backwards;
-  height: 93vh; 
+  border: 2px solid red; 
+  /* height: 93vh;  */
 }
-#explore{
-  position: fixed;  
-  left: 50%; 
-  bottom: 7%; 
-  z-index: 10; 
-  width: 100px; 
-  height: 100px; 
-  display: none; 
-  /* border: 1px solid red;  */
-}
-/* .explore{
-  width: 50px; 
-  height: 100px; 
-  font-size: 50px; 
-  animation: slide-top 1s cubic-bezier(0.250, 0.460, 0.450, 0.940) infinite alternate-reverse;
-}
-.explore i{
-}
-.explore h6{
-  top: 0%; 
-  font-size: 20px; 
- } */
 
 .popUp h2{
 font-family: 'Lemon-milk', medium; 
 font-size: 50px; 
-margin-top: 1em; 
-border: 1px solid red; 
-/* margin-bottom: 600px;  */
+margin-top: 3em; 
 }
 .popUp h3{
   font-family: 'Lemon-milk', medium; 
   font-size: 20px; 
-  margin-top: 1em; 
+  margin-top: 5em; 
+  margin-bottom: 600px; 
+
   }
 .popUp img{
   width: 50%; 
@@ -189,20 +186,28 @@ outline: none;
  
 }
 .bottomNav{
-  position: fixed; 
+  position: absolute; 
   width: 100%; 
-  bottom: 0%; 
+  /* bottom: 0%;  */
   height: 7%; 
   /* border: 3px solid purple;  */
   margin: 0 auto;
   display: flex; 
   justify-content: space-around; 
   overflow: hidden;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  animation: scaleUp 1.5s .5s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
+  animation-fill-mode: backwards;
+  z-index: 12; 
+  display:none; 
 }
 .bottomNav button{
   overflow: hidden;
   margin-left: 20px; 
   margin-right: 20px; 
+  /* border: 3px solid purple;  */
 }
 .buttonTxt{
   width: 100%; 

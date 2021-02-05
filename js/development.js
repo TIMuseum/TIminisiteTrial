@@ -95,7 +95,7 @@ function watchEvents(domEvents){
   //EGG CLICK TRIGGERS 
   eggs.forEach((egg, index)=> {
     domEvents.addEventListener(eggs[index], "click", function(event){
-      TWEEN.removeAll();
+      // TWEEN.removeAll();
         clickEgg(eggs[index], offsets[index], index); 
       }); 
   }); 
@@ -150,7 +150,7 @@ if(modelContent[0].scrollTop >= modelContent[0].scrollHeight -modelContent[0].of
 function backToAllHistorical(){
   let onComplete = function(){ 
     modelContent[0].scrollTop =0;
-    musExploreBtn.style.display= "block"; 
+    // musExploreBtn.style.display= "block"; 
     muszoomOutBlock.style.display="block";  }
     zoomBackTween(camera, zoomBack, 2000,fadeMus, onComplete, false); 
 }
