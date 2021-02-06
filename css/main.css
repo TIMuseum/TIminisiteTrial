@@ -90,35 +90,6 @@ section{
   animation-fill-mode: backwards;
   /* border: 3px solid purple;  */
 }
-.buttonContainer{
-  width: 100%; 
-  position: relative; 
-  display: flex; 
-  
-}
-#close{
-  position: absolute; 
-  z-index: 12; 
-  top: 0; 
-  left: 20%; 
-  animation: scaleUp 1.5s .5s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
-  animation-fill-mode: backwards;
-  display: none; 
-}
-.close-button{
-width: 50px; 
-height: 50px; 
-font-size: 40px; 
-position: fixed;  
-justify-self: flex-left; 
-z-index: 10; 
-}
-button:hover{
-  cursor: pointer; 
-}
-.close-button:hover{
-  animation: crescendo.7s alternate infinite ease-in; 
-}
 .modalContent{
   opacity: 100%; 
     top: 0;
@@ -129,20 +100,11 @@ button:hover{
     overflow-x: hidden;
 }
 #introBlock{
-  /* display: grid;
-  grid-template-columns: 25% 25% 25% 25%; */
-  /* grid-template-rows: 93vh 93vh; */
   height: 93vh; 
-  /* justify-items: stretch;
-  align-items: stretch; */
   position: absolute;
-   /* grid-template-areas: 
-     "header header header header"
-     "main main main main ";  */
-  /* grid-area: header; */
 }
 
-#zoomOutBlock{
+.zoomOutBlock{
   position: absolute;
   top: 0;
   left: 0;
@@ -174,6 +136,37 @@ margin-top: 3em;
   width: 50%; 
   margin-bottom: 50px; 
   justify-self: start;
+}
+
+
+.buttonContainer{
+  width: 100%; 
+  position: relative; 
+  display: flex; 
+  
+}
+#close{
+  position: absolute; 
+  z-index: 12; 
+  top: 0; 
+  left: 20%; 
+  animation: scaleUp 1.5s .5s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
+  animation-fill-mode: backwards;
+  display: none; 
+}
+.close-button{
+width: 50px; 
+height: 50px; 
+font-size: 40px; 
+position: fixed;  
+justify-self: flex-left; 
+z-index: 10; 
+}
+button:hover{
+  cursor: pointer; 
+}
+.close-button:hover{
+  animation: crescendo.7s alternate infinite ease-in; 
 }
 button{
   border: none ;
