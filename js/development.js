@@ -444,7 +444,7 @@ function makeGround(){
     var planeGeometry = new THREE.PlaneGeometry(5000, 5000, 100, 100);
     var planeMaterial = new THREE.MeshStandardMaterial({
       color: 0xffffbb,
-      map: water,
+      // map: water,
       transparecy: true,
       side: THREE.DoubleSide,
       depthWrite: true,
@@ -455,10 +455,10 @@ function makeGround(){
     ground.position.y = -5;
     scene.add(ground);
 
-    ground1 = new THREE.Mesh(planeGeometry, planeMaterial);
-    ground1.rotation.x = -90 * (Math.PI / 180);
-    ground1.position.y = -20;
-    scene.add(ground1);
+    // ground1 = new THREE.Mesh(planeGeometry, planeMaterial);
+    // ground1.rotation.x = -90 * (Math.PI / 180);
+    // ground1.position.y = -20;
+    // scene.add(ground1);
 
     // ground2 = new THREE.Mesh(planeGeometry, planeMaterial);
     // ground2.rotation.x = -90 * (Math.PI / 180);

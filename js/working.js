@@ -21,7 +21,9 @@ let camMain = {x:0, y:250, z:0};
 
 //START EVERYTHING WHEN LOADED
 window.addEventListener("load", init);
-
+let ms_Water= null; 
+var waterNormals = new THREE.ImageUtils.loadTexture('/media/waternormals.jpg');
+waterNormals.wrapS = waterNormals.wrapT = THREE.RepeatWrapping; 
 //main funtion begins on load of webpage
 function init() {
   //RENDERER
@@ -33,6 +35,7 @@ function init() {
   renderer.setClearColor(0xefd1b5, 0);
   renderer.setPixelRatio(window.devicePixelRatio);
   renderer.setSize(canvas.clientWidth, canvas.clientHeight);
+
 
   //SCENE
   scene = new THREE.Scene();
@@ -49,7 +52,27 @@ function init() {
   // camera.position.set(0, 1500, 0);
 
   camera.position.set(camStart.x, camStart.y, camStart.z);
-
+  var directionalLight = new THREE.DirectionalLight(0xffff55, 1);
+  directionalLight.position.set(-600, 300, 600);
+  scene.add(directionalLight);
+  ms_Water = new THREE.Water(renderer, camera, scene, {
+    textureWidth: 256,
+    textureHeight: 256,
+    waterNormals: waterNormals,
+    alpha: 	1.0,
+    sunDirection: directionalLight.position.normalize(),
+    sunColor: 0xffffff,
+    waterColor: 0x001e0f,
+    betaVersion: 0,
+    side: THREE.DoubleSide
+  });
+  var aMeshMirror = new THREE.Mesh(
+    new THREE.PlaneBufferGeometry(2000, 2000, 10, 10), 
+    ms_Water.material
+  );
+  aMeshMirror.add(ms_Water);
+  aMeshMirror.rotation.x = - Math.PI * 0.5;
+  scene.add(aMeshMirror);
 //DOMEVENTS
 const domEvents = new THREEx.DomEvents(camera, renderer.domElement); 
   //CONTROLS
@@ -343,7 +366,7 @@ const geo3 = new THREE.BoxBufferGeometry();
 
 function makeGround(){
 //WATER + GROUND
-const map = new THREE.TextureLoader().load("/media/map@2x.png");
+const map = new THREE.TextureLoader().load("/media/map.png");
 const water = new THREE.TextureLoader().load("/media/water.jpg");
   //WATER PLANE
   var planeGeometry = new THREE.PlaneGeometry(5000, 5000, 100, 100);
@@ -387,8 +410,13 @@ function animate(time) {
   TWEEN.update(time); 
   // camera.lookAt(scene.position);
   //KEEP RUNNING THESE FUNCTIONS
-
+display(); 
   renderer.render(scene, camera);
   requestAnimationFrame(animate);
   controls.update();
+}
+function display() {
+ms_Water.material.uniforms.time.value += 1.0 / 60.0;
+  ms_Water.render();
+//   renderer.render(scene, camera);
 }
