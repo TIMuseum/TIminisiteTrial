@@ -6,46 +6,84 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Microsite Trials</title>
     <link type="text/css" rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/animate.css" />
     <script src="https://kit.fontawesome.com/0ebc48a203.js" crossorigin="anonymous"></script>
-    <!-- <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script> -->
     <style media="all" id="fa-main"></style>
 </head>
 
 <body>
     <section id = "CC">
+    <div class="topNav">
+        <button type="button"><img id="logo1"src="/media/TI_LOGO.png"></button>
+        <button onclick= "clearPopUp(event)"type="button"><h7>Main</h7></button>
+        <button type="button"><h7>About</h7></button>
+    </div>
     <canvas id="myCanvas"></canvas>
 
     <div class="modalOverlay"></div>
+    <div class="titleText">
+        <h2>This is the Exhibit</h2>
+        <div class="littleBottomBtn">
+        <button onclick= "cameraBegin(camera)"class="enter" role="enter" name="enter" value="enter">
+            <span class="visually-hidden">enter map</span>
+            <h7>Start Exploring</h7>
+   
+          </button> 
+        </div>
+    </div>
+             <!-- <i class="fas fa-times" aria-hidden="true"></i> -->
     <div class="closeContainer" id="close">
         <button onclick= "clearPopUp(event)"class="close-button" id="close-button" role="close" name="close" value="close">
             <span class="visually-hidden">Close</span>
-            <i class="fas fa-times" aria-hidden="true"></i>
+            <img id ="x"src="media/x.png">
+            <!-- <i class="fas fa-times" aria-hidden="true"></i> -->
           </button> 
         </div>
     <!-- popUp 0 -->
     <div class= "popUp" id="mus">
-        <div class="modelContent" id ="introBlock">
-            <h2>Historical Preservation</h2> 
-            <h3> Making Treasure Island’s History resilient to the rising sea
-            </h3>
-            <p>Carrying Treasure Island's unique, quirky, and multifaceted past into the future requires preserving the landmarks that have shaped its history. At X feet of sea level rise all of the historical buildings on Treasure Island would be under water and many on Yerba Buena would be either under water or at serious risk of flooding during storm surges. </p>
-            <img src ="media/historical_2.jpg">
-            <img src ="media/historical_2.jpg">
-            <img src ="media/historical_2.jpg">
-            <img src ="media/historical_2.jpg">
+        <div class="modelContent" id ="introSection">
+            <div class= "titleBlock">
+            <div  class="header" id ="fifty"> <h2>History Saved</h2> </div> 
+            <div class="subheader" id ="ninty"> <h3> The redevelopemnt  rescues  relics  of  the  past  from  the  rising  Bay</h3></div>
+        </div>
+        <div class ="mainBlock1">
+            <div class="subheader fadeIn" id ="forty"> <h3>Historic Buildings & Sea Level Rise</h3></div>
+            <div class = "fadeIn">
+           <div class="imgContainer"> 
+               <img class ="fadeIn" src ="media/BuildingTi_2.jpg"></div>
+               <p id ="left" class="fadeIn">Without the redevelopment of Treasure Island many of its historic buildings would be lost to the rising Bay.</p>
+        </div>
+    </div>
+    <div class="spacer" ></div>
+    <div class ="mainBlock2">
+        <div class="subheader fadeIn" id ="forty"> <h3>Origin of Historic Buildings</h3></div>
+        <div class="verticalImg fadeIn"> <img  src="media/GGIEconstruction.jpg"></div>
+     <p class="fadeIn">Treasure Island was fabricated as part of the Works Progress Administration (WPA), a federal program to provide jobs and create infrastructure to help bring the U.S. out of the Great Depression.  </p>
+     <div class="spacer"></div>
+     <div class="imgContainer fadeIn"> <img  src="media/airport1.jpg"></div>
+     <p id ="left" class="fadeIn">    The island was designed as the future home of San Francisco’s airport, but its first purpose was to host the Golden Gate International Exposition (GGIE) 1939-1940.</p>    
+     <div class="spacer" ></div>
+     <div class="imgContainer fadeIn"> <img  src="media/GGIE_1.jpg"></div>
+         <p class ="fadeIn">The World’s Fair celebrated the completion of the Golden Gate and Bay Bridges and focused attention on the country’s increased Pacific presence due to the coming of age of the west coast. 
+     </p>
+        <!-- <p id="left">Treasure Island was fabricated as part of the Works Progress Administration (WPA), a federal program to provide jobs and create infrastructure to help bring the U.S. out of the Great Depression. </p> -->
+    </div>
+    <div class="spacer" ></div>
+    <div class="littleBottomBtn">
+        <button type="button"onclick= "returnmainHistMap(0, event)"><h7>Explore Historical Buildings</h7></button>
+    </div>
+<div class="spacer" ></div>
         </div> 
-
     </div>
     <div class ="zoomOutBlock">
         <h2>Gems of Treasure Island</h2> 
       <h3>Explore some of the historical sites being preserved in the redevelopment</h3>
     </div>
     <div class="bottomNav">
-        <button type="button"onclick= "clickThing(1, 1, true)"><img src="/media/placeholderMap.png"> <div class ="buttonTxt"><h6>Parks</h6></div></button>
-        <button type="button"onclick= "clickThing(2, 2, true)"><img src="/media/placeholderMap.png"><div class ="buttonTxt"><h6>Geology</h6></div></button>
-        <button type="button"onclick= "clickThing(3, 3, true)"><img src="/media/placeholderMap.png"><div class ="buttonTxt"><h6>Community</h6></div></button>
-        <button type="button"onclick= "clickThing(4, 4, true)"><img src="/media/placeholderMap.png"><div class ="buttonTxt"><h6>Adaptive Design</h6></div></button>
+        <button type="button"onclick= "clickThing(1, 1, true)"> <div class ="buttonTxt"><h6>Parks</h6></div></button>
+        <button type="button"onclick= "clickThing(2, 2, true)"><div class ="buttonTxt"><h6>Geology</h6></div></button>
+        <button type="button"onclick= "clickThing(3, 3, true)"><div class ="buttonTxt"><h6>Community</h6></div></button>
+        <button type="button"onclick= "clickThing(4, 4, true)"><div class ="buttonTxt"><h6>Adaptive Design</h6></div></button>
     </div>
        <!-- popUp 1 -->
     <div class= "popUp"id="parks">  
@@ -63,10 +101,10 @@
       <h3>Explore some of the historical sites being preserved in the redevelopment</h3>
     </div>
     <div class="bottomNav">       
-        <button type="button"onclick= "clickThing(0, 0, true)"><img src="/media/placeholderMap.png"> <div class ="buttonTxt"><h6>Historical Preservation</h6></div></button>
-        <button type="button"onclick= "clickThing(2, 2, true)"><img src="/media/placeholderMap.png"><div class ="buttonTxt"><h6>Geology</h6></div></button>
-        <button type="button"onclick= "clickThing(3, 3, true)"><img src="/media/placeholderMap.png"><div class ="buttonTxt"><h6>Community</h6></div></button>
-        <button type="button"onclick= "clickThing(4, 4, true)"><img src="/media/placeholderMap.png"><div class ="buttonTxt"><h6>Adaptive Design</h6></div></button>
+        <button type="button"onclick= "clickThing(0, 0, true)"> <div class ="buttonTxt"><h6>Historical Preservation</h6></div></button>
+        <button type="button"onclick= "clickThing(2, 2, true)"><div class ="buttonTxt"><h6>Geology</h6></div></button>
+        <button type="button"onclick= "clickThing(3, 3, true)"><div class ="buttonTxt"><h6>Community</h6></div></button>
+        <button type="button"onclick= "clickThing(4, 4, true)"><div class ="buttonTxt"><h6>Adaptive Design</h6></div></button>
 </div>
      <!-- popUp 2 -->
     <div class= "popUp"id="geology">  
@@ -80,10 +118,10 @@
       <h3>Explore some of the historical sites being preserved in the redevelopment</h3>
     </div>
     <div class="bottomNav">       
-        <button type="button"onclick= "clickThing(0,0, true)"><img src="/media/placeholderMap.png"> <div class ="buttonTxt"><h6>Historical Preservation</h6></div></button>
-        <button type="button"onclick= "clickThing(2, 2, true)"><img src="/media/placeholderMap.png"><div class ="buttonTxt"><h6>Geology</h6></div></button>
-        <button type="button"onclick= "clickThing(3, 3, true)"><img src="/media/placeholderMap.png"><div class ="buttonTxt"><h6>Community</h6></div></button>
-        <button type="button"onclick= "clickThing(4, 4, true)"><img src="/media/placeholderMap.png"><div class ="buttonTxt"><h6>Adaptive Design</h6></div></button>
+        <button type="button"onclick= "clickThing(0,0, true)"><div class ="buttonTxt"><h6>Historical Preservation</h6></div></button>
+        <button type="button"onclick= "clickThing(2, 2, true)"><div class ="buttonTxt"><h6>Geology</h6></div></button>
+        <button type="button"onclick= "clickThing(3, 3, true)"><div class ="buttonTxt"><h6>Community</h6></div></button>
+        <button type="button"onclick= "clickThing(4, 4, true)"><div class ="buttonTxt"><h6>Adaptive Design</h6></div></button>
 </div>
     <!-- popUp 3-->
     <div class= "popUp"id="community">
@@ -97,10 +135,10 @@
       <h3>Explore some of the historical sites being preserved in the redevelopment</h3>
     </div>
     <div class="bottomNav">       
-        <button type="button"onclick= "clickThing(0, 0, true)"><img src="/media/placeholderMap.png"> <div class ="buttonTxt"><h6>Historical Preservation</h6></div></button>
-        <button type="button"onclick= "clickThing(2, 2, true)"><img src="/media/placeholderMap.png"><div class ="buttonTxt"><h6>Geology</h6></div></button>
-        <button type="button"onclick= "clickThing(3, 3, true)"><img src="/media/placeholderMap.png"><div class ="buttonTxt"><h6>Community</h6></div></button>
-        <button type="button"onclick= "clickThing(4, 4, true)"><img src="/media/placeholderMap.png"><div class ="buttonTxt"><h6>Adaptive Design</h6></div></button>
+        <button type="button"onclick= "clickThing(0, 0, true)"> <div class ="buttonTxt"><h6>Historical Preservation</h6></div></button>
+        <button type="button"onclick= "clickThing(2, 2, true)"><div class ="buttonTxt"><h6>Geology</h6></div></button>
+        <button type="button"onclick= "clickThing(3, 3, true)"><div class ="buttonTxt"><h6>Community</h6></div></button>
+        <button type="button"onclick= "clickThing(4, 4, true)"><div class ="buttonTxt"><h6>Adaptive Design</h6></div></button>
 </div>
     <!-- popUp 4-->
     <div class= "popUp"id="adaptive">
@@ -114,104 +152,178 @@
       <h3>Explore some of the historical sites being preserved in the redevelopment</h3>
     </div>
     <div class="bottomNav">       
-        <button type="button"onclick= "clickThing(0, 0, true)"><img src="/media/placeholderMap.png"> <div class ="buttonTxt"><h6>Historical Preservation</h6></div></button>
-        <button type="button"onclick= "clickThing(2, 2, true)"><img src="/media/placeholderMap.png"><div class ="buttonTxt"><h6>Geology</h6></div></button>
-        <button type="button"onclick= "clickThing(3, 3, true)"><img src="/media/placeholderMap.png"><div class ="buttonTxt"><h6>Community</h6></div></button>
-        <button type="button"onclick= "clickThing(4, 4, true)"><img src="/media/placeholderMap.png"><div class ="buttonTxt"><h6>Adaptive Design</h6></div></button>
+        <button type="button"onclick= "clickThing(0, 0, true)"><div class ="buttonTxt"><h6>Historical Preservation</h6></div></button>
+        <button type="button"onclick= "clickThing(2, 2, true)"><div class ="buttonTxt"><h6>Geology</h6></div></button>
+        <button type="button"onclick= "clickThing(3, 3, true)"><div class ="buttonTxt"><h6>Community</h6></div></button>
+        <button type="button"onclick= "clickThing(4, 4, true)"><div class ="buttonTxt"><h6>Adaptive Design</h6></div></button>
 </div>
   <!-- popUp 5 (historical 0)-->
     <div class= "popUp"id="historical">
         <div class ="modelContent" id= "introBlock">
-        <h2>Torpedo House </h2> 
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae officiis rerum impedit dolore, unde commodi sint. Cumque, optio vitae ratione ex sint repellat eum! Necessitatibus eveniet earum impedit dolore suscipit.
-        </p>
-        <img src="media/placeholder2.jpg">
-    </div>
+            <div class ="titleSubBlock">
+                <div class="headerSub" id="forty">   <h2>Torpedo House </h2>  </div>
+                <!-- <div class="subheaderSub"> <h3>Treasure Island Musuem</h3> </div> -->
+        </div>
+        <div class ="mainBlock1">
+        <div class="subheader fadeIn" id ="forty"> <h3>Significant Architecture Preserved</h3></div>
+        <div class="imgContainer"> <img class ="fadeIn"id = "center" src ="media/torpedo1.jpg"></div>
+        <p class ="fadeIn" >Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nam repudiandae tenetur blanditiis optio? Corporis totam, quod facere aliquam illum harum. Molestias officia autem reiciendis, ex officiis repellendus quis accusantium maiores.
+     </p>
+     <div class="spacer"></div>
+     <div class="imgContainer"> <img class ="fadeIn"id = "center" src ="media/torpedo2.jpg"></div>
+         <p id="left" class="fadeIn">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi eaque mollitia ea cupiditate provident, at est architecto eum quae aut voluptate officia perferendis iste? Saepe iste qui cum ducimus ratione! </p>
+     </div>
+     </div>
+    <div class="spacer"></div>
 </div>
+    </div>
 <div class="bottomNav">
-    <button type="button"onclick= "returnmainHistMap(0, event)"><img src="/media/placeholderMap.png"> <div class ="buttonTxt"><h6>All Sites</h6></div></button>
-    <button type="button"onclick= "clickThing(10, 0)"><img src="/media/placeholderMap.png"> <div class ="buttonTxt"><h6>Back</h6></div></button>
-    <button type="button"onclick= "clickThing(6, 0)"><img src="/media/placeholderMap.png"> <div class ="buttonTxt"><h6>Next</h6></div></button>
+    <button type="button"onclick= "clickThing(10,0)"><div class ="buttonImg"><img src="media/back.png"></div></button>
+    <button type="button"onclick= "returnmainHistMap(0, event)"> <div class ="buttonTxt"><h6>All Buildings</h6></div></button>
+    <button type="button"onclick= "clickThing(6, 0)"><div class ="buttonImg"><img src="media/next.png"></div></button>
 </div>
      <!--YB LIGHTHOUSE  popUp 6 (historical 0)-->
     <div class= "popUp"id="historical">
         <div class="modelContent" id = "introBlock">
-        <h2>Yerba Buena Light House</h2> 
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae officiis rerum impedit dolore, unde commodi sint. Cumque, optio vitae ratione ex sint repellat eum! Necessitatibus eveniet earum impedit dolore suscipit.
-        </p>
-        <img src="media/placeholder2.jpg">
+            <div class ="titleSubBlock">
+                <div class="headerSub" id="ninty"> <h2>Yerba Buena Light House</h2>  </div>
+                <!-- <div class="subheaderSub"> <h3>Treasure Island Musuem</h3> </div> -->
+        </div>
+        <div class ="mainBlock1">
+            <div class="subheader fadeIn" id ="forty"> <h3>Significant Architecture Preserved</h3></div>
+            <div class="imgContainer"> <img class ="fadeIn"id = "center" src ="media/lighHouse1.jpg"></div>
+            <p class ="fadeIn" >Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nam repudiandae tenetur blanditiis optio? Corporis totam, quod facere aliquam illum harum. Molestias officia autem reiciendis, ex officiis repellendus quis accusantium maiores.
+         </p>
+         <div class="spacer"></div>
+         <div class="imgContainer"> <img class ="fadeIn"id = "center" src ="media/lighthouse2.jpg"></div>
+             <p id="left" class="fadeIn">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi eaque mollitia ea cupiditate provident, at est architecto eum quae aut voluptate officia perferendis iste? Saepe iste qui cum ducimus ratione! </p>
+         </div>
+    <div class="spacer"></div>
     </div>
     </div>
     <div class="bottomNav">
-        <button type="button"onclick= "returnmainHistMap(0, event)"><img src="/media/placeholderMap.png"> <div class ="buttonTxt"><h6>All Sites</h6></div></button>
-        <button type="button"onclick= "clickThing(5, 0)"><img src="/media/placeholderMap.png"> <div class ="buttonTxt"><h6>Back</h6></div></button>
-        <button type="button"onclick= "clickThing(7, 0)"><img src="/media/placeholderMap.png"> <div class ="buttonTxt"><h6>Next</h6></div></button>
+        <button type="button"onclick= "clickThing(5,0)"><div class ="buttonImg"><img src="media/back.png"></div></button>
+        <button type="button"onclick= "returnmainHistMap(0, event)"> <div class ="buttonTxt"><h6>All Buildings</h6></div></button>
+        <button type="button"onclick= "clickThing(7, 0)"><div class ="buttonImg"><img src="media/next.png"></div></button>
 </div>
        <!-- popUp 7 (historical 0)-->
     <div class= "popUp"id="historical">
         <div class="modelContent" id = "introBlock">
-        <h2>Nimitz House</h2> 
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae officiis rerum impedit dolore, unde commodi sint. Cumque, optio vitae ratione ex sint repellat eum! Necessitatibus eveniet earum impedit dolore suscipit.
-        </p>
-        <img src="media/placeholder2.jpg">
+        <div class ="titleSubBlock">
+            <div class="headerSub" id="forty">  <h2>Nimitz House</h2> </div>
+            <div class="subheaderSub" id="fifty"> <h3>Naval Training Station Quarters 1</h3> </div>
+    </div>
+    <div class ="mainBlock1">
+        <div class ="mainBlock1">
+            <div class="imgContainer"> <img class ="fadeIn"id = "center" src ="media/nimitz_2.jpg"></div>
+            <p class ="fadeIn" >Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nam repudiandae tenetur blanditiis optio? Corporis totam, quod facere aliquam illum harum. Molestias officia autem reiciendis, ex officiis repellendus quis accusantium maiores.
+         </p>
+         <div class="spacer"></div>
+         <div class="imgContainer"> <img class ="fadeIn"id = "center" src ="media/nimitz_3.jpg"></div>
+             <p id="left" class="fadeIn">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi eaque mollitia ea cupiditate provident, at est architecto eum quae aut voluptate officia perferendis iste? Saepe iste qui cum ducimus ratione! </p>
+             <div class="imgContainer"> <img class ="fadeIn"id = "center" src ="media/nimitz_house.jpg"></div>
+         </div>
+</div>
+<div class="spacer"></div>
     </div>
     </div>
     <div class="bottomNav">
-        <button type="button"onclick= "returnmainHistMap(0, event)"><img src="/media/placeholderMap.png"> <div class ="buttonTxt"><h6>All Sites</h6></div></button>
-        <button type="button"onclick= "clickThing(6,0)"><img src="/media/placeholderMap.png"> <div class ="buttonTxt"><h6>Back</h6></div></button>
-        <button type="button"onclick= "clickThing(8, 0)"><img src="/media/placeholderMap.png"> <div class ="buttonTxt"><h6>Next</h6></div></button>
+        <button type="button"onclick= "clickThing(6,0)"><div class ="buttonImg"><img src="media/back.png"></div></button>
+        <button type="button"onclick= "returnmainHistMap(0, event)"> <div class ="buttonTxt"><h6>All Buildings</h6></div></button>
+        <button type="button"onclick= "clickThing(8, 0)"><div class ="buttonImg"><img src="media/next.png"></div></button>
 </div>
 
      <!-- popUp 8 (historical 1)-->
     <div class= "popUp"id="historical">
         <div class="modelContent" id = "introBlock">    
-        <h2>Building 2</h2> 
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae officiis rerum impedit dolore, unde commodi sint. Cumque, optio vitae ratione ex sint repellat eum! Necessitatibus eveniet earum impedit dolore suscipit.
-        </p>
-        <img src="media/placeholder2.jpg">
+            <div class ="titleSubBlock">
+                <div class="headerSub" id="forty"> <h2>Building Two</h2> </div>
+                <div class="subheaderSub" id="fifty"> <h3>Previously Hall of Transportation </h3> </div>
+        </div>
+        <div class ="mainBlock1">
+            <!-- <div class="subheader fadeIn" id ="forty"> <h3>Significant Architecture Preserved</h3></div> -->
+            <div class="imgContainer"> <img class ="fadeIn"id = "center" src ="media/building2_4.jpg"></div>
+            <p class ="fadeIn" >Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nam repudiandae tenetur blanditiis optio? Corporis totam, quod facere aliquam illum harum. Molestias officia autem reiciendis, ex officiis repellendus quis accusantium maiores.
+         </p>
+         <div class="spacer"></div>
+         <div class="imgContainer"> <img class ="fadeIn"id = "center" src ="media/building2_6.jpg"></div>
+             <p id="left" class="fadeIn">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi eaque mollitia ea cupiditate provident, at est architecto eum quae aut voluptate officia perferendis iste? Saepe iste qui cum ducimus ratione! </p>
+             <div class="imgContainer"> <img class ="fadeIn"id = "center" src ="media/biulding2_8.jpg"></div>
+         
+         </div>
+
+    <div class="spacer"></div>
     </div>
     </div>
     <div class="bottomNav">
-        <button type="button"onclick= "returnmainHistMap(0, event)"><img src="/media/placeholderMap.png"> <div class ="buttonTxt"><h6>All Sites</h6></div></button>
-        <button type="button"onclick= "clickThing(7,0)"><img src="/media/placeholderMap.png"> <div class ="buttonTxt"><h6>Back</h6></div></button>
-        <button type="button"onclick= "clickThing(9, 0)"><img src="/media/placeholderMap.png"> <div class ="buttonTxt"><h6>Next</h6></div></button>
+        <button type="button"onclick= "clickThing(7,0)"><div class ="buttonImg"><img src="media/back.png"></div></button>
+        <button type="button"onclick= "returnmainHistMap(0, event)"> <div class ="buttonTxt"><h6>All Buildings</h6></div></button>
+        <button type="button"onclick= "clickThing(9, 0)"><div class ="buttonImg"><img src="media/next.png"></div></button>
 </div>
         <!-- popUp 9 (historical 2)-->
     <div class= "popUp"id="historical">
         <div class="modelContent" id = "introBlock">
-        <h2>Building 3</h2> 
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae officiis rerum impedit dolore, unde commodi sint. Cumque, optio vitae ratione ex sint repellat eum! Necessitatibus eveniet earum impedit dolore suscipit.
-        </p>
-        <img src="media/placeholder2.jpg">
+            <div class ="titleSubBlock">
+                <div class="headerSub" id="forty"> <h2>Building Three</h2> </div>   
+                <div class="subheaderSub" id="sixty"> <h3>Previously Palace of Fine and Decorative Arts </h3> </div>
+        </div>
+        <div class ="mainBlock1">
+            <!-- <div class="subheader fadeIn" id ="forty"> <h3>Significant Architecture Preserved</h3></div> -->
+            <div class="imgContainer"> <img class ="fadeIn"id = "center" src ="media/transportatinoHall_1.jpg"></div>
+            <p class ="fadeIn" >Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nam repudiandae tenetur blanditiis optio? Corporis totam, quod facere aliquam illum harum. Molestias officia autem reiciendis, ex officiis repellendus quis accusantium maiores.
+         </p>
+         <div class="spacer"></div>
+         <div class="imgContainer"> <img class ="fadeIn"id = "center" src ="media/bilding3_3.webp"></div>
+             <p id="left" class="fadeIn">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi eaque mollitia ea cupiditate provident, at est architecto eum quae aut voluptate officia perferendis iste? Saepe iste qui cum ducimus ratione! </p> 
+             <div class="imgContainer"> <img class ="fadeIn"id = "center" src ="media/DecorativeArts_1.jpg"></div>
+             <div class="imgContainer"> <img class ="fadeIn"id = "center" src ="media/DecorativeArts_4.jpg"></div>
+         </div>
+    <div class="spacer"></div>
     </div>
     </div>
     <div class="bottomNav">
-        <button type="button"onclick= "returnmainHistMap(0, 0)"><img src="/media/placeholderMap.png"> <div class ="buttonTxt"><h6>All Sites</h6></div></button>
-        <button type="button"onclick= "clickThing(8, 0)"><img src="/media/placeholderMap.png"> <div class ="buttonTxt"><h6>Back</h6></div></button>
-        <button type="button"onclick= "clickThing(10, 0)"><img src="/media/placeholderMap.png"> <div class ="buttonTxt"><h6>Next</h6></div></button>
+        <button type="button"onclick= "clickThing(8,0)"><div class ="buttonImg"><img src="media/back.png"></div></button>
+        <button type="button"onclick= "returnmainHistMap(0, event)"> <div class ="buttonTxt"><h6>All Buildings</h6></div></button>
+        <button type="button"onclick= "clickThing(5, 0)"><div class ="buttonImg"><img src="media/next.png"></div></button>
         
 </div>
 
     <!-- popUp 10 (the Musuem)-->
     <div class= "popUp" id="mus3">
-    <div class ="modelContent" id ="introBlock">
-        <h2>Building One</h2> 
-        <h3>AKA Treasure Island Musuem</h3>
-        <img src ="media/historical_2.jpg">
-        <img src ="media/historical_2.jpg">
-        <h3>Treasure Island Musuem</h3>
-        <img src ="media/historical_2.jpg">
-        <img src ="media/historical_2.jpg">
-        <img src ="media/historical_2.jpg">
-        <h3>Treasure Island Musuem</h3>
-        <img src ="media/historical_2.jpg">
-        <img src ="media/historical_2.jpg">
+    <div class ="modelContent" id ="introSection">
+        <!-- <div class= "titleBlock">
+            <div class="header"> <h2>History Preserved</h2> </div> 
+            <div class="subheader"> <h3> Making Treasure Island’s History resilient to the rising sea</h3></div>
+        </div> -->
+        <div class ="titleSubBlock">
+            <div class="headerSub" id ="forty"> <h2>Building One</h2> </div>
+            <div class="subheaderSub" id ="thirty"> <h3>1930's Art Moderne</h3> </div>
+    </div>
+    <div class ="mainBlock1">
+        
+        <p class ="fadeIn" >Built to house the GGIE administration, Building 1 is an important American instance of the art moderne style of architecture. </p>
+       <div class="imgContainer"> <img class ="fadeIn"id = "center" src ="media/building1.jpg"></div>
+        <p class ="fadeIn" id="left">Its half moon shape and plaza will welcome all to the new development, as the multimodal transportation hub-- including the ferry terminal-- is sited in front of it on the south-east corner of the island.  The building is redesigned as office and commercial space and as a new home for The Treasure Island Museum.  </p>
+</div>
+<div class="spacer"></div>
+<div class ="mainBlock2">
+    <!-- <div  id="hide"> -->
+        <div class="subheader fadeIn" id ="thirty"> <h3>Building 1's Future</h3></div>
+   <div class="imgContainer"> <img class ="fadeIn"id = "center" src ="media/building1redev_1.jpg"></div>
+   <p class ="fadeIn" >Building 1 is at the island’s point most protected from the prevailing winds sweeping eastward from the Golden Gate.  Much of the island’s ground is being raised above sea level rise projected over the next 50 years.  
+</p>
+<div class="spacer"></div>
+<div class="imgContainer"> <img class ="fadeIn"id = "center" src ="media/newMusuem1.jpg"></div>
+    <p id="left" class="fadeIn">Sea walls are being built to protect against tide and wave surges.  Additionally, new buildings will be on pads elevated above future SLR.  New design for stormwater management provides drainage to contain flooding.  </p>
+<!-- </div> -->
+</div>
+<div class="spacer"></div>
 </div>
 </div>
     <div class="bottomNav">
-        <button type="button"onclick= "returnmainHistMap(0, event)"><img src="/media/placeholderMap.png"> <div class ="buttonTxt"><h6>All Sites</h6></div></button>
-        <button type="button"onclick= "clickThing(9,0)"><img src="/media/placeholderMap.png"> <div class ="buttonTxt"><h6>Back</h6></div></button>
-        <button type="button"onclick= "clickThing(5, 0)"><img src="/media/placeholderMap.png"> <div class ="buttonTxt"><h6>Next</h6></div></button>
+        <button type="button"onclick= "clickThing(9,0)"><div class ="buttonImg"><img src="media/back.png"></div></button>
+        <button type="button"onclick= "returnmainHistMap(0, event)"> <div class ="buttonTxt"><h6>All Sites</h6></div></button>
+        <button type="button"onclick= "clickThing(5, 0)"><div class ="buttonImg"><img src="media/next.png"></div></button>
     </div>
     </section>
     <script src="js/three.js"></script>
@@ -219,11 +331,30 @@
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-beta1/jquery.min.js"></script> -->
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.0.2/anime.min.js"></script> -->
    <script src="https://cdnjs.cloudflare.com/ajax/libs/tween.js/16.3.5/Tween.js"></script>
-
+<!-- <script src="js/ScrollTrigger.min.js"></script> -->
    <!-- Water shader -->
-		<script src="js/water-material.js"></script>
+<!-- <script src="js/water-material.js"></script> -->
     <script src ="js/interaction2-4.js"></script>
-   
+    <script src="js/josh.js"></script>
+    <script>
+    //   const josh = new Josh({
+    //     initClass: "josh-js",
+    //     animateInMobile: true,
+    //     animClass: "animate__animated",
+    //     offset: 0.4,
+    //     onDOMChange: true
+    //   });
+    //   document
+    //     .getElementById("load-more")
+    //     .addEventListener("click", function() {
+    //       var div = document.createElement("div");
+    //       div.className = "element josh-js";
+    //       div.textContent = "I am newly created DOM!";
+    //       div.style =
+    //         "background: #ffe9c5; color: #000; border-bottom: 3px solid #fff;";
+    //       div.setAttribute("data-josh-anim-name", "fadeInDown");
+    //       this.insertAdjacentElement("beforebegin", div);
+    //     });
+    </script>
 </body>
-<!-- <script src="js/pageNav.js"></script>   -->
 </html>

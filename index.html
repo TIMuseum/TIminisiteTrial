@@ -290,7 +290,7 @@
     import { OrbitControls } from "/js/OrbitControls.js"
     import { Water } from "/js/Water2.js"
 
-    let scene, camera, renderer, water;
+    let scene, camera, renderer, water, ground;
 
 init();
 animate();
@@ -309,15 +309,15 @@ function init() {
 
     // ground
 
-    const groundGeometry = new THREE.PlaneGeometry( 200, 20, 10, 10 );
+    const groundGeometry = new THREE.PlaneGeometry( 20, 20, 10, 10 );
     const groundMaterial = new THREE.MeshBasicMaterial( { color: 0xcccccc } );
-    const ground = new THREE.Mesh( groundGeometry, groundMaterial );
+     ground = new THREE.Mesh( groundGeometry, groundMaterial );
     ground.rotation.x = Math.PI * - 0.5;
     scene.add( ground );
 
     const textureLoader = new THREE.TextureLoader();
-    //  textureLoader.load( 'media/bluegrad.jpeg', function ( map ) {
-    textureLoader.load( 'media/water.jpg', function ( map ) {
+     textureLoader.load( 'media/bluegrad.jpeg', function ( map ) {
+    // textureLoader.load( 'media/Fl.jpg', function ( map ) {
     // textureLoader.load( 'media/FloorsCheckerboard_S_Diffuse.jpg', function ( map ) {
 
         map.wrapS = THREE.RepeatWrapping;
@@ -342,7 +342,7 @@ function init() {
   let mapPlane = new THREE.Mesh(planeGeometry, planeMaterial);
   mapPlane.rotation.x = -90 * (Math.PI / 180);
   mapPlane.position.y = 10;
-  scene.add(mapPlane);
+//   scene.add(mapPlane);
 
     const waterGeometry = new THREE.PlaneGeometry( 20, 20 );
     const flowMap = textureLoader.load( 'media/Water_1_M_Flow.jpg' );
@@ -395,7 +395,7 @@ function onWindowResize() {
 }
 
 function animate() {
-
+    ground.position.x+=.01; 
     requestAnimationFrame( animate );
 
     render();
