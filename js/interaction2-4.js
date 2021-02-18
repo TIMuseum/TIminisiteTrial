@@ -36,12 +36,109 @@ const mainBlock1 = document.querySelectorAll(".mainBlock1");
 const mainBlock2 = document.querySelectorAll(".mainBlock2");
 const mainBLock3 = document.querySelectorAll(".mainBlock3");
 const faders = document.querySelectorAll(".fadeIn");
-const sliders = document.querySelectorAll(".slideIn");
+const ends = document.querySelectorAll(".endSect"); 
+// const sliders = document.querySelectorAll(".slideIn");
 
-// console.log(sliders); 
+// modelContent[eggIndex].addEventListener("scroll", function(event){
+  //SCROLL TO THE BOTTOM
+  // if(modelContent[eggIndex].scrollTop >= modelContent[eggIndex].scrollHeight -modelContent[eggIndex].offsetHeight && trigger1==false){
+  //     trigger1=true;
+  //     mainHistMap(eggIndex); 
+  //   }
+  // }); 
+  const endOptions = {
+    root: null, //viewport is the window you are looking for 
+    threshold: 1,
+    rootMrgin: "0px ",  //how much of this is on the page, value 1 to 0   //150 pulls yoru root margin in by 150px
+    //can set four values for rootMargin
+  }; 
+  const sideOptions = {
+    root: null, //viewport is the window you are looking for 
+    threshold: .70,
+    rootMrgin: "-200px ",  //how much of this is on the page, value 1 to 0   //150 pulls yoru root margin in by 150px
+    //can set four values for rootMargin
+  }; 
+  const sideScrollers = document.querySelectorAll(".sideScroller");
+  let delta = 0.; 
+  let hasListener = false; 
+const sideCont = document.querySelectorAll(".scrollCont"); 
+
+    const sideScroll = new IntersectionObserver
+    (function(entries, sideScroll){
+      entries.forEach((entry, i)=>{
+        let thisCont = sideCont[parseInt(entry.target.id)]; 
+        if(entry.isIntersecting ){
+          console.log("your intersecting a scroller"); 
+          thisCont.addEventListener("mousewheel", sideScrollImg); 
+          hasListener = true; 
+          }
+           else if(!entry.isIntersecting){
+       console.log("notin scroller"); 
+       if (hasListener) {
+         console.log("you are not intersecting anymore but the box has an event listener");
+      //    hasListener =false; 
+       }
+       else{return}
+        }
+      })
+    }, sideOptions); 
+    
+    sideScrollers.forEach(sidesc=>{
+      sideScroll.observe(sidesc); 
+    })
+let hitRight = false; 
+ function sideScrollImg (event){
+    if (!event.deltaY) {
+      return;
+    }
+    let scrolluntil= -1*(this.offsetWidth- (window.innerWidth*.80)); 
+    // console.log(this.offsetWidth); 
+    // console.log("scrollUnit " + scrolluntil); 
+    // console.log("delta" + delta); 
+    if(scrolluntil>delta && hitRight ==false){
+      console.log("FINISH"); 
+      // this.style = "background:black; "
+      this.removeEventListener("mousewheel", sideScrollImg); 
+      hitRight = true; 
+      this.style.transform = `translate3d(${scrolluntil}px,0, 0px)`;
+      delta=scrolluntil; 
+      return
+    }
+   this.style.transform = `translate3d(${-event.deltaY +delta}px,0, 0px)`;
+   delta+=-event.deltaY
+   event.preventDefault();
+   if (delta >0){
+    // this.style = "background:none; "
+    this.style.transform = `translate3d(0px,0, 0px)`;
+    delta =0; 
+    hitRight = false; 
+    this.removeEventListener("mousewheel", sideScrollImg);
+   }
+  }
+
+
+const endScroll = new IntersectionObserver
+(function(entries, endScroll){
+  entries.forEach((entry, i)=>{
+    if(!entry.isIntersecting){
+      trigger1=false;
+      return
+    }
+    else{ 
+      if(trigger1 ==false){
+        console.log('go to new interface')
+        console.log(parseInt(entry.target.id)); 
+        mainHistMap(parseInt(entry.target.id)); 
+      }
+    }
+  })
+}, endOptions);  
+ends.forEach(end=>{
+  endScroll.observe(end); 
+})
 const options = {
   root: null, //viewport is the window you are looking for 
-  threshold: .25, //how much of this is on the page, value 1 to 0 
+  threshold: 0, //how much of this is on the page, value 1 to 0 
   rootMrgin: "-150px ",  //150 pulls yoru root margin in by 150px
   //can set four values for rootMargin
 }; 
@@ -51,16 +148,14 @@ rootMargin: "0px 0px -50px 0px"
 }; 
 const appearOnScroll = new IntersectionObserver
 (function(entries, appearOnScroll){
-  entries.forEach(entry=>{
+  entries.forEach((entry, i)=>{
     if(!entry.isIntersecting){
-      // console.log("we are returning")
-      entry.target.classList.remove('appear'); 
+      if(entry){ entry.target.classList.remove('appear'); }
+     
       return
     }
     else{
-      // console.log("add teh class!")
       entry.target.classList.add('appear'); 
-      // appearOnScroll.unobserve(entry.target); 
     }
   })
 }, appearOptions); 
@@ -69,49 +164,33 @@ faders.forEach(fader=>{
   appearOnScroll.observe(fader); 
 })
 
-// const slideOptions ={
-//   threshold: 0,
-//   rootMargin: "0px 0px -100px 0px"
-//   }; 
-// const slideOnScroll = new IntersectionObserver
-// (function(entries, slideOnScroll){
-//   entries.forEach(entry=>{
-//     if(!entry.isIntersecting){
-//       console.log("we are returning")
-//       return
-//     }
-//     else{
-//       console.log("add teh class!")
-//       entry.target.classList.add('appear'); 
-//       slideOnScroll.unobserve(entry.target); 
-//     }
-//   })
-// }, slideOptions); 
-// sliders.forEach(slider=>{
-//   slideOnScroll.observe(slider); 
-// })
-// const observer = new IntersectionObserver(function(entries, observer){
-// entries.forEach(entry=>{
-//   if(!entry.isIntersecting){
-// return;
-//   }
-//   console.log(entry); 
-//   entry.target.classList.toggle('test'); 
-//   // observer.unobserve(entry.target); 
-// })
-// }, options); 
+const backGroundIn = new IntersectionObserver
+(function(entries, backGroundIn){
+  entries.forEach((entry, i)=>{
+    if(!entry.isIntersecting){
+      
+      if(popUp[parseInt(entry.target.id)]){ popUp[parseInt(entry.target.id)].classList.remove('background'); }
+      return
+    }
+    else{
+      console.log(parseInt(entry.target.id)); 
+      popUp[parseInt(entry.target.id)].classList.add('background'); 
+ 
+    }
+  })
+}, options); 
 
-// mainBlock1.forEach(section =>{
-//   observer.observe(section); 
-// })
+const bodies = document.querySelectorAll(".body"); 
+bodies.forEach((body, index)=>{
+  backGroundIn.observe(body); 
+})
 
 
-const hide = document.querySelectorAll("#hide");
 let trigger1=false; 
 
 //CAMERA VARIABLES
 const fov = 75;
-let camStart = {x:0, y:1450, z:0}; 
+let camStart = {x:0, y:140, z:0}; 
 let camMain = {x:0, y:115, z:0}; 
 let domEvents; 
 
@@ -221,16 +300,6 @@ function mouseOver(index){
   .start();
   }
   function interiorObjOver(index){
-    // console.log("mouse Over musuem item");   
-    // document. style=("cursor: pointer"); 
-  //   show[index]
-  //   new TWEEN.Tween(eggs[index].scale )
-  //   .to( new THREE.Vector3(2, 2, 2), 500 )
-  // .easing(TWEEN.Easing.Cubic.InOut)
-  // .onComplete(()=>
-  // {  
-  //   eggs[index].material.color.setHex(0xCDC2F6); TWEEN.remove(eggTween[index]) })
-  // .start();
   }
   function mouseOut(index){
         // console.log("mouseOut"); 
@@ -246,13 +315,27 @@ function mouseOver(index){
   }
 function resetPortals(){
   // console.log("back to historical"); 
-  zoomOutBlock.forEach((block, index)=> {block.style.display="none"}); 
-  modelContent.forEach((block, index)=> {block.style.display="block";block.scrollTop =0;
-console.log("scorllign back up here")  }); 
+ 
+
+  zoomOutBlock.forEach(block=> {block.style.display="none"}); 
+  modelContent.forEach(model=> {
+    model.style.display="block";
+    model.scrollTop =0;
+    model.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'auto'
+    });
+console.log("scorllign back up here") 
+ }); 
     domEvents.removeEventListener(showHist[5], "click",function(event){
         clickThing(i+5, index)
     });
-trigger1=false; 
+    trigger1=true; 
+    sideCont.forEach(scrollCont=>{
+      scrollCont.style.transform = `translate3d(0px,0, 0px)`;
+      delta =0; 
+    })
 }
 function returnmainHistMap(index){
     // console.log("going back home from an historical object")
@@ -319,26 +402,8 @@ function clickThing(index, eggIndex, clickedMainEgg){
         removeEggs();
         // console.log(eggs[index]); 
         //add a scroll listener to that portal 
-   console.log(modelContent[eggIndex]); 
-            modelContent[eggIndex].addEventListener("scroll", function(event){
-      // if(modelContent[eggIndex].scrollTop>title[eggIndex].offsetTop + title[eggIndex].offsetHeight){
-      //   // console.log("you are passed tHe title div "); 
-      // }
-      // if(modelContent[eggIndex].scrollTop>mainBlock2[eggIndex].offsetTop + mainBlock2[eggIndex].offsetHeight){
-      //   // console.log("you are passed THE SECOND "); 
-      //   console.log(mainBLock3[0]); 
-      // }    
-            //SCROLL TO THE BOTTOM
-            if(modelContent[eggIndex].scrollTop >= modelContent[eggIndex].scrollHeight -modelContent[eggIndex].offsetHeight && trigger1==false){
-                trigger1=true; 
-                // close.classList.add("fadeAway"); 
-                // close.style.display="none"; 
-                mainHistMap(eggIndex); 
-                console.log("take away hidden class"); 
-                // hide[eggIndex].classList.remove("show"); 
-                // hide[eggIndex].classList.add("hidden"); 
-              }
-            });  
+  //  console.log(modelContent[eggIndex]); 
+  
 
         let position = new THREE.Vector3(offsets[index].x, offsets[index].y, offsets[index].z); 
         goToClicked(camera,position, 3500, index);  
@@ -425,6 +490,7 @@ function clearModal(){
 }
 function clearPopUp(){
   clearModal(); 
+  resetPortals(); 
   new TWEEN.Tween(showHist[1].position).to({
     x: showHist[1].position.x, y: showHist[1].position.y-10, z:showHist[1].position.z}, 1500).easing(TWEEN.Easing.Quadratic.In).start()
 
@@ -440,7 +506,7 @@ function clearPopUp(){
   console.log("take away hidden class"); 
   // hide[0].classList.remove("show"); 
   // hide[0].classList.add("hidden"); 
-resetPortals(); 
+
 replace.forEach(replace=>{
   console.log(replace); 
   // scene.remove(replace); 

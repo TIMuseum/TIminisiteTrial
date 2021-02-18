@@ -21,8 +21,8 @@
     <canvas id="myCanvas"></canvas>
 
     <div class="modalOverlay"></div>
-    <div class="titleText">
-        <h2>This is the Exhibit</h2>
+    <!-- <div class="titleText">
+        <h2>Intro Map Title</h2>
         <div class="littleBottomBtn">
         <button onclick= "cameraBegin(camera)"class="enter" role="enter" name="enter" value="enter">
             <span class="visually-hidden">enter map</span>
@@ -30,7 +30,7 @@
    
           </button> 
         </div>
-    </div>
+    </div> -->
              <!-- <i class="fas fa-times" aria-hidden="true"></i> -->
     <div class="closeContainer" id="close">
         <button onclick= "clearPopUp(event)"class="close-button" id="close-button" role="close" name="close" value="close">
@@ -40,19 +40,19 @@
           </button> 
         </div>
     <!-- popUp 0 -->
-    <div class= "popUp" id="mus">
+    <div class= "popUp " id="mus">
         <div class="modelContent" id ="introSection">
             <div class= "titleBlock">
             <div  class="header" id ="fifty"> <h2>History Saved</h2> </div> 
             <div class="subheader" id ="ninty"> <h3> The redevelopemnt  rescues  relics  of  the  past  from  the  rising  Bay</h3></div>
         </div>
+        <div id="0"class="body">
         <div class ="mainBlock1">
             <div class="subheader fadeIn" id ="forty"> <h3>Historic Buildings & Sea Level Rise</h3></div>
-            <div class = "fadeIn">
            <div class="imgContainer"> 
                <img class ="fadeIn" src ="media/BuildingTi_2.jpg"></div>
                <p id ="left" class="fadeIn">Without the redevelopment of Treasure Island many of its historic buildings would be lost to the rising Bay.</p>
-        </div>
+     
     </div>
     <div class="spacer" ></div>
     <div class ="mainBlock2">
@@ -68,13 +68,38 @@
      </p>
         <!-- <p id="left">Treasure Island was fabricated as part of the Works Progress Administration (WPA), a federal program to provide jobs and create infrastructure to help bring the U.S. out of the Great Depression. </p> -->
     </div>
-    <div class="spacer" ></div>
+    <div  id="0" class="sideScroller">
+        <div class="scrollCont">
+            <img src="media/sicescroll2.jpg">
+            <img src="media/GGIE_1.jpg">
+            <img src="media/GGIE_1.jpg">
+            <img src="media/GGIE_1.jpg">
+            <img src="media/GGIE_1.jpg">
+            <img src="media/GGIE_1.jpg">
+            <img src="media/GGIE_1.jpg">
+        </div>
+    </div>
+    <div class ="stickyBlock">
+        <div class="subheader fadeIn" id ="forty"> <h3>Historic Buildings & Sea Level Rise</h3></div>
+        <div class="spacer" ></div>
+  
+       <div class="imgContainer"> 
+           <img class ="fadeIn" src ="media/BuildingTi_2.jpg"></div>
+           <p id ="left" class="fadeIn">Without the redevelopment of Treasure Island many of its historic buildings would be lost to the rising Bay.</p>
+           <div class="spacer" ></div>
+    </div>
+</div>
+    <!-- <div class="spacer" ></div> -->
     <div class="littleBottomBtn">
         <button type="button"onclick= "returnmainHistMap(0, event)"><h7>Explore Historical Buildings</h7></button>
     </div>
-<div class="spacer" ></div>
+<div id="0" class="endSect" >
+  
+</div>
         </div> 
     </div>
+    </div>
+
     <div class ="zoomOutBlock">
         <h2>Gems of Treasure Island</h2> 
       <h3>Explore some of the historical sites being preserved in the redevelopment</h3>
@@ -88,6 +113,7 @@
        <!-- popUp 1 -->
     <div class= "popUp"id="parks">  
            <div class="modelContent" id ="introBlock">
+            <div id="1"class="body"></div>
             <h2>Parks and Public Spaces</h2> 
             <img src ="media/placeholder1.jpg">
             <h2>Parks and Public Spaces</h2> 
@@ -111,6 +137,7 @@
         <div class="modelContent">
             <h2>Geology</h2> 
             <img src ="media/placeholder1.jpg">
+            <div id="2"class="body"></div>
         </div>
     </div>
     <div class ="zoomOutBlock">
@@ -126,6 +153,7 @@
     <!-- popUp 3-->
     <div class= "popUp"id="community">
         <div class="modelContent" id ="introBlock">
+            <div id="3"class="body"></div>
             <h2>Community</h2> 
             <img src ="media/placeholder1.jpg">
         </div>
@@ -143,6 +171,7 @@
     <!-- popUp 4-->
     <div class= "popUp"id="adaptive">
         <div class="modelContent" id ="introBlock">
+            <div id="4"class="body"></div>
             <h2>Adaptive Design</h2> 
             <img src ="media/placeholder1.jpg">
         </div>
@@ -160,10 +189,12 @@
   <!-- popUp 5 (historical 0)-->
     <div class= "popUp"id="historical">
         <div class ="modelContent" id= "introBlock">
-            <div class ="titleSubBlock">
-                <div class="headerSub" id="forty">   <h2>Torpedo House </h2>  </div>
+            
+            <div class ="titleBlock">
+                <div class="headerSub" id="sixty">   <h2>Torpedo House </h2>  </div>
                 <!-- <div class="subheaderSub"> <h3>Treasure Island Musuem</h3> </div> -->
         </div>
+        <div id="5" class="body">
         <div class ="mainBlock1">
         <div class="subheader fadeIn" id ="forty"> <h3>Significant Architecture Preserved</h3></div>
         <div class="imgContainer"> <img class ="fadeIn"id = "center" src ="media/torpedo1.jpg"></div>
@@ -173,10 +204,11 @@
      <div class="imgContainer"> <img class ="fadeIn"id = "center" src ="media/torpedo2.jpg"></div>
          <p id="left" class="fadeIn">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi eaque mollitia ea cupiditate provident, at est architecto eum quae aut voluptate officia perferendis iste? Saepe iste qui cum ducimus ratione! </p>
      </div>
-     </div>
+
     <div class="spacer"></div>
 </div>
-    </div>
+</div>
+</div>
 <div class="bottomNav">
     <button type="button"onclick= "clickThing(10,0)"><div class ="buttonImg"><img src="media/back.png"></div></button>
     <button type="button"onclick= "returnmainHistMap(0, event)"> <div class ="buttonTxt"><h6>All Buildings</h6></div></button>
@@ -185,10 +217,11 @@
      <!--YB LIGHTHOUSE  popUp 6 (historical 0)-->
     <div class= "popUp"id="historical">
         <div class="modelContent" id = "introBlock">
-            <div class ="titleSubBlock">
+            <div class ="titleBlock">
                 <div class="headerSub" id="ninty"> <h2>Yerba Buena Light House</h2>  </div>
                 <!-- <div class="subheaderSub"> <h3>Treasure Island Musuem</h3> </div> -->
         </div>
+    <div id="6" class="body">
         <div class ="mainBlock1">
             <div class="subheader fadeIn" id ="forty"> <h3>Significant Architecture Preserved</h3></div>
             <div class="imgContainer"> <img class ="fadeIn"id = "center" src ="media/lighHouse1.jpg"></div>
@@ -199,6 +232,7 @@
              <p id="left" class="fadeIn">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi eaque mollitia ea cupiditate provident, at est architecto eum quae aut voluptate officia perferendis iste? Saepe iste qui cum ducimus ratione! </p>
          </div>
     <div class="spacer"></div>
+</div>
     </div>
     </div>
     <div class="bottomNav">
@@ -209,12 +243,13 @@
        <!-- popUp 7 (historical 0)-->
     <div class= "popUp"id="historical">
         <div class="modelContent" id = "introBlock">
-        <div class ="titleSubBlock">
+        <div class ="titleBlock">
             <div class="headerSub" id="forty">  <h2>Nimitz House</h2> </div>
             <div class="subheaderSub" id="fifty"> <h3>Naval Training Station Quarters 1</h3> </div>
     </div>
+    <div id="7"class="body">
     <div class ="mainBlock1">
-        <div class ="mainBlock1">
+     
             <div class="imgContainer"> <img class ="fadeIn"id = "center" src ="media/nimitz_2.jpg"></div>
             <p class ="fadeIn" >Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nam repudiandae tenetur blanditiis optio? Corporis totam, quod facere aliquam illum harum. Molestias officia autem reiciendis, ex officiis repellendus quis accusantium maiores.
          </p>
@@ -222,11 +257,14 @@
          <div class="imgContainer"> <img class ="fadeIn"id = "center" src ="media/nimitz_3.jpg"></div>
              <p id="left" class="fadeIn">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi eaque mollitia ea cupiditate provident, at est architecto eum quae aut voluptate officia perferendis iste? Saepe iste qui cum ducimus ratione! </p>
              <div class="imgContainer"> <img class ="fadeIn"id = "center" src ="media/nimitz_house.jpg"></div>
-         </div>
+
 </div>
 <div class="spacer"></div>
+<div class="body">
     </div>
     </div>
+</div>
+</div>
     <div class="bottomNav">
         <button type="button"onclick= "clickThing(6,0)"><div class ="buttonImg"><img src="media/back.png"></div></button>
         <button type="button"onclick= "returnmainHistMap(0, event)"> <div class ="buttonTxt"><h6>All Buildings</h6></div></button>
@@ -236,10 +274,11 @@
      <!-- popUp 8 (historical 1)-->
     <div class= "popUp"id="historical">
         <div class="modelContent" id = "introBlock">    
-            <div class ="titleSubBlock">
+            <div class ="titleBlock">
                 <div class="headerSub" id="forty"> <h2>Building Two</h2> </div>
                 <div class="subheaderSub" id="fifty"> <h3>Previously Hall of Transportation </h3> </div>
         </div>
+        <div id="8"class="body">
         <div class ="mainBlock1">
             <!-- <div class="subheader fadeIn" id ="forty"> <h3>Significant Architecture Preserved</h3></div> -->
             <div class="imgContainer"> <img class ="fadeIn"id = "center" src ="media/building2_4.jpg"></div>
@@ -255,6 +294,7 @@
     <div class="spacer"></div>
     </div>
     </div>
+    </div>
     <div class="bottomNav">
         <button type="button"onclick= "clickThing(7,0)"><div class ="buttonImg"><img src="media/back.png"></div></button>
         <button type="button"onclick= "returnmainHistMap(0, event)"> <div class ="buttonTxt"><h6>All Buildings</h6></div></button>
@@ -263,10 +303,11 @@
         <!-- popUp 9 (historical 2)-->
     <div class= "popUp"id="historical">
         <div class="modelContent" id = "introBlock">
-            <div class ="titleSubBlock">
+            <div class ="titleBlock">
                 <div class="headerSub" id="forty"> <h2>Building Three</h2> </div>   
                 <div class="subheaderSub" id="sixty"> <h3>Previously Palace of Fine and Decorative Arts </h3> </div>
         </div>
+        <div id="9"class="body">
         <div class ="mainBlock1">
             <!-- <div class="subheader fadeIn" id ="forty"> <h3>Significant Architecture Preserved</h3></div> -->
             <div class="imgContainer"> <img class ="fadeIn"id = "center" src ="media/transportatinoHall_1.jpg"></div>
@@ -281,6 +322,7 @@
     <div class="spacer"></div>
     </div>
     </div>
+    </div>
     <div class="bottomNav">
         <button type="button"onclick= "clickThing(8,0)"><div class ="buttonImg"><img src="media/back.png"></div></button>
         <button type="button"onclick= "returnmainHistMap(0, event)"> <div class ="buttonTxt"><h6>All Buildings</h6></div></button>
@@ -291,14 +333,11 @@
     <!-- popUp 10 (the Musuem)-->
     <div class= "popUp" id="mus3">
     <div class ="modelContent" id ="introSection">
-        <!-- <div class= "titleBlock">
-            <div class="header"> <h2>History Preserved</h2> </div> 
-            <div class="subheader"> <h3> Making Treasure Island’s History resilient to the rising sea</h3></div>
-        </div> -->
-        <div class ="titleSubBlock">
+        <div class ="titleBlock">
             <div class="headerSub" id ="forty"> <h2>Building One</h2> </div>
             <div class="subheaderSub" id ="thirty"> <h3>1930's Art Moderne</h3> </div>
     </div>
+    <div id="10" class="body">
     <div class ="mainBlock1">
         
         <p class ="fadeIn" >Built to house the GGIE administration, Building 1 is an important American instance of the art moderne style of architecture. </p>
@@ -318,6 +357,7 @@
 <!-- </div> -->
 </div>
 <div class="spacer"></div>
+</div>
 </div>
 </div>
     <div class="bottomNav">
